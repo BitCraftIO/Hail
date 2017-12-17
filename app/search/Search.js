@@ -1,7 +1,8 @@
 import React from 'react';
-import {StyleSheet, TextInput, View, Image, TouchableOpacity} from 'react-native'
+import { StyleSheet, TextInput, View, Image, TouchableOpacity } from 'react-native'
+import PropTypes from 'prop-types';
 
-export default class Search extends React.Component {
+class Search extends React.Component {
     constructor() {
         super();
         this.state = {
@@ -11,7 +12,7 @@ export default class Search extends React.Component {
 
     onSearchSubmit = () => {
         if (this.state.input) {
-            console.log("do search");
+            this.props.onSearchSubmit(this.state.input);
         } else {
             this.refs.searchInput.focus();
         }
@@ -32,11 +33,16 @@ export default class Search extends React.Component {
                     <Image style={styles.searchIcon}
                            source={require("../images/ic_search_white.png")}/>
                 </TouchableOpacity>
-
             </View>
         );
     }
 }
+
+Search.propTypes = {
+    onSearchSubmit: PropTypes.func.isRequired
+};
+
+export default Search;
 
 /*
     Gonna try putting styles in the same file as the layout just
