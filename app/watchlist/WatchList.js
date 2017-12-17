@@ -1,8 +1,9 @@
 import React from 'react';
-import { StyleSheet, Text, View, TextInput, Button, Platform, StatusBar} from 'react-native';
-import { getCoinDetails } from './../Api';
-import Search from "./../search/Search";
+import { StyleSheet, Text, View, TextInput, Button, Platform, StatusBar, Keyboard} from 'react-native';
+import { getCoinDetails } from '../CoinMarketCapApi';
+import Search from "../search/SearchBar";
 
+// this is NOT the real watchlist view. Just a placeholder till it actually gets here.
 export default class WatchList extends React.Component {
 
     static navigationOptions = {
@@ -13,7 +14,7 @@ export default class WatchList extends React.Component {
         super();
         this.state = {
             "coin": null,
-            "coinText": "No coi selected"
+            "coinText": "No con selected"
         };
     }
 
@@ -26,14 +27,15 @@ export default class WatchList extends React.Component {
             });
         }).catch((e) => {
             this.setState({
-                "coinText": `'${this.state.input}' is not a alid coin.`
+                "coinText": `'${this.state.input}' is not a valid coin.`
             })
         });
     }
 
     onSearchSubmit = (query) => {
         const { navigate } = this.props.navigation;
-        navigate("SearchResults", {query: query})
+        Keyboard.dismiss();
+        navigate("SearchResults", {query: query});
     }
 
     render() {

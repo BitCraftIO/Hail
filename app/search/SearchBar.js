@@ -2,7 +2,12 @@ import React from 'react';
 import { StyleSheet, TextInput, View, Image, TouchableOpacity } from 'react-native'
 import PropTypes from 'prop-types';
 
-class Search extends React.Component {
+export default class SearchBar extends React.Component {
+
+    static propTypes = {
+        onSearchSubmit: PropTypes.func.isRequired
+    }
+
     constructor() {
         super();
         this.state = {
@@ -38,11 +43,6 @@ class Search extends React.Component {
     }
 }
 
-Search.propTypes = {
-    onSearchSubmit: PropTypes.func.isRequired
-};
-
-export default Search;
 
 /*
     Gonna try putting styles in the same file as the layout just
