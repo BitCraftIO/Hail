@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, TextInput, Button, Platform, StatusBar, Keyboard} from 'react-native';
+import { StyleSheet, Text, View, TextInput, Button, Platform, NativeModules, StatusBar, Keyboard} from 'react-native';
 import { getCoinDetails } from '../../network/CoinMarketCapApi';
 import Search from "../search/SearchBar";
 import { VictoryBar } from "victory-native";
@@ -48,15 +48,12 @@ export default class WatchList extends React.Component {
 
     render() {
         return (
-            <View style={[{paddingTop: Platform.OS === "ios" ? 0 : Expo.Constants.statusBarHeight}, styles.container]}>
-                <StatusBar style={{marginTop: 50}} backgroundColor="red" barStyle="light-content"/>
+            <View style={styles.container}>
                 <Search  onSearchSubmit={this.onSearchSubmit}/>
                 <TextInput style={{width: 100}} onChangeText={(text) => this.setState({"input": text})}/>
                 <Button title="press me" onPress={this.lookupCoin} />
                 <Text>{this.state.coinText}</Text>
-                <VictoryBar
-                    data={this.generateRandomData()}
-                />
+                <VictoryBar />
             </View>
         );
     }

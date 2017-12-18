@@ -11,9 +11,10 @@ export default class SearchResults extends React.Component {
     static propTypes = {
         dispatch: PropTypes.func.isRequired,
         navigation: PropTypes.object.isRequired,
+        
         loading: PropTypes.bool.isRequired,
         hasItems: PropTypes.bool.isRequired,
-        searchResults: PropTypes.array.isRequired,
+        searchResult: PropTypes.array.isRequired,
         error: PropTypes.object.isRequired
     }
 
@@ -59,7 +60,7 @@ export default class SearchResults extends React.Component {
 
     root = (children) => {
         return (
-            <View style={{paddingTop: Platform.OS === "ios" ? 0 : Expo.Constants.statusBarHeight}}>
+            <View>
                 <SearchBar defaultText={this.props.navigation.state.params.query} onSearchSubmit={this.performSearch}/>
                 {children}
             </View>
