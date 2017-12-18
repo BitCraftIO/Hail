@@ -5,7 +5,12 @@ import PropTypes from 'prop-types';
 export default class SearchBar extends React.Component {
 
     static propTypes = {
-        onSearchSubmit: PropTypes.func.isRequired
+        onSearchSubmit: PropTypes.func.isRequired,
+        defaultText: PropTypes.string
+    }
+
+    static defaultProps = {
+        defaultText: ""
     }
 
     constructor() {
@@ -13,6 +18,12 @@ export default class SearchBar extends React.Component {
         this.state = {
             "input": ""
         }
+    }
+
+    componentDidMount() {
+        this.setState({
+            input: this.props.defaultText
+        });
     }
 
     onSearchSubmit = () => {
@@ -32,6 +43,7 @@ export default class SearchBar extends React.Component {
                     underlineColorAndroid={'transparent'}
                     returnKeyType={'done'}
                     onSubmitEditing={this.onSearchSubmit}
+                    value={this.state.input}
                     style={styles.input}/>
 
                 <TouchableOpacity onPress={this.onSearchSubmit}>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View, TextInput, Button, Platform, StatusBar, Keyboard} from 'react-native';
-import { getCoinDetails } from '../CoinMarketCapApi';
+import { getCoinDetails } from '../../network/CoinMarketCapApi';
 import Search from "../search/SearchBar";
 
 // this is NOT the real watchlist view. Just a placeholder till it actually gets here.
