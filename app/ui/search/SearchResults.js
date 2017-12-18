@@ -1,10 +1,21 @@
-import React from 'react';
 import {View, Text, Platform, FlatList} from 'react-native';
 import SearchItem from "./SearchItem";
-import SearchActions from "./SearchActions";
+import SearchActions from "./state/SearchActions";
 import SearchBar from "./SearchBar";
+import * as React from "react";
+import PropTypes from 'prop-types';
+
 
 export default class SearchResults extends React.Component {
+
+    static propTypes = {
+        dispatch: PropTypes.func.isRequired,
+        navigation: PropTypes.object.isRequired,
+        loading: PropTypes.bool.isRequired,
+        hasItems: PropTypes.bool.isRequired,
+        searchResults: PropTypes.array.isRequired,
+        error: PropTypes.object.isRequired
+    }
 
     static navigationOptions = {
         header: () => { }
@@ -22,13 +33,12 @@ export default class SearchResults extends React.Component {
     }
 
     resultView = () => {
-        return (
-            <FlatList
+        return <FlatList
                 data={this.props.searchResult}
                 renderItem={(item) => <SearchItem item={item.item}/>}
                 keyExtractor={(item, index) => item.id}
             />
-        );
+        ;
     }
 
     loadingview = () => {

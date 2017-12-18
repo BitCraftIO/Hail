@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
+    "flow-bin": "^0.56.0",
     "jest-expo": "23.0.0",
     "react-native-scripts": "1.8.1",
     "react-test-renderer": "16.0.0",
@@ -15,6 +16,7 @@
     "eject": "react-native-scripts eject",
     "android": "react-native-scripts android",
     "ios": "react-native-scripts ios",
+    "flow": "node_modules/flow-bin/flow-osx-v0.56.0/flow status",
     "test": "node node_modules/jest/bin/jest.js --watch"
   },
   "jest": {

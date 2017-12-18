@@ -1,5 +1,5 @@
-import { generateSyncAction, generateAsyncAction } from './../../reduxhelpers/GenerateAction';
-import search from "./SearchResultRequestAdapter";
+import { generateSyncAction, generateAsyncAction } from '../../../reduxhelpers/GenerateAction';
+import search from "../SearchResultRequestAdapter";
 
 export const REQUEST_PERFORM_SEARCH = "SearchAction.RequestSearch";
 export const RECEIVE_SEARCH_RESULTS = "SearchAction.ReceiveSearchResults";

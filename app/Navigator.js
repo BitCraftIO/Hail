@@ -1,5 +1,5 @@
 import { StackNavigator } from 'react-navigation';
-import SearchResults from './ui/search/SearchContainer';
+import SearchResults from './ui/search/state/SearchContainer';
 import WatchList from "./ui/watchlist/WatchList";
 
 // https://reactnavigation.org/docs/intro/basic-app

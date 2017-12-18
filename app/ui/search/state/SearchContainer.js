@@ -1,5 +1,6 @@
-import SearchResults from "./SearchResults";
-import { connect } from 'react-redux';
+import SearchResults from "../SearchResults";
+import { connect } from "react-redux";
+
 
 function mapStateToProps(state) {
     return {

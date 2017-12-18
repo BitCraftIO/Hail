@@ -1,13 +1,8 @@
-import React from 'react';
+// @flow
 import { Text } from 'react-native'
-import PropTypes from 'prop-types';
+import React from "react";
 
-export default class SearchItem extends React.Component {
-
-    static propTypes = {
-        item: PropTypes.object.isRequired
-    }
-
+export default class SearchItem extends React.Component<{item: Object}> {
     render() {
         return (
             <Text>{this.props.item.name}</Text>
