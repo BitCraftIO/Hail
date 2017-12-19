@@ -5,13 +5,12 @@ import SearchBar from "./SearchBar";
 import * as React from "react";
 import PropTypes from 'prop-types';
 
-
 export default class SearchResults extends React.Component {
 
     static propTypes = {
         dispatch: PropTypes.func.isRequired,
         navigation: PropTypes.object.isRequired,
-        
+
         loading: PropTypes.bool.isRequired,
         hasItems: PropTypes.bool.isRequired,
         searchResult: PropTypes.array.isRequired,

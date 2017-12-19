@@ -48,7 +48,7 @@ export default class SearchBar extends React.Component {
 
                 <TouchableOpacity onPress={this.onSearchSubmit}>
                     <Image style={styles.searchIcon}
-                           source={require("../../images/ic_search_white.png")}/>
+                           source={require("../../../images/ic_search_white.png")}/>
                 </TouchableOpacity>
             </View>
         );

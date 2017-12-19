@@ -1,4 +1,4 @@
-import generateReducer from "../../../reduxhelpers/CreateReducer";
+import generateReducer from "../../../../reduxhelpers/CreateReducer";
 import { RECEIVE_SEARCH_RESULTS, RECEIVED_REQUEST_ERROR, REQUEST_PERFORM_SEARCH } from "./SearchActions";
 
 
