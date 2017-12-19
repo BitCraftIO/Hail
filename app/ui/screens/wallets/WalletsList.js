@@ -11,9 +11,10 @@ export default class WalletsList extends React.Component {
     constructor() {
         super();
         this.state = {
-            "coin": null,
-            "coinText": "No con selected",
-            "coinData": null
+            "localWallets": false,
+            "walletData": [],
+            "exchangeWallets": false,
+            "exchangeData":[]
         };
     }
 
@@ -26,9 +27,9 @@ export default class WalletsList extends React.Component {
     }
 }
 
-export const styles = StyleSheet.create({
+const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff'
+        backgroundColor: '#11151c'
     },
 });
