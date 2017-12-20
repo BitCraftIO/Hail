@@ -1,6 +1,5 @@
 import {View, Text, FlatList} from 'react-native';
 import SearchItem from "./SearchItem";
-import SearchActions from "./state/SearchActions";
 import SearchBar from "./SearchBar";
 import * as React from "react";
 import PropTypes from 'prop-types';
@@ -9,7 +8,6 @@ import PropTypes from 'prop-types';
 export default class SearchResults extends React.Component {
 
     static propTypes = {
-        dispatch: PropTypes.func.isRequired,
         navigation: PropTypes.object.isRequired,
 
         search: PropTypes.object.isRequired,
@@ -29,13 +27,8 @@ export default class SearchResults extends React.Component {
     }
 
     componentDidMount() {
-        this.setState({
-            actions: SearchActions(this.props.dispatch)
-        }, () => {
-            this.state.actions.performSearch(this.props.navigation.state.params.query);
-            this.state.actions.getWatchlistCoins();
-        });
-
+        this.props.performSearch(this.props.navigation.state.params.query);
+        this.props.getWatchlistCoins();
     }
 
     noResultView = () => {
@@ -45,7 +38,7 @@ export default class SearchResults extends React.Component {
     }
 
     onAddWatchListClick = (symbol) => {
-        this.state.actions.addToWatchlist(symbol);
+        this.props.addToWatchlist(symbol);
     }
 
     resultView = () => {
@@ -56,7 +49,7 @@ export default class SearchResults extends React.Component {
                 isInWatchlist={this.props.watchlistCoins.result.includes(item.item.symbol)}
                 addToWatchlist={this.onAddWatchListClick}
                 coin={item.item} />}
-                keyExtractor={(item, index) => item.id}
+                keyExtractor={(item, index) => item.rank}
             />
         )
     }
@@ -73,14 +66,10 @@ export default class SearchResults extends React.Component {
         )
     }
 
-    performSearch = (term) => {
-        this.state.actions.performSearch(term);
-    }
-
     root = (children) => {
         return (
             <View>
-                <SearchBar onSearchSubmit={this.performSearch}/>
+                <SearchBar onSearchSubmit={this.props.performSearch}/>
                 {children}
             </View>
         )
@@ -88,7 +77,7 @@ export default class SearchResults extends React.Component {
 
     compose = (...items) => {
         return (
-            [...Array(10)].map((x, i) => items[i])
+            [...Array(items.length)].map((x, i) => items[i])
         )
     }
 
@@ -100,11 +89,6 @@ export default class SearchResults extends React.Component {
 
     render() {
         let children;
-        if (!this.state.hasOwnProperty("actions")) {
-            children = this.noResultView();
-            return this.root(children);
-        }
-
         if (this.props.search.loading) {
             children = this.loadingview();
         } else if (this.props.search.result.length > 0) {

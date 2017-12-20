@@ -56,8 +56,7 @@ export default class Testbed extends React.Component {
     }
 
     goToWallets = (query) => {
-        const {navigate} = this.
-        props.navigation;
+        const {navigate} = this.props.navigation;
         navigate("WalletsList");
     }
 

@@ -2,21 +2,20 @@
 import {generateAsyncAction, generateSyncAction} from "./GenerateAction";
 import type { TypedFunction } from "../Utils";
 
-export function createResourceAction (dispatch: Function, resourceName: string, resourceTag: string, asyncAction: TypedFunction<Promise<any>>): Function {
+export function createResourceAction (dispatch: Function, resourceName: string, resourceTag: string, asyncAction: Function): Function {
     return (...params) => {
         const [requestAction, resultAction, errorAction] = generateResourceActions(resourceName, resourceTag, dispatch);
 
         requestAction();
-        const func = async () => {
-            try {
-                const value = await asyncAction(...params);
-                resultAction(value);
-            } catch (e) {
-                errorAction(e);
-            }
-        }
 
-        generateAsyncAction(dispatch)(func)();
+        generateAsyncAction(dispatch)(() => {
+            asyncAction(...params)
+                .then(result => {
+                    resultAction(result);
+                }, (err) => {
+                    errorAction(err);
+                });
+        })();
     }
 }
 

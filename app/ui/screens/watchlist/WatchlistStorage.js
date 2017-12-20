@@ -7,6 +7,6 @@ export function storeCoin(coinSymbol: String) : Promise<boolean> {
     return storeListItem(KEY_COIN_LIST, coinSymbol);
 }
 
-export async function allWatchlistCoins() : Promise<Array<string>> {
+export function allWatchlistCoins() : Promise<Array<string>> {
     return getList(KEY_COIN_LIST);
 }
