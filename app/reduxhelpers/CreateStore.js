@@ -11,7 +11,7 @@ export default function store() {
         rootReducer,
         applyMiddleware(
             thunk,
-            // loggerMiddleware
+            loggerMiddleware
         )
     )
 }

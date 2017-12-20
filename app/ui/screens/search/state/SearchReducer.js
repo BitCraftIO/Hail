@@ -1,36 +1,28 @@
 import generateReducer from "../../../../reduxhelpers/CreateReducer";
-import { RECEIVE_SEARCH_RESULTS, RECEIVED_REQUEST_ERROR, REQUEST_PERFORM_SEARCH } from "./SearchActions";
-
+import {createResourceReducerStates, resourceInitialState} from "../../../../reduxhelpers/CreateResource";
+import {
+    RESOURCE_ADD_TO_WATCHLIST, RESOURCE_ADD_TO_WATCHLIST_TAG, RESOURCE_GET_WATCHLIST_COINS,
+    RESOURCE_GET_WATCHLIST_COINS_TAG, RESOURCE_SEARCH_RESULT,
+    RESOURCE_SEARCH_RESULT_TAG
+} from "./SearchActions";
 
 const initialState = {
-    loading: false,
-    searchResult: null,
-    hasItems: false,
-    error: null
+    ...resourceInitialState(RESOURCE_SEARCH_RESULT_TAG),
+    ...resourceInitialState(RESOURCE_GET_WATCHLIST_COINS_TAG),
+    [RESOURCE_ADD_TO_WATCHLIST_TAG]: {
+        loading:false,
+        error:null,
+        result:false
+    }
 }
 
+const searchResourceStates = createResourceReducerStates(RESOURCE_SEARCH_RESULT, RESOURCE_SEARCH_RESULT_TAG);
+const addToWatchlistStates = createResourceReducerStates(RESOURCE_ADD_TO_WATCHLIST, RESOURCE_ADD_TO_WATCHLIST_TAG);
+const getWatchlistCoinsStates = createResourceReducerStates(RESOURCE_GET_WATCHLIST_COINS, RESOURCE_GET_WATCHLIST_COINS_TAG);
+
+
 export default generateReducer(initialState, {
-    [REQUEST_PERFORM_SEARCH]: (state, action) => {
-        return {
-            ...state,
-            loading: true
-        }
-    },
-
-    [RECEIVE_SEARCH_RESULTS]: (state, action) => {
-        return {
-            ...state,
-            loading: false,
-            searchResult: action.searchResults,
-            hasItems: action.searchResults.length > 0
-        }
-    },
-
-    [RECEIVED_REQUEST_ERROR]: (state, action) => {
-        return {
-            ...state,
-            loading: false,
-            error: action.error
-        }
-    }
+    ...searchResourceStates,
+    ...addToWatchlistStates,
+    ...getWatchlistCoinsStates
 });

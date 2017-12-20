@@ -1,0 +1,12 @@
+// @flow
+import { storeListItem , getList } from "../../../LocalStorage";
+
+const KEY_COIN_LIST = "WatchlistStorage.CoinList";
+
+export function storeCoin(coinSymbol: String) : Promise<boolean> {
+    return storeListItem(KEY_COIN_LIST, coinSymbol);
+}
+
+export async function allWatchlistCoins() : Promise<Array<string>> {
+    return getList(KEY_COIN_LIST);
+}

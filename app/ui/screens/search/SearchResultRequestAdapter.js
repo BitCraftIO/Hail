@@ -1,16 +1,11 @@
 // @flow
 
-import { getAllCoins } from "../../../network/CoinMarketCapApi";
+import {getAllCoins} from "../../../network/CoinMarketCapApi";
 
-export default async function search(term: String, successFunc: Function, errorFunc: Function) {
+export default async function search(term: String): Promise<Array<Object>> {
     const lowerCaseTerm = term.toLowerCase();
-    try {
-        const allCoins = await getAllCoins();
-        const filtered = allCoins.filter(coin =>
-            coin.name.toLowerCase().includes(lowerCaseTerm) ||
-            coin.symbol.toLowerCase().includes(lowerCaseTerm));
-        successFunc(filtered);
-    } catch (e) {
-        errorFunc(e);
-    }
+    const allCoins = await getAllCoins();
+    return allCoins.filter(coin =>
+        coin.name.toLowerCase().includes(lowerCaseTerm) ||
+        coin.symbol.toLowerCase().includes(lowerCaseTerm));
 }
