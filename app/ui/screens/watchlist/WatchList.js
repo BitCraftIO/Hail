@@ -56,6 +56,12 @@ export default class WatchList extends React.Component {
         navigate("SearchResults", {query: query});
     }
 
+    goToWallets = (query) => {
+        const {navigate} = this.
+        props.navigation;
+        navigate("WalletsList");
+    }
+
     render() {
         const tickStyle = {
             axis: {
@@ -83,11 +89,13 @@ export default class WatchList extends React.Component {
                 fontsize: 13
             }
         };
+
         return (
             <View style={styles.container}>
                 <Search onSearchSubmit={this.onSearchSubmit}/>
                 <TextInput style={{width: 100}} onChangeText={(text) => this.setState({"input": text})}/>
                 <Button title="press me" onPress={this.lookupCoin}/>
+                <Button title="Wallets" onPress={this.goToWallets} />
                 <Text>{this.state.coinText}</Text>
 
                 {this.state.coinData != null
@@ -103,7 +111,7 @@ export default class WatchList extends React.Component {
     }
 }
 
-export const styles = StyleSheet.create({
+const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#fff'
