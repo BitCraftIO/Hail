@@ -12,11 +12,8 @@ export default class CoinLineChart extends React.Component {
     constructor(props) {
         super();
 
-        console.log("coin line chart constructor");
         const vals = props.values;
-
         const increasing = (vals[0] - vals[vals.length -1]) > 0;
-
 
         const data = props.dates.map((item, index) => {
             return {x: props.values[index], y: item};

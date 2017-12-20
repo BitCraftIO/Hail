@@ -3,14 +3,13 @@ import {StyleSheet, Text, View, TextInput, Button, Platform, NativeModules, Stat
 import {getCoinDetails} from '../../../network/CoinMarketCapApi';
 import Search from "../search/SearchBar";
 import CoinLineChart from "./../../CoinLineChart";
-import {getBitcoinData} from "../../../network/HistoricalDataApi";
+import {getBitcoinData} from "../../../network/HistoricalPricesApi";
 
 // this is NOT the real watchlist view. Just a placeholder till it actually gets here.
 export default class WatchList extends React.Component {
 
     static navigationOptions = {
-        header: () => {
-        }
+        header: () => { }
     };
 
     constructor() {
