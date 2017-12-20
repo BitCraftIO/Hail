@@ -50,6 +50,7 @@ export default class WalletsList extends React.Component {
         return (
             <View style={styles.background}>
                 <FlatList
+                    style={styles.list}
                     data={this.state.walletData}
                     renderItem={(wallet) => 
                         
@@ -72,6 +73,10 @@ export default class WalletsList extends React.Component {
 const styles = StyleSheet.create({
     background: {
         flex: 1,
-        backgroundColor: '#11151c'
+        backgroundColor: '#11151c',
+        alignItems: 'center',
     },
+    list: {
+        paddingTop: 100,
+    }
 });
