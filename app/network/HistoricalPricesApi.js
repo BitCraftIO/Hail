@@ -29,21 +29,28 @@ export function pricesByTheHour(fromTime: number, coin: string): Promise<Object>
  Also note that the API is limited to the last 7 days
 */
 export function pricesByTheMinute(fromTime: number, coin: string) : Promise<Array<Object>> {
-    const minutes = (now() - fromTime) / 60 // (seconds / 60) = minutes
-    const MAX_CRYPTOCOMPARE_MINUTES = 2000;
-    const numOfCallsToMake = Math.floor(minutes / MAX_CRYPTOCOMPARE_MINUTES);
+    const minutesBetween = (now() - fromTime) / 60 // (seconds / 60) = minutes
+    let minutesToQueryFor = minutesBetween > 2000 ? 2000 : Math.floor(minutesBetween); // 2000 is the max allowed by the api
+
+    let numOfCallsToMake = Math.floor(minutesBetween / minutesToQueryFor);
+    if (numOfCallsToMake === 0) {
+        numOfCallsToMake++;
+    }
+
     let callIncrements = [];
 
     repeat(numOfCallsToMake, (i) => {
-        const incrementToSeconds = (MAX_CRYPTOCOMPARE_MINUTES * i) * 60;
+        const incrementToSeconds = (minutesToQueryFor * i) * 60;
         callIncrements.push(fromTime - incrementToSeconds);
     })();
 
-    callIncrements.shift(); // first one goes passed the 7 day limit so we don't need it
+    if (callIncrements.length >= 7) {
+        callIncrements.shift(); // first one goes passed the 7 day limit so we don't need it
+    }
 
     const calls = [];
     callIncrements.forEach((fromTimeIncrement) => {
-        const call = fetch(`https://min-api.cryptocompare.com/data/histominute?tryConversion=false&tsym=USD&aggregate=1&fsym=${coin}&limit=${MAX_CRYPTOCOMPARE_MINUTES}&e=CCCAGG&toTs=${fromTimeIncrement}`)
+        const call = fetch(`https://min-api.cryptocompare.com/data/histominute?tryConversion=false&tsym=USD&aggregate=1&fsym=${coin}&limit=${minutesToQueryFor}&e=CCCAGG&toTs=${fromTimeIncrement}`)
             .then((response) => response.json());
         calls.push(call);
     });
@@ -57,7 +64,6 @@ export function pricesByTheMinute(fromTime: number, coin: string) : Promise<Arra
         });
     });
 }
-
 
 export function getBitcoinData(): Promise<Object> {
     return fetch("https://api.coindesk.com/v1/bpi/historical/close.json?start=2013-09-01&end=2013-10-15")
