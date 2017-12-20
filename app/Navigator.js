@@ -22,8 +22,9 @@ const Navigator = StackNavigator({
     WalletsList: {
     	screen: WalletsList
     },
+
     WalletDetailsPage: {
-    	screen: 
+    	screen: WalletDetailsPage
     }
 });
 

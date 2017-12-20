@@ -11,7 +11,8 @@ export default class WalletsList extends React.Component {
             name: "Personal Wallet",
             aggregateValue: 15.123,
             percentageGrowth: 53,
-            key: 1
+            key: 1,
+            walletID: 123
         },
         {
             symbol: "ETH",
@@ -19,7 +20,8 @@ export default class WalletsList extends React.Component {
             name: "Public Wallet",
             aggregateValue: 141.23,
             percentageGrowth: -53,
-            key: 2
+            key: 2,
+            walletID: 124
         },
         {
             symbol: "XMR",
@@ -27,7 +29,8 @@ export default class WalletsList extends React.Component {
             name: "Public Wallet",
             aggregateValue: 150,
             percentageGrowth: 400,
-            key: 3
+            key: 3,
+            walletID: 125
         },
     ]
 
@@ -46,6 +49,11 @@ export default class WalletsList extends React.Component {
         };
     }
 
+    openWallet = (walletID) => {
+        const {navigate} = this.props.navigation;
+        navigate("WalletDetailsPage", {"walletID": walletID});
+    }
+
     render() {
         return (
             <View style={styles.background}>
@@ -60,6 +68,7 @@ export default class WalletsList extends React.Component {
                             name={wallet.item.name}
                             aggregateValue={wallet.item.aggregateValue}
                             percentageGrowth={wallet.item.percentageGrowth}
+                            onPress={() => this.openWallet(wallet.item.walletID)}
                         />
                         
                     

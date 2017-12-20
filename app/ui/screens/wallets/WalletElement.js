@@ -1,11 +1,11 @@
 import React from 'react';
-import {StyleSheet, Text, View, TextInput, Button, Platform, NativeModules, StatusBar, Keyboard} from 'react-native';
+import {TouchableOpacity, StyleSheet, Text, View, TextInput, Button, Platform, NativeModules, StatusBar, Keyboard} from 'react-native';
 import PropTypes from 'prop-types';
 
 export default class WalletElement extends React.PureComponent {
 
-    constructor() {
-    	super()
+    constructor(props) {
+    	super(props)
     }
 
 	static propTypes = {
@@ -19,7 +19,7 @@ export default class WalletElement extends React.PureComponent {
 	render() {
 		//TODO: Change percentageGrowth font color to #c84630 if negative
 		return (
-			<View style={styles.background}>
+			<TouchableOpacity style={styles.background} onPress={this.props.onPress}>
 				<View style={
 					{
 						flexDirection: 'row', 
@@ -47,7 +47,7 @@ export default class WalletElement extends React.PureComponent {
 					<Text style={styles.aggregateValue}>{this.props.aggregateValue}</Text>
 					<Text style={styles.percentageGrowth}>{this.props.percentageGrowth}</Text>
 				</View>
-			</View>
+			</TouchableOpacity>
 		);
 	};
 }
