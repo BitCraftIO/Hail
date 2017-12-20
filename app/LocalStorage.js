@@ -13,13 +13,16 @@ export async function storeList(key: string, list: Array<any>) : Promise<boolean
     }
 }
 
-export async function getList(key: string) : Promise<Array<any>> {
-    const listString = await AsyncStorage.getItem(key);
-    if (listString === null) {
-        return [];
-    }
+export function getList(key: string) : Promise<Array<any>> {
+    return new Promise((resolve, reject) => {
+        AsyncStorage.getItem(key).then((listString) => {
+            if (listString === null) {
+                resolve([]);
+            }
 
-    return JSON.parse(listString);
+            resolve(JSON.parse(listString));
+        }, err => reject(err));
+    });
 }
 
 export async function storeListItem(key: string, item: any) : Promise<boolean> {

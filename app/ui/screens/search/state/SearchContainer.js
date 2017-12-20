@@ -3,8 +3,9 @@ import { connect } from "react-redux";
 import { mapResourceToProps } from "../../../../reduxhelpers/CreateResource";
 import {
     RESOURCE_ADD_TO_WATCHLIST_TAG, RESOURCE_GET_WATCHLIST_COINS_TAG,
-    RESOURCE_SEARCH_RESULT_TAG
+    RESOURCE_SEARCH_RESULT_TAG,
 } from "./SearchActions";
+import SearchAction from "./SearchActions";
 
 function mapStateToProps(state) {
     const resourceMapperCreator = mapResourceToProps("search", state);
@@ -19,4 +20,4 @@ function mapStateToProps(state) {
     }
 }
 
-export default connect(mapStateToProps)(SearchResults);
+export default connect(mapStateToProps, SearchAction)(SearchResults);
