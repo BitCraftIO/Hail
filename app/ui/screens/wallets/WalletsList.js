@@ -24,8 +24,8 @@ export default class WalletsList extends React.Component {
         {
             symbol: "XMR",
             aggregateCoins: 300.34,
-            name: "Savings",
-            aggregateValue: 150.000,
+            name: "Public Wallet",
+            aggregateValue: 150,
             percentageGrowth: 400,
             key: 3
         },

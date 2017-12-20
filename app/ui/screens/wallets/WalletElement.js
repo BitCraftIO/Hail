@@ -17,14 +17,36 @@ export default class WalletElement extends React.PureComponent {
     }
 
 	render() {
-		console.log("Rendering WalletElement")
+		//TODO: Change percentageGrowth font color to #c84630 if negative
 		return (
 			<View style={styles.background}>
-				<Text style={styles.symbol}>{this.props.symbol}</Text>
-				<Text style={styles.aggregateCoins}>{this.props.aggregateCoins}</Text>
-				<Text style={styles.name}>{this.props.name}</Text>
-				<Text style={styles.aggregateValue}>{this.props.aggregateValue}</Text>
-				<Text style={styles.percentageGrowth}>{this.props.percentageGrowth}</Text>
+				<View style={
+					{
+						flexDirection: 'row', 
+						justifyContent: 'space-between',
+					}}>
+					<View>
+						<Text style={styles.symbol}>{this.props.symbol}</Text>
+						<Text style={styles.aggregateCoins}>{this.props.aggregateCoins}</Text>
+					</View>
+					<View style={
+						{
+							paddingLeft: 20,
+							paddingRight: 20
+						}}>
+						<Text style={styles.name}>{this.props.name}</Text>
+					</View>
+				</View>
+				<View style={
+					{
+						//flex: 1, 
+						flexDirection: 'row', 
+						justifyContent: 'space-between',
+						paddingLeft: 8
+					}}>
+					<Text style={styles.aggregateValue}>{this.props.aggregateValue}</Text>
+					<Text style={styles.percentageGrowth}>{this.props.percentageGrowth}</Text>
+				</View>
 			</View>
 		);
 	};
@@ -32,51 +54,59 @@ export default class WalletElement extends React.PureComponent {
 
 const styles = StyleSheet.create({
     background: {
-		height: 101.3,
-		paddingLeft: 40,
-		paddingRight: 40,
-		borderRadius: 3.3,
+		height: 70,
+		paddingLeft: 20,
+		paddingRight: 20,
+		//borderRadius: 3.3,
 		backgroundColor: "#212d40",
 		flex: 1,
         flexDirection: 'row',
-        justifyContent: 'center',
+        justifyContent: 'space-between',
         alignItems: 'center',
 
 	},
 	symbol: {
-		height: 12.7,
-		paddingLeft: 8,
+		// height: 12.7,
+		// fontFamily: "Avenir",
+		// fontSize: 9.3,
+		// textAlign: "center",
+		// color: "#ffffff"
+		//width: 29.9,
+		//height: 15.3,
 		fontFamily: "Avenir",
-		fontSize: 9.3,
-		textAlign: "center",
+		fontSize: 17,
+		fontWeight: "900",
+		//textAlign: "left",
 		color: "#ffffff"
 	},
 	aggregateCoins: {
-		height: 5.3,
-		paddingLeft: 8,
+		//height: 5.3,
+		//paddingLeft: 8,
 		fontFamily: "Avenir",
-		fontSize: 4,
-		textAlign: "center",
+		fontSize: 12,
+		//textAlign: "left",
 		color: "#ffffff"
 	},
 	name: {
-		height: 9.3,
-		paddingLeft: 8,
+		//height: 9.3,
+		//paddingLeft: 16,
 		fontFamily: "Avenir",
-		fontSize: 6.7,
-		textAlign: "center",
+		fontSize: 13,
+		//textAlign: "center",
 		color: "#ffffff"
 	},
 	aggregateValue: {
-		height: 22,
-		paddingLeft: 8,
+		//height: 22,
+		//paddingLeft: 16,
 		fontFamily: "Avenir",
-		fontSize: 16,
+		fontSize: 24,
+		paddingTop: 12,
 		color: "#ffffff"
 	},
 	percentageGrowth: {
-		height: 15.3,
-		paddingLeft: 8,
+		//height: 15.3,
+		paddingLeft: 14,
+		paddingTop: 24,
 		fontFamily: "Avenir",
 		fontSize: 11.3,
 		color: "#4ce0b3"
