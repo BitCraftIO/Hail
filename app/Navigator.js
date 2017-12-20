@@ -3,6 +3,7 @@ import SearchResults from './ui/screens/search/state/SearchContainer';
 import Testbed from "./ui/screens/Testbed";
 import WalletsList from "./ui/screens/wallets/WalletsList";
 import Watchlist from "./ui/screens/watchlist/Watchlist";
+import WalletDetailsPage from "./ui/screens/wallets/WalletDetailsPage";
 
 // https://reactnavigation.org/docs/intro/basic-app
 const Navigator = StackNavigator({
@@ -20,6 +21,9 @@ const Navigator = StackNavigator({
 
     WalletsList: {
     	screen: WalletsList
+    },
+    WalletDetailsPage: {
+    	screen: 
     }
 });
 
