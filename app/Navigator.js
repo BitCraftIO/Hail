@@ -1,16 +1,23 @@
 import { StackNavigator } from 'react-navigation';
 import SearchResults from './ui/screens/search/state/SearchContainer';
-import WatchList from "./ui/screens/watchlist/WatchList";
+import Testbed from "./ui/screens/Testbed";
 import WalletsList from "./ui/screens/wallets/WalletsList";
+import Watchlist from "./ui/screens/watchlist/Watchlist";
 
 // https://reactnavigation.org/docs/intro/basic-app
 const Navigator = StackNavigator({
-    Search: {
-        screen: WatchList
+    Testbed: {
+        screen: Testbed
     },
+
+    Watchlist: {
+        screen: Watchlist
+    },
+
     SearchResults: {
         screen: SearchResults
     },
+
     WalletsList: {
     	screen: WalletsList
     }

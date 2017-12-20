@@ -1,12 +1,11 @@
 import React from 'react';
-import {StyleSheet, Text, View, TextInput, Button, Platform, NativeModules, StatusBar, Keyboard} from 'react-native';
-import {getCoinDetails} from '../../../network/CoinMarketCapApi';
-import Search from "../search/SearchBar";
-import CoinLineChart from "./../../CoinLineChart";
-import {getBitcoinData} from "../../../network/HistoricalPricesApi";
+import {StyleSheet, Text, View, TextInput, Button, Keyboard} from 'react-native';
+import {getCoinDetails} from '../../network/CoinMarketCapApi';
+import Search from "./search/SearchBar";
+import CoinLineChart from "../CoinLineChart";
+import {getBitcoinData} from "../../network/HistoricalPricesApi";
 
-// this is NOT the real watchlist view. Just a placeholder till it actually gets here.
-export default class WatchList extends React.Component {
+export default class Testbed extends React.Component {
 
     static navigationOptions = {
         header: () => { }

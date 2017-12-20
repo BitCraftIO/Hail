@@ -8,7 +8,7 @@ function now() : number {
     return Math.floor(Date.now() / 1000);
 };
 
-// documentationa: https://www.cryptocompare.com/api/#-api-data-histohour-
+// documentation: https://www.cryptocompare.com/api/#-api-data-histohour-
 
 export function pricesByTheDay(coin: string, days: number) {
     const url = `https://min-api.cryptocompare.com/data/histoday?tryConversion=false&tsym=USD&aggregate=1&fsym=${coin}&limit=${days}&e=${DEFAULT_EXCHANGE}`;
@@ -19,7 +19,6 @@ export function pricesByTheDay(coin: string, days: number) {
 export function pricesByTheHour(fromTime: number, coin: string): Promise<Object> {
     const dataPoints = Math.floor(((now() - fromTime) / 60) / 60); // (seconds / 60 / 60) = hours
     const url = `https://min-api.cryptocompare.com/data/histohour?tryConversion=false&tsym=USD&aggregate=1&fsym=${coin}&limit=${dataPoints}&e=${DEFAULT_EXCHANGE}&toTs=${fromTime}`;
-
     return fetch(url)
         .then((response) => response.json());
 }
@@ -29,7 +28,7 @@ export function pricesByTheHour(fromTime: number, coin: string): Promise<Object>
  Maybe it'd be a good idea to make a function that gets x minute increments too.
  Also note that the API is limited to the last 7 days
 */
-function pricesByTheMinute(fromTime, coin) {
+export function pricesByTheMinute(fromTime: number, coin: string) : Promise<Array<Object>> {
     const minutes = (now() - fromTime) / 60 // (seconds / 60) = minutes
     const MAX_CRYPTOCOMPARE_MINUTES = 2000;
     const numOfCallsToMake = Math.floor(minutes / MAX_CRYPTOCOMPARE_MINUTES);
@@ -40,7 +39,7 @@ function pricesByTheMinute(fromTime, coin) {
         callIncrements.push(fromTime - incrementToSeconds);
     })();
 
-    callIncrements.shift(); // last one is just the current time, don't need it
+    callIncrements.shift(); // first one goes passed the 7 day limit so we don't need it
 
     const calls = [];
     callIncrements.forEach((fromTimeIncrement) => {
