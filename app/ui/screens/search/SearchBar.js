@@ -24,6 +24,7 @@ export default class SearchBar extends React.Component {
         this.setState({
             input: this.props.defaultText
         });
+
     }
 
     onSearchSubmit = () => {

@@ -1,12 +1,9 @@
-import {View, Text, Platform, FlatList} from 'react-native';
-import MessageBar from "../MessageBar";
-import StatusBarAlert from "../StatusBarAlert";
+import {View, Text, FlatList} from 'react-native';
 import SearchItem from "./SearchItem";
 import SearchActions from "./state/SearchActions";
 import SearchBar from "./SearchBar";
 import * as React from "react";
 import PropTypes from 'prop-types';
-import DropdownAlert from 'react-native-dropdownalert';
 
 
 export default class SearchResults extends React.Component {
@@ -48,7 +45,6 @@ export default class SearchResults extends React.Component {
     }
 
     onAddWatchListClick = (symbol) => {
-        this.dropdown.alertWithType("info", "", "Adding " + symbol + " to your watchlist");
         this.state.actions.addToWatchlist(symbol);
     }
 
@@ -84,13 +80,21 @@ export default class SearchResults extends React.Component {
     root = (children) => {
         return (
             <View>
+                <SearchBar onSearchSubmit={this.performSearch}/>
                 {children}
-                <DropdownAlert
-                    ref={(ref) => this.dropdown = ref}
-                    showCancel={true}
-                    imageSrc={'https://facebook.github.io/react/img/logo_og.png'}
-                />
             </View>
+        )
+    }
+
+    compose = (...items) => {
+        return (
+            [...Array(10)].map((x, i) => items[i])
+        )
+    }
+
+    addedWatchlistView = () => {
+        return (
+            <Text>Added to your watchlist!</Text>
         )
     }
 
@@ -104,7 +108,11 @@ export default class SearchResults extends React.Component {
         if (this.props.search.loading) {
             children = this.loadingview();
         } else if (this.props.search.result.length > 0) {
-            children = this.resultView();
+            if (this.props.addWatchList.result) {
+                children = this.compose(this.resultView(), this.addedWatchlistView());
+            } else {
+                children = this.resultView();
+            }
         } else if (this.props.search.error) {
             children = this.errorView();
         } else {
