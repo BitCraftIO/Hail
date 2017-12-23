@@ -60,6 +60,11 @@ export default class Testbed extends React.Component {
         navigate("WalletsList");
     }
 
+    goToWatchlist = () => {
+        const {navigate} = this.props.navigation;
+        navigate("Watchlist");
+    }
+
     render() {
         const tickStyle = {
             axis: {
@@ -94,6 +99,7 @@ export default class Testbed extends React.Component {
                 <TextInput style={{width: 100}} onChangeText={(text) => this.setState({"input": text})}/>
                 <Button title="press me" onPress={this.lookupCoin}/>
                 <Button title="Wallets" onPress={this.goToWallets} />
+                <Button title="Watchlist" onPress={this.goToWatchlist} />
                 <Text>{this.state.coinText}</Text>
 
                 {this.state.coinData != null

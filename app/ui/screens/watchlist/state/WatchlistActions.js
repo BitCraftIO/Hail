@@ -1,20 +1,21 @@
-import { generateSyncAction, generateAsyncAction } from '../../../../reduxhelpers/GenerateAction';
+import {resourceActionCreator} from "../../../../reduxhelpers/CreateResource";
+import { createGetWatchlistCoinsResourceAction } from "../../../../shared/GetWatchlistCoinsResource";
+import getWatchlistCoinData from "../WatchlistCoinDataRequestMapper";
+import { allWatchlistCoins } from "../WatchlistStorage";
 
-const REQUEST_ADD_TO_WATCHLIST = "WatchlistAction.RequestAddToWatchlist";
-const ADDED_TO_WATCHLIST = "WatchlistAction.AddedToWatchlist";
+export const RESOURCE_GET_COIN_DATA = "Resource.Watchlist.GetCoinData";
+export const RESOURCE_GET_COIN_DATA_TAG = "coinData";
 
 export default WatchListActions = (dispatch) => {
-    const syncGenerator = generateSyncAction(dispatch);
-    const asyncGenerator = generateAsyncAction(dispatch);
+    const { getWatchlistCoins } = createGetWatchlistCoinsResourceAction(dispatch);
 
-    const requestAddToWatchlistAction = syncGenerator(REQUEST_ADD_TO_WATCHLIST, "symbol");
-    const addedToWatchlist = syncGenerator(ADDED_TO_WATCHLIST);
-
-    const requestAddToWatchlist = (query) => {
-
-    }
+    const creator = resourceActionCreator(dispatch);
+    const getCoinData = creator(RESOURCE_GET_COIN_DATA, RESOURCE_GET_COIN_DATA_TAG, async () => {
+            const coins = await allWatchlistCoins();
+            return getWatchlistCoinData(coins[0]);
+    });
 
     return {
-        addToWatchlist: requestAddToWatchlist
+        getWatchlistCoins: getCoinData
     }
 }

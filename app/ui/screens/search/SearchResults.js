@@ -4,7 +4,6 @@ import SearchBar from "./SearchBar";
 import * as React from "react";
 import PropTypes from 'prop-types';
 
-
 export default class SearchResults extends React.Component {
 
     static propTypes = {
@@ -18,13 +17,6 @@ export default class SearchResults extends React.Component {
     static navigationOptions = {
         header: () => { }
     };
-
-    constructor() {
-        super();
-        this.state = {
-            watchlistCoins: []
-        }
-    }
 
     componentDidMount() {
         this.props.performSearch(this.props.navigation.state.params.query);
@@ -69,7 +61,7 @@ export default class SearchResults extends React.Component {
     root = (children) => {
         return (
             <View>
-                <SearchBar onSearchSubmit={this.props.performSearch}/>
+                <SearchBar defaultText={this.props.navigation.state.params.query} onSearchSubmit={this.props.performSearch}/>
                 {children}
             </View>
         )
