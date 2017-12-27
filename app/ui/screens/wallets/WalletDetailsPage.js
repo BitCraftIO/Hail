@@ -36,7 +36,7 @@ export default class WalletsList extends React.Component {
 				},
 				aggregateValue: () => {
 					//pass aggregate coins to server and ask for price data
-					return 15.123
+					return {value: 15.123, currency: "USD"}
 				}
 			},
 			124: {
@@ -60,7 +60,7 @@ export default class WalletsList extends React.Component {
 				},
 				aggregateValue: () => {
 					//pass aggregate coins to server and ask for price data
-					return 15.123
+					return {value: 15.123, currency: "USD"}
 				}
 			},
 			125: {
@@ -84,7 +84,7 @@ export default class WalletsList extends React.Component {
 				},
 				aggregateValue: () => {
 					//pass aggregate coins to server and ask for price data
-					return 15.123
+					return {value: 15.123, currency: "USD"}
 				}
 			}
     	}
@@ -95,9 +95,14 @@ export default class WalletsList extends React.Component {
         //walletID: PropTypes.number.isRequired,
     }
 
-    makeOrReceiveTransaction = (walletID) => {
+    goToMakeOrReceiveTransaction = (walletID) => {
         const {navigate} = this.props.navigation;
-        navigate("MakeOrReceiveTransactionPage", {"walletID": walletID});
+        navigate("MakeOrReceiveTransactionPage", {
+        	"walletID": walletID, 
+        	"network": this.state.wallet.network,
+        	"aggregateCoins": this.state.wallet.aggregateCoins(),
+        	"aggregateValue": this.state.wallet.aggregateValue(),
+        });
     }
 
 	render() {
@@ -107,10 +112,10 @@ export default class WalletsList extends React.Component {
 				<Text> {this.state.wallet.name} </Text>
 				<Text> {this.state.wallet.network} </Text>
 				<Text> {this.state.wallet.aggregateCoins()} </Text>
-				<Text> {this.state.wallet.aggregateValue()} </Text>
+				<Text> {this.state.wallet.aggregateValue()['value']} </Text>
 				<Button 
 					title="MakeOrReceiveTransaction"
-					onPress={() => this.makeOrReceiveTransaction(this.state.walletID)} 
+					onPress={() => this.goToMakeOrReceiveTransaction(this.state.walletID)} 
 				/>
 			</View>
 		);

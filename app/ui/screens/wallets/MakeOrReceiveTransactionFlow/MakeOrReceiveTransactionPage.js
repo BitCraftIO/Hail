@@ -6,15 +6,56 @@ export default class MakeOrReceiveTransactionPage extends React.Component {
 	constructor(props){
 		super(props)
 		this.state = {
-			"text": "Type your Address here"
+			"text": "Type your Address here",
+			"walletID": this.props.navigation.state.params.walletID,
+			"network": this.props.navigation.state.params.network,
+        	"aggregateCoins": this.props.navigation.state.params.aggregateCoins,
+        	"aggregateValue": this.props.navigation.state.params.aggregateValue,
+        	"isfailureBannerVisible": false,
 		}
 	}
 
 	goToNextPage(address) {
-		const {navigate} = this.props.navigation;
-        navigate("MakeOrReceiveTransactionInputAmountPage", {"address": this.state.text});
+		if (this.checkIfValidAddress(address)) {
+			const {navigate} = this.props.navigation;
+	        	navigate("MakeOrReceiveTransactionInputAmountPage", {
+	        	"address": this.state.text,
+	        	"walletID": this.state.walletID,
+				"network": this.state.network,
+	        	"aggregateCoins": this.state.aggregateCoins,
+	        	"aggregateValue": this.state.aggregateValue,
+	        });
+		}
+		else {
+			this.setState({
+				"isfailureBannerVisible": true,
+			})
+		}
+		
 	}
 
+	checkIfValidAddress(address) {
+		isValid = true
+		this.setState({
+			"isfailureBannerVisible": !isValid,
+		});
+		return isValid;
+	}
+
+	_renderFailureBanner() {
+		if (this.state.isfailureBannerVisible) {
+			return (
+				<View style={styles.failureBanner}>
+					<Text style={styles.failureBannerText}> Address Not Valid </Text>
+				</View>
+			)
+		}
+		else {
+			return null;
+		}
+	}
+
+	//TODO: Compartmentalize these components dawg
 	render() {
 		return (
 			<View>
@@ -27,6 +68,7 @@ export default class MakeOrReceiveTransactionPage extends React.Component {
 						value={this.state.text}
 					/>
 				</View>
+				{this._renderFailureBanner()}
 				<View>
 					<Button
 						title = {"Next"}
@@ -49,6 +91,16 @@ styles = StyleSheet.create({
     inputBox: {
     	borderColor: '#000000',
 
+    },
+    failureBanner: {
+    	backgroundColor: 'red',
+    	height: 20,
+		alignSelf: 'stretch',
+    	textAlign: 'center',   
+    },
+    failureBannerText: {
+    	color: 'white',
+    	//alignItems: 'center',
     },
     // list: {
     //     paddingTop: 70,
