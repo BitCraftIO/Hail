@@ -1,10 +1,10 @@
 import React from 'react';
-import {FlatList, StyleSheet, Text, View, TextInput, Button, Platform, NativeModules, StatusBar, Keyboard} from 'react-native';
+import {Header, SectionList, FlatList, StyleSheet, Text, View, TextInput, Button, Platform, NativeModules, StatusBar, Keyboard} from 'react-native';
 import WalletElement from "./WalletElement.js"
 
 export default class WalletsList extends React.Component {
 
-    walletDATA = [
+    walletData = [
         {
             symbol: "BTC",
             aggregateCoins: 1.34,
@@ -26,7 +26,37 @@ export default class WalletsList extends React.Component {
         {
             symbol: "XMR",
             aggregateCoins: 300.34,
-            name: "Public Wallet",
+            name: "Savings",
+            aggregateValue: 150,
+            percentageGrowth: 400,
+            key: 3,
+            walletID: 125
+        },
+    ]
+
+    exchangeWalletData = [
+        {
+            symbol: "BTC",
+            aggregateCoins: 1.34,
+            name: "COINBASE",
+            aggregateValue: 15.123,
+            percentageGrowth: 53,
+            key: 1,
+            walletID: 123
+        },
+        {
+            symbol: "ETH",
+            aggregateCoins: 0.56,
+            name: "GEMINI",
+            aggregateValue: 141.23,
+            percentageGrowth: -53,
+            key: 2,
+            walletID: 124
+        },
+        {
+            symbol: "XMR",
+            aggregateCoins: 300.34,
+            name: "BITFINEX",
             aggregateValue: 150,
             percentageGrowth: 400,
             key: 3,
@@ -43,9 +73,9 @@ export default class WalletsList extends React.Component {
         super();
         this.state = {
             "localWallets": true,
-            "walletData": this.walletDATA,
-            "exchangeWallets": false,
-            "exchangeData":[]
+            "walletData": this.walletData,
+            "exchangeWallets": true,
+            "exchangeWalletData":this.exchangeWalletData
         };
     }
 
@@ -57,35 +87,121 @@ export default class WalletsList extends React.Component {
     render() {
         return (
             <View style={styles.background}>
-                <FlatList
+                <SectionList
                     style={styles.list}
-                    data={this.state.walletData}
-                    renderItem={(wallet) => 
-                        
-                        <WalletElement 
-                            symbol={wallet.item.symbol} 
-                            aggregateCoins={wallet.item.aggregateCoins}
-                            name={wallet.item.name}
-                            aggregateValue={wallet.item.aggregateValue}
-                            percentageGrowth={wallet.item.percentageGrowth}
-                            onPress={() => this.openWallet(wallet.item.walletID)}
-                        />
-                        
+                    renderSectionHeader={({section}) => <Text style={styles.sectionHeader}>{section.title} </Text>}
+                    sections ={[
+                        {
+                            //data: this.state.walletData,
+                            data: [
+                                {
+                                    symbol: "BTC",
+                                    aggregateCoins: 1.34,
+                                    name: "Personal Wallet",
+                                    aggregateValue: 15.123,
+                                    percentageGrowth: 53,
+                                    key: 1,
+                                    walletID: 123
+                                },
+                                {
+                                    symbol: "ETH",
+                                    aggregateCoins: 0.56,
+                                    name: "Public Wallet",
+                                    aggregateValue: 141.23,
+                                    percentageGrowth: -53,
+                                    key: 2,
+                                    walletID: 124
+                                },
+                                {
+                                    symbol: "XMR",
+                                    aggregateCoins: 300.34,
+                                    name: "Savings",
+                                    aggregateValue: 150,
+                                    percentageGrowth: 400,
+                                    key: 3,
+                                    walletID: 125
+                                },
+                            ],
+                            title: "Local Wallets",
+                            renderItem: (wallet) => 
+                                <WalletElement
+                                       symbol={wallet.item.symbol}
+                                       aggregateCoins={wallet.item.aggregateCoins}
+                                       name={wallet.item.name}
+                                       aggregateValue={wallet.item.aggregateValue}
+                                       percentageGrowth={wallet.item.percentageGrowth}
+                                       onPress={() => this.openWallet(wallet.item.walletID)}
+                               />
+    
+                            
+                        },
+                        {
+                            //data: this.state.exchangeWalletData,
+                            data: [
+                                {
+                                    symbol: "BTC",
+                                    aggregateCoins: 1.34,
+                                    name: "COINBASE",
+                                    aggregateValue: 15.123,
+                                    percentageGrowth: 53,
+                                    key: 1,
+                                    walletID: 123
+                                },
+                                {
+                                    symbol: "ETH",
+                                    aggregateCoins: 0.56,
+                                    name: "GEMINI",
+                                    aggregateValue: 141.23,
+                                    percentageGrowth: -53,
+                                    key: 2,
+                                    walletID: 124
+                                },
+                                {
+                                    symbol: "XMR",
+                                    aggregateCoins: 300.34,
+                                    name: "BITFINEX",
+                                    aggregateValue: 150,
+                                    percentageGrowth: 400,
+                                    key: 3,
+                                    walletID: 125
+                                },
+                            ],
+                            title: "Exchange Wallets",
+                            renderItem: (wallet) => 
+                                <WalletElement
+                                       symbol={wallet.item.symbol}
+                                       aggregateCoins={wallet.item.aggregateCoins}
+                                       name={wallet.item.name}
+                                       aggregateValue={wallet.item.aggregateValue}
+                                       percentageGrowth={wallet.item.percentageGrowth}
+                                       onPress={() => this.openWallet(wallet.item.walletID)}
+                               />
+                            
+                        },
+                    ]}
                     
-                    }
                 />
             </View>
+
         );
     };
 }
 
-const styles = StyleSheet.create({
+styles = StyleSheet.create({
     background: {
         flex: 1,
-        backgroundColor: '#11151c',
+        //backgroundColor: '#11151c',
         alignItems: 'center',
+        backgroundColor: '#11151c',
     },
     list: {
-        paddingTop: 100,
-    }
+        paddingTop: 70,
+    },
+    sectionHeader: {
+        fontFamily: "Avenir",
+        fontSize: 9,
+        color: "#9b9b9b",
+        paddingTop: 30,
+        paddingBottom: 15
+    },
 });

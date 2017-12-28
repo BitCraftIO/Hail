@@ -18,6 +18,9 @@ export default class WalletElement extends React.PureComponent {
 
 	render() {
 		//TODO: Change percentageGrowth font color to #c84630 if negative
+		var percentageGrowthColor = (percentageGrowth) => {
+			return percentageGrowth >= 0 ? "#4ce0b3" : "#c84630"
+		}
 		return (
 			<TouchableOpacity style={styles.background} onPress={this.props.onPress}>
 				<View style={
@@ -112,3 +115,18 @@ const styles = StyleSheet.create({
 		color: "#4ce0b3"
 	}
 });
+
+// percentageGrowthColor(percentageGrowth) {
+// 			return percentageGrowth >= 0 ? "#4ce0b3" : "#c84630";
+// 	};
+
+// 	percentageGrowthStyle(percentageGrowthColor="#4ce0b3") {
+// 		return {
+// 			//height: 15.3,
+// 			paddingLeft: 14,
+// 			paddingTop: 24,
+// 			fontFamily: "Avenir",
+// 			fontSize: 11.3,
+// 			color: percentageGrowthColor
+// 		}
+// 	}
