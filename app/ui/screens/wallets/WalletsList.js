@@ -1,7 +1,6 @@
 import React from 'react';
 import {Header, SectionList, FlatList, StyleSheet, Text, View, TextInput, Button, Platform, NativeModules, StatusBar, Keyboard} from 'react-native';
 import WalletElement from "./WalletElement.js";
-import Modal from 'react-native-modalbox';
 
 
 export default class WalletsList extends React.Component {
@@ -97,9 +96,7 @@ export default class WalletsList extends React.Component {
                     title={"New Wallet"}
                     onPress={this._newWallet()}
                 />
-                <Modal 
-                >
-                </Modal>
+                
                 <SectionList
                     style={styles.list}
                     renderSectionHeader={({section}) => <Text style={styles.sectionHeader}>{section.title} </Text>}

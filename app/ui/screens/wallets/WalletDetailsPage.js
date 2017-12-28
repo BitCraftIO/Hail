@@ -105,6 +105,10 @@ export default class WalletsList extends React.Component {
         });
     }
 
+    _deleteThisWallet(){
+
+    }
+
 	render() {
 		return (
 			<View>
@@ -117,6 +121,10 @@ export default class WalletsList extends React.Component {
 					title="MakeOrReceiveTransaction"
 					onPress={() => this.goToMakeOrReceiveTransaction(this.state.walletID)} 
 				/>
+				<Button 
+                    title={"Delete Wallet"}
+                    onPress={this._deleteThisWallet()}
+                />
 			</View>
 		);
 	};
