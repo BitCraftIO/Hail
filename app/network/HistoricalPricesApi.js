@@ -1,6 +1,6 @@
 // @flow
 
-import {repeat} from "../Utils";
+import {repeat} from "../utils/Misc";
 
 const DEFAULT_EXCHANGE = "CCCAGG";
 

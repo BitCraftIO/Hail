@@ -1,5 +1,6 @@
+import {callIfNotNull} from "../utils/Misc";
 import {generateAsyncAction, generateSyncAction} from "./GenerateAction";
-import type { TypedFunction } from "../Utils";
+import type { TypedFunction } from "../utils/Misc";
 import React from 'react';
 import PropTypes from 'prop-types';
 
@@ -18,29 +19,23 @@ export class ResourceComponent extends React.Component {
 
     render() {
         const resource = this.props.resource;
-        if (resource.loading) {
-            if ("onProgress" in this.props) {
-                this.props.onProgress();
-            }
-            if ("progressView" in this.props) {
-                return this.props.progressView();
-            }
-        } else if(resource.result !== null) {
-            if ("onData" in this.props) {
-                this.props.onData(resource.result);
-            }
 
-            if ("dataView" in this.props) {
-                return this.props.dataView(resource.result);
-            }
-        } else {
-            if ("onError" in this.props) {
-                this.props.onError(resource.error);
-            }
-            if ("errorView" in this.props) {
-                return this.props.errorView();
-            }
+        const { onProgress, onData, onError,
+                progressView, dataView, errorView
+        } = this.props;
+
+        if (resource.loading) {
+            callIfNotNull(onProgress)
+            return callIfNotNull(progressView)
+        } else if(resource.result !== null) {
+            callIfNotNull(onData, resource.result);
+            return callIfNotNull(dataView, resource.result);
+        } else if (resource.error) {
+            callIfNotNull(onError, resource.error);
+            return callIfNotNull(errorView, resource.error);
         }
+
+        return null;
     }
 }
 

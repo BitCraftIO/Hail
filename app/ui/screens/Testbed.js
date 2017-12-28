@@ -1,5 +1,6 @@
 import React from 'react';
 import {StyleSheet, Text, View, TextInput, Button, Keyboard} from 'react-native';
+import {VictoryBar, VictoryChart, VictoryLine, VictoryTheme} from "victory-native";
 import {getCoinDetails} from '../../network/CoinMarketCapApi';
 import Search from "./search/SearchBar";
 import CoinLineChart from "../CoinLineChart";
@@ -102,14 +103,15 @@ export default class Testbed extends React.Component {
                 <Button title="Watchlist" onPress={this.goToWatchlist} />
                 <Text>{this.state.coinText}</Text>
 
-                {this.state.coinData != null
-                    ? (
-                            <CoinLineChart
-                                dates={this.state.coinData.y}
-                                values={this.state.coinData.x}
-                                />
-                    )
-                    : (<Text/>)}
+                <VictoryBar />
+                {/*{this.state.coinData != null*/}
+                    {/*? (*/}
+                            {/*<CoinLineChart*/}
+                                {/*dates={this.state.coinData.y}*/}
+                                {/*values={this.state.coinData.x}*/}
+                                {/*/>*/}
+                    {/*)*/}
+                    {/*: (<Text/>)}*/}
             </View>
         );
     }
