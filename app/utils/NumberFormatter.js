@@ -1,8 +1,5 @@
+import numeral from 'numeral'
 
-export function coinPriceFormatter() {
-    return new Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency: 'USD',
-        minimumFractionDigits: 0,
-    });
+export function formatCoinPrice(price) {
+    return numeral(price).format("$0,0");
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, List, FlatList } from 'react-native';
+import {View, Text, List, FlatList, StyleSheet} from 'react-native';
 import PropTypes from 'prop-types';
 import { ResourceComponent } from "../../../reduxhelpers/CreateResource";
 
@@ -27,7 +27,7 @@ export default class Watchlist extends React.Component {
 
     showCoins = (coinData) => {
         return (
-            <View>
+            <View style={styles.container}>
                 <Text>Favorites</Text>
                 <FlatList
                     data={coinData}
@@ -48,3 +48,10 @@ export default class Watchlist extends React.Component {
         )
     }
 }
+
+const styles = StyleSheet.create({
+    container: {
+        marginLeft:24,
+        marginRight:24
+    }
+});

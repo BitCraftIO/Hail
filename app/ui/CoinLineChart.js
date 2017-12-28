@@ -1,12 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { VictoryLine } from "victory-native";
+import { LineChart } from 'react-native-svg-charts'
+import * as shape from 'd3-shape';
 
 export default class CoinLineChart extends React.Component {
 
     static propTypes = {
         dates: PropTypes.array.isRequired,
-        values: PropTypes.array.isRequired
+        values: PropTypes.array.isRequired,
+        width: PropTypes.number.isRequired,
+        height: PropTypes.number,
     }
 
     constructor(props) {
@@ -27,11 +30,22 @@ export default class CoinLineChart extends React.Component {
 
     render() {
         const renderingColor = this.state.isIncreasing ? "#02c9a1" : "#d25035";
+        const shadowColor = this.state.isIncreasing ? "#028a6c" : "#9E452A";
         return (
-            <VictoryLine
-                scale={{y:"time", x: "log"}}
-                style={{data: { stroke: renderingColor }}}
-                data={this.state.data}/>
+            <LineChart
+                style={{ height: this.state.height || 100, width:this.props.width}}
+                dataPoints={ this.props.values }
+                showGrid={false}
+                fillColor={ renderingColor }
+                svg={ {
+                    stroke: renderingColor,
+                }}
+                // shadowSvg={{
+                //     stroke: shadowColor
+                // }}
+                // shadowOffset={2}
+                curve={shape.curveLinear}
+            />
         );
     }
 }

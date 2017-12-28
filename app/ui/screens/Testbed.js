@@ -1,10 +1,11 @@
 import React from 'react';
 import {StyleSheet, Text, View, TextInput, Button, Keyboard} from 'react-native';
-import {VictoryBar, VictoryChart, VictoryLine, VictoryTheme} from "victory-native";
 import {getCoinDetails} from '../../network/CoinMarketCapApi';
 import Search from "./search/SearchBar";
 import CoinLineChart from "../CoinLineChart";
 import {getBitcoinData} from "../../network/HistoricalPricesApi";
+import { LineChart } from 'react-native-svg-charts'
+import * as shape from 'd3-shape';
 
 export default class Testbed extends React.Component {
 
@@ -94,7 +95,9 @@ export default class Testbed extends React.Component {
             }
         };
 
+        const data = [ 50, 10, 40, 95, -4, -24, 85, 91, 35, 53, -53, 24, 50, -20, -80 ];
         return (
+
             <View style={styles.container}>
                 <Search onSearchSubmit={this.onSearchSubmit}/>
                 <TextInput style={{width: 100}} onChangeText={(text) => this.setState({"input": text})}/>
@@ -103,7 +106,25 @@ export default class Testbed extends React.Component {
                 <Button title="Watchlist" onPress={this.goToWatchlist} />
                 <Text>{this.state.coinText}</Text>
 
-                <VictoryBar />
+                <LineChart
+                    style={ { height: 200 } }
+                    dataPoints={ data }
+                    fillColor={ 'purple' }
+                    shadowOffset={1}
+                    gridProps={{strokeWidth:"3"}}
+                    gridMax={-100}
+                    gridMin={100}
+                    svg={ {
+                        stroke: 'rgb(134, 65, 244)',
+                    } }
+                    shadowSvg={ {
+                        stroke: 'rgba(134, 65, 244, 0.2)',
+                        strokeWidth: 5,
+                    } }
+                    contentInset={ { top: 20, bottom: 20 } }
+                    curve={shape.curveLinear}
+                />
+
                 {/*{this.state.coinData != null*/}
                     {/*? (*/}
                             {/*<CoinLineChart*/}

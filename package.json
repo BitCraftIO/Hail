@@ -19,14 +19,15 @@
   },
   "dependencies": {
     "expo": "^23.0.4",
+    "numeral": "^2.0.6",
     "react": "16.0.0",
     "react-native": "^0.51.0",
     "react-native-dropdownalert": "^3.1.2",
     "react-native-svg": "^5.5.1",
+    "react-native-svg-charts": "^2.0.1",
     "react-navigation": "^1.0.0-beta.21",
     "react-redux": "^5.0.6",
     "redux": "^3.7.2",
-    "redux-thunk": "^2.2.0",
-    "victory-native": "^0.15.0"
+    "redux-thunk": "^2.2.0"
   }
 }

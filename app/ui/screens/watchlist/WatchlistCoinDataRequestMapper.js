@@ -4,6 +4,13 @@ import { pricesByTheMinute } from "../../../network/HistoricalPricesApi";
 export default async function getWatchlistCoinData(coin: string): Promise<Object> {
     const now = Math.floor(Date.now() / 1000);
     const prices = await pricesByTheMinute(now - 86400, coin); // 86400 seconds = 24 hours
+    if (prices.length === 0) {
+        return {
+            graphData: {x:[], y:[]},
+            currentPrice:-1,
+            coin:coin
+        }
+    }
     const currentPrice = calculatePriceFromPoint(prices[prices.length - 1]);
     const priceGraphData = prices.reduce((accum, value) => {
         accum.x.push(calculatePriceFromPoint(value));
