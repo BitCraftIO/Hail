@@ -1,6 +1,8 @@
 import React from 'react';
 import {Header, SectionList, FlatList, StyleSheet, Text, View, TextInput, Button, Platform, NativeModules, StatusBar, Keyboard} from 'react-native';
-import WalletElement from "./WalletElement.js"
+import WalletElement from "./WalletElement.js";
+import Modal from 'react-native-modalbox';
+
 
 export default class WalletsList extends React.Component {
 
@@ -84,9 +86,20 @@ export default class WalletsList extends React.Component {
         navigate("WalletDetailsPage", {"walletID": walletID});
     }
 
+    _newWallet(){
+
+    }
+
     render() {
         return (
             <View style={styles.background}>
+                <Button 
+                    title={"New Wallet"}
+                    onPress={this._newWallet()}
+                />
+                <Modal 
+                >
+                </Modal>
                 <SectionList
                     style={styles.list}
                     renderSectionHeader={({section}) => <Text style={styles.sectionHeader}>{section.title} </Text>}
@@ -203,5 +216,9 @@ styles = StyleSheet.create({
         color: "#9b9b9b",
         paddingTop: 30,
         paddingBottom: 15
+    },
+    modal: {
+        height: 230,
+        backgroundColor: "#3B5998"
     },
 });
