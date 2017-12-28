@@ -1,8 +1,9 @@
 import React from 'react';
 import { Text } from 'react-native';
 import PropTypes from 'prop-types';
+import {ResourceComponent} from "../../../reduxhelpers/CreateResource";
 
-import { RESOURCE_GET_WATCHLIST_COINS_TAG } from "../../../shared/GetWatchlistCoinsResource";
+import {RESOURCE_GET_COIN_DATA_TAG} from "./state/WatchlistActions";
 
 export default class Watchlist extends React.Component {
     static navigationOptions = {
@@ -10,7 +11,7 @@ export default class Watchlist extends React.Component {
     };
 
     static propTypes = {
-        [RESOURCE_GET_WATCHLIST_COINS_TAG]: PropTypes.object.isRequired
+        [RESOURCE_GET_COIN_DATA_TAG]: PropTypes.object.isRequired
     }
 
     componentDidMount() {
@@ -18,17 +19,12 @@ export default class Watchlist extends React.Component {
     }
 
     render() {
-        let message;
-        if (this.props.coinData.loading) {
-            message = "Loading";
-        } else if(!Array.isArray(this.props.coinData.result.length)) {
-            message = this.props.coinData.result.coin;
-        } else {
-            message = "error";
-        }
-
         return (
-            <Text>{message}</Text>
+            <ResourceComponent
+                progressView={() => (<Text>Loading</Text>)}
+                errorView={() => (<Text>Error</Text>)}
+                dataView={(item) => (<Text>{item.coin}</Text>)}
+                resource={this.props.coinData}/>
         )
     }
 }
