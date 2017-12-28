@@ -1,6 +1,48 @@
-// @flow
 import {generateAsyncAction, generateSyncAction} from "./GenerateAction";
 import type { TypedFunction } from "../Utils";
+import React from 'react';
+import PropTypes from 'prop-types';
+
+export class ResourceComponent extends React.Component {
+    static propTypes = {
+        errorView: PropTypes.func,
+        dataView: PropTypes.func,
+        progressView: PropTypes.func,
+
+        onError: PropTypes.func,
+        onData: PropTypes.func,
+        onProgress: PropTypes.func,
+
+        resource: PropTypes.object.isRequired
+    };
+
+    render() {
+        const resource = this.props.resource;
+        if (resource.loading) {
+            if ("onProgress" in this.props) {
+                this.props.onProgress();
+            }
+            if ("progressView" in this.props) {
+                return this.props.progressView();
+            }
+        } else if(resource.result !== null) {
+            if ("onData" in this.props) {
+                this.props.onData(resource.result);
+            }
+
+            if ("dataView" in this.props) {
+                return this.props.dataView(resource.result);
+            }
+        } else {
+            if ("onError" in this.props) {
+                this.props.onError(resource.error);
+            }
+            if ("errorView" in this.props) {
+                return this.props.errorView();
+            }
+        }
+    }
+}
 
 export function createResourceAction (dispatch: Function, resourceName: string, resourceTag: string, asyncAction: Function): Function {
     return (...params) => {
@@ -33,10 +75,10 @@ export const mapResourceToProps = (page: string, state: Object) => (resourceTag:
     }
 }
 
-export const resourceInitialState = (resourceTag: string) => {
+export function resourceInitialState(resourceTag: string) {
     return {
         [resourceTag]: {
-            result: [],
+            result: null,
             loading: false,
             error: null
         }

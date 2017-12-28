@@ -38,9 +38,10 @@ export default class SearchResults extends React.Component {
             <FlatList
                 data={this.props.search.result}
                 renderItem={(item) => <SearchItem
-                isInWatchlist={this.props.watchlistCoins.result.includes(item.item.symbol)}
-                addToWatchlist={this.onAddWatchListClick}
-                coin={item.item} />}
+                                            isInWatchlist={this.props.watchlistCoins.result.includes(item.item.symbol)}
+                                            addToWatchlist={this.onAddWatchListClick}
+                                            coin={item.item} />
+                }
                 keyExtractor={(item, index) => item.rank}
             />
         )
@@ -52,9 +53,9 @@ export default class SearchResults extends React.Component {
         )
     }
 
-    errorView = () => {
+    errorView = (err) => {
         return (
-            <Text> Error </Text>
+            <Text> {err.message} </Text>
         )
     }
 
@@ -83,14 +84,14 @@ export default class SearchResults extends React.Component {
         let children;
         if (this.props.search.loading) {
             children = this.loadingview();
-        } else if (this.props.search.result.length > 0) {
+        } else if (this.props.search.result !== null) {
             if (this.props.addWatchList.result) {
                 children = this.compose(this.resultView(), this.addedWatchlistView());
             } else {
                 children = this.resultView();
             }
         } else if (this.props.search.error) {
-            children = this.errorView();
+            children = this.errorView(this.props.search.error);
         } else {
             children = this.noResultView();
         }
