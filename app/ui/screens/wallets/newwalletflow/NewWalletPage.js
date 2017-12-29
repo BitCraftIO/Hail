@@ -9,6 +9,6 @@ export default class MakeOrReceiveTransactionPage extends React.Component {
 	}
 
 	render() {
-		<Text> is this displaying </Text>
+		return (<Text> is this displaying </Text>)
 	}
 }

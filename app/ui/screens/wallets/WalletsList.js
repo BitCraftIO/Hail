@@ -37,7 +37,6 @@ export default class WalletsList extends React.Component {
                     title={"New Wallet"}
                     onPress={() => this._newWallet()}
                 />
-                
                 <SectionList
                     style={styles.list}
                     renderSectionHeader={({section}) => <Text style={styles.sectionHeader}>{section.title} </Text>}
