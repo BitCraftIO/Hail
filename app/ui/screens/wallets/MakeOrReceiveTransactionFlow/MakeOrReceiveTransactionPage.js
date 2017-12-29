@@ -18,7 +18,7 @@ export default class MakeOrReceiveTransactionPage extends React.Component {
 	goToNextPage(address) {
 		if (this.checkIfValidAddress(address)) {
 			const {navigate} = this.props.navigation;
-	        	navigate("MakeOrReceiveTransactionInputAmountPage", {
+	        navigate("MakeOrReceiveTransactionInputAmountPage", {
 	        	"address": this.state.text,
 	        	"walletID": this.state.walletID,
 				"network": this.state.network,
@@ -57,26 +57,7 @@ export default class MakeOrReceiveTransactionPage extends React.Component {
 
 	//TODO: Compartmentalize these components dawg
 	render() {
-		return (
-			<View>
-				<View
-					style={styles.inputBox}
-				>
-					<TextInput
-						multiline = {false}
-						onChangeText={(text) => this.setState({text})}
-						value={this.state.text}
-					/>
-				</View>
-				{this._renderFailureBanner()}
-				<View>
-					<Button
-						title = {"Next"}
-						onPress = {() => this.goToNextPage()} 
-					/>
-				</View>
-			</View>
-		)
+		return null
 	}
 
 }

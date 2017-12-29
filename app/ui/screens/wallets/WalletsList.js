@@ -5,73 +5,13 @@ import WalletElement from "./WalletElement.js";
 
 export default class WalletsList extends React.Component {
 
-    walletData = [
-        {
-            symbol: "BTC",
-            aggregateCoins: 1.34,
-            name: "Personal Wallet",
-            aggregateValue: 15.123,
-            percentageGrowth: 53,
-            key: 1,
-            walletID: 123
-        },
-        {
-            symbol: "ETH",
-            aggregateCoins: 0.56,
-            name: "Public Wallet",
-            aggregateValue: 141.23,
-            percentageGrowth: -53,
-            key: 2,
-            walletID: 124
-        },
-        {
-            symbol: "XMR",
-            aggregateCoins: 300.34,
-            name: "Savings",
-            aggregateValue: 150,
-            percentageGrowth: 400,
-            key: 3,
-            walletID: 125
-        },
-    ]
-
-    exchangeWalletData = [
-        {
-            symbol: "BTC",
-            aggregateCoins: 1.34,
-            name: "COINBASE",
-            aggregateValue: 15.123,
-            percentageGrowth: 53,
-            key: 1,
-            walletID: 123
-        },
-        {
-            symbol: "ETH",
-            aggregateCoins: 0.56,
-            name: "GEMINI",
-            aggregateValue: 141.23,
-            percentageGrowth: -53,
-            key: 2,
-            walletID: 124
-        },
-        {
-            symbol: "XMR",
-            aggregateCoins: 300.34,
-            name: "BITFINEX",
-            aggregateValue: 150,
-            percentageGrowth: 400,
-            key: 3,
-            walletID: 125
-        },
-    ]
-
 	static navigationOptions = {
         header: () => {
         }
     };
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             "localWallets": true,
             "walletData": this.walletData,
@@ -80,13 +20,14 @@ export default class WalletsList extends React.Component {
         };
     }
 
-    openWallet = (walletID) => {
+    openWallet(walletID) {
         const {navigate} = this.props.navigation;
         navigate("WalletDetailsPage", {"walletID": walletID});
     }
 
-    _newWallet(){
-
+    _newWallet() {
+        const {navigate} = this.props.navigation;
+        navigate("NewWalletPage");
     }
 
     render() {
@@ -94,7 +35,7 @@ export default class WalletsList extends React.Component {
             <View style={styles.background}>
                 <Button 
                     title={"New Wallet"}
-                    onPress={this._newWallet()}
+                    onPress={() => this._newWallet()}
                 />
                 
                 <SectionList
@@ -186,14 +127,12 @@ export default class WalletsList extends React.Component {
                                        percentageGrowth={wallet.item.percentageGrowth}
                                        onPress={() => this.openWallet(wallet.item.walletID)}
                                />
-                            
                         },
-                    ]}
-                    
+                    ]}   
                 />
             </View>
 
-        );
+        )
     };
 }
 
