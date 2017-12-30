@@ -1,9 +1,8 @@
 // @flow
-
-const Realm = require('realm');
+const Realm = null;
 
 const walletSchema = {
-	name: 'Wallet'
+	name: 'Wallet',
 	properties: {
 		network: 'string',
 		name: 'string',
@@ -37,7 +36,8 @@ const transactionSchema = {
 	@param transactions
 */
 export function createWalletLocally(options) : Promise<boolean> {
-	Realm.open({schema: [walletSchema, transactionSchema]})
+	if (Realm === null) { Realm = require('realm'); };
+	return Realm.open({schema: [walletSchema, transactionSchema]})
 	.then(realm => {
 		realm.write(() => {
 			realm.create('Wallet', {
@@ -60,6 +60,7 @@ export function createWalletLocally(options) : Promise<boolean> {
 }
 
 export function deleteWalletLocallyById(id: number) {
+	if (Realm === null) { Realm = require('realm'); };
 	Realm.open({schema: [walletSchema, transactionSchema]})
 	.then(realm => {
 		realm.write(() => {
@@ -87,16 +88,17 @@ export function addTxToWalletByAddress(tx, id) {
 
 }
 
-export function getWalletById(id: number){
+export function getWalletById(id: number) {
+	if (Realm === null) { Realm = require('realm'); };
     return new Promise((resolve, reject) => {
-    	realm.objects('Wallet').filtered('id = {}', id)
+    	Realm.objects('Wallet').filtered('id = {}', id)
     	.then(docs => {
-    		if docs.count > 1 {
+    		if (docs.count > 1) {
     			reject("More than one result");
     		} else {
     			resolve(docs);
     		}
     	})
     	.catch(err => reject(err))
-    }
+    });
 }

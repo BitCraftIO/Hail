@@ -6,11 +6,13 @@ import createStore from "./reduxhelpers/CreateStore"
 let store = createStore();
 
 export default class App extends React.Component {
-  render() {
-      return (
-          <Provider store={store}>
-            <Navigator/>
-          </Provider>
-      )
-  }
+
+ 	
+	render() {
+		return (
+			<Provider store={store}>
+				<Navigator/>
+			</Provider>
+		)
+	}
 }
