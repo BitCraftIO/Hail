@@ -1,5 +1,3 @@
-import { Object } from "realm";
-
 //@flow
 export const realm = null;
 
@@ -39,7 +37,11 @@ export default class Db {
 	}
 
 	write(func){
-		realm.write(func);
+		try {
+			realm.write(func);
+		} catch(e) {
+			throw new Error('Db.js :: Write operation failed');
+		}
 	}
 
 	close() {
