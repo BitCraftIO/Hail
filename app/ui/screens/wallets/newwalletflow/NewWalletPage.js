@@ -1,7 +1,7 @@
 import React from "react";
 import {FlatList, StyleSheet, Text, View, TextInput, Button, Platform, NativeModules, StatusBar, Keyboard} from "react-native";
 import PropTypes from "prop-types";
-import Actions from "Actions";
+import Actions from "../../../../localstorage/Actions";
 
 export default class MakeOrReceiveTransactionPage extends React.Component {
 
