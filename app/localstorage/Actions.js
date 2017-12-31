@@ -1,5 +1,5 @@
 import DbHelper from "./db/DbHelper";
-import Queries from ".Queries";
+import Queries from "./Queries";
 
 //Realm write operations are synchronous
 export default class Actions {

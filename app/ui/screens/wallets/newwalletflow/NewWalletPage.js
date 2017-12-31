@@ -1,6 +1,7 @@
 import React from "react";
 import {FlatList, StyleSheet, Text, View, TextInput, Button, Platform, NativeModules, StatusBar, Keyboard} from "react-native";
 import PropTypes from "prop-types";
+import Actions from "Actions";
 
 export default class MakeOrReceiveTransactionPage extends React.Component {
 
@@ -33,7 +34,7 @@ export default class MakeOrReceiveTransactionPage extends React.Component {
 			<View>
 				<Button 
 					title={"CreateWallet with predefined data"}
-					onPress={this._createWalletWithPredefinedData()}
+					onPress={() => this._createWalletWithPredefinedData()}
 				/>
 				<Text>{this.state.successInfo}</Text>
 			</View>
