@@ -1,15 +1,13 @@
 //@flow
-export const realm = null;
-
+import Realm from "realm";
 export default class Db {
 	
-	constructor(props) {
-		super(props);
-		if (realm === null) {realm = require("realm");};
+	constructor() {
+		//if (realm === null) {realm = require("realm");};
 	}
 
 	query(model: string, filter?: string) {
-		let results = this.realm.objects(model);
+		let results = this.Realm.objects(model);
 		if(filter) {
 			return results.filtered(filter);
 		}
@@ -18,13 +16,13 @@ export default class Db {
 	
 	delete(model:string, obj) {
 		this.write(() => {
-			realm.delete(obj);
+			Realm.delete(obj);
 		});
 	}
 
 	insert(model: string, options) {
 		this.write(() => {
-			realm.create(model, options);
+			Realm.create(model, options);
 		});
 	}
 
@@ -38,14 +36,14 @@ export default class Db {
 
 	write(func){
 		try {
-			realm.write(func);
+			Realm.write(func);
 		} catch(e) {
 			throw new Error('Db.js :: Write operation failed');
 		}
 	}
 
 	close() {
-		realm.close()
+		Realm.close()
 	}
 	
 	createRealm() {
