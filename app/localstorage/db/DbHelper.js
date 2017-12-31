@@ -1,6 +1,7 @@
 import Db from "./Db";
-import TransactionModel from "../models/TransactionModel";
-import WalletModel from "../models/WalletModel";
+import Transaction from "../models/Transaction";
+import Wallet from "../models/Wallet";
+import ExchangeWallet from "../models/ExchangeWallet";
 
 class DbHelper {
     modelSchema = [
