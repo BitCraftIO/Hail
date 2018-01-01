@@ -39,6 +39,14 @@ export class ResourceComponent extends React.Component {
     }
 }
 
+export function createResource(dispatch: Function, page: string, resourceName: string, resourceTag: string, asyncAction: Function): Object {
+    return {
+        action: createResourceAction(dispatch, resourceName, resourceTag, asyncAction),
+        reducer: createResourceReducerStates(resourceName, resourceTag),
+        initialState: resourceInitialState(resourceTag)
+    }
+}
+
 export function createResourceAction (dispatch: Function, resourceName: string, resourceTag: string, asyncAction: Function): Function {
     return (...params) => {
         const [requestAction, resultAction, errorAction] = generateResourceActions(resourceName, resourceTag, dispatch);

@@ -3,7 +3,7 @@
 const Realm = require('realm');
 
 const walletSchema = {
-	name: 'Wallet'
+	name: 'Wallet',
 	properties: {
 		network: 'string',
 		name: 'string',

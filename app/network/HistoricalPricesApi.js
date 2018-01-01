@@ -1,35 +1,50 @@
 // @flow
 
-import {repeat} from "../utils/Misc";
+import type { CoinPrice } from "../coin/CoinPrice";
+import { repeat } from "../utils/Misc";
+import { now } from"../utils/TimeUtils";
 
 const DEFAULT_EXCHANGE = "CCCAGG";
 
-function now() : number {
-    return Math.floor(Date.now() / 1000);
-};
-
 // documentation: https://www.cryptocompare.com/api/#-api-data-histohour-
 
-export function pricesByTheDay(coin: string, days: number) {
+/**
+ *
+ * @param coin
+ * @param number of days to fetch
+ * @returns {Promise<any>}
+ */
+export async function pricesByTheDay(days: number, coin: string): Promise<Array<CoinPrice>> {
     const url = `https://min-api.cryptocompare.com/data/histoday?tryConversion=false&tsym=USD&aggregate=1&fsym=${coin}&limit=${days}&e=${DEFAULT_EXCHANGE}`;
-    return fetch(url)
-        .then((response) => response.json());
+    const json = await fetch(url).then((response) => response.json());
+    return json.Data;
 }
 
-export function pricesByTheHour(fromTime: number, coin: string): Promise<Object> {
+/**
+ *
+ * @param fromTime - the timestamp from which to start pulling prices by the hour.
+ * @param coin
+ * @returns {Promise<any>}
+ */
+export async function pricesByTheHour(fromTime: number, coin: string): Promise<Array<CoinPrice>> {
     const dataPoints = Math.floor(((now() - fromTime) / 60) / 60); // (seconds / 60 / 60) = hours
     const url = `https://min-api.cryptocompare.com/data/histohour?tryConversion=false&tsym=USD&aggregate=1&fsym=${coin}&limit=${dataPoints}&e=${DEFAULT_EXCHANGE}&toTs=${fromTime}`;
-    return fetch(url)
-        .then((response) => response.json());
+    const json = await fetch(url).then((response) => response.json());
+    return json.Data;
 }
 
-/*
- Note that this function gets as many 2000 minute increments as it can.
- Maybe it'd be a good idea to make a function that gets x minute increments too.
- Also note that the API is limited to the last 7 days
-*/
-export function pricesByTheMinute(fromTime: number, coin: string) : Promise<Array<Object>> {
-    const minutesBetween = (now() - fromTime) / 60 // (seconds / 60) = minutes
+/**
+ * Note that this function gets as many 2000 minute increments as it can.
+ * Maybe it'd be a good idea to make a function that gets x minute increments too.
+ * Also note that the API is limited to the last 7 days
+ *
+ * @param fromTime - the timestamp from which to start pulling prices by the minute
+ * @param coin
+ * @returns {Promise<Array<CoinPrice>>}
+ */
+export function pricesByTheMinute(fromTime: number, coin: string) : Promise<Array<CoinPrice>> {
+    const nowTime = now();
+    const minutesBetween = (nowTime - fromTime) / 60 // (seconds / 60) = minutes
     let minutesToQueryFor = minutesBetween > 2000 ? 2000 : Math.floor(minutesBetween); // 2000 is the max allowed by the api
 
     let numOfCallsToMake = Math.floor(minutesBetween / minutesToQueryFor);
@@ -41,7 +56,7 @@ export function pricesByTheMinute(fromTime: number, coin: string) : Promise<Arra
 
     repeat(numOfCallsToMake, (i) => {
         const incrementToSeconds = (minutesToQueryFor * i) * 60;
-        callIncrements.push(fromTime - incrementToSeconds);
+        callIncrements.push(nowTime - incrementToSeconds);
     })();
 
     if (callIncrements.length >= 7) {

@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, List, FlatList, StyleSheet} from 'react-native';
+import {View, Text, FlatList, StyleSheet} from 'react-native';
 import PropTypes from 'prop-types';
 import { ResourceComponent } from "../../../reduxhelpers/CreateResource";
 
@@ -19,10 +19,8 @@ export default class Watchlist extends React.Component {
         this.props.getWatchlistCoins();
     }
 
-
-
     onWatchlistItemClick = (item) => {
-        console.log("click", item);
+        this.props.navigation.navigate("CoinDetail", {coin: item.coin});
     }
 
     showCoins = (coinData) => {

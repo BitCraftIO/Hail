@@ -1,5 +1,5 @@
 import React from "react";
-import {StyleSheet, Text, View, Dimensions} from 'react-native';
+import {StyleSheet, Text, View, TouchableHighlight, Dimensions} from 'react-native';
 import PropTypes from 'prop-types';
 import {formatCoinPrice} from "../../../utils/NumberFormatter";
 import CoinLineChart from "../../CoinLineChart";
@@ -35,14 +35,20 @@ export default class WatchlistItem extends React.Component {
         }
     }
 
+    onClick = () => {
+        this.props.onClick(this.props.item);
+    }
+
     render() {
         const formattedPrice = formatCoinPrice(this.props.item.currentPrice);
         return (
-            <View style={styles.container} onLayout={this.onLayout}>
+            <TouchableHighlight onPress={this.onClick} style={styles.container} onLayout={this.onLayout}>
+                <View>
                     <Text style={styles.coinName}>{this.props.item.coin}</Text>
                     {this.graph()}
                     <Text style={styles.coinPrice}>{formattedPrice}</Text>
-            </View>
+                </View>
+            </TouchableHighlight>
         )
     }
 }

@@ -1,6 +1,6 @@
-
+// @flow
 // functional version of an iterative for loop
-export function repeat(n, func) {
+export function repeat(n: number, func: Function) : Function {
     return function() {
         while (n--) {
             func(...arguments, n);
@@ -12,6 +12,6 @@ export function repeat(n, func) {
 export type TypedFunction<T> = <T> (args: any) => T;
 
 // to avoid null check when calling a function
-export function callIfNotNull(func, ...args) {
+export function callIfNotNull(func: Function, ...args: any) {
     return func ? func(...args) : null;
 }
