@@ -1302,6 +1302,7 @@
 					"-ObjC",
 					"-lc++",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.bitcraft.hail;
 				PRODUCT_NAME = Hail;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -1324,6 +1325,7 @@
 					"-ObjC",
 					"-lc++",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.bitcraft.hail;
 				PRODUCT_NAME = Hail;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
