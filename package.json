@@ -5,13 +5,13 @@
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-jest": "22.0.4",
-    "babel-preset-react-native": "4.0.0",
     "babel-preset-flow": "^6.23.0",
-    "jest": "22.0.4",
+    "babel-preset-react-native": "4.0.0",
     "flow-bin": "^0.56.0",
+    "jest": "22.0.4",
     "react-test-renderer": "16.0.0",
     "redux-devtools": "^3.4.1",
-    "redux-logger": "latest"
+    "redux-logger": "^3.0.6"
   },
   "main": "./App.js",
   "scripts": {
@@ -30,9 +30,10 @@
     "react-native-svg": "^5.5.1",
     "react-navigation": "^1.0.0-beta.21",
     "react-redux": "^5.0.6",
-    "realm": "^2.1.1",
+    "realm": "^2.0.13",
     "redux": "^3.7.2",
     "redux-thunk": "^2.2.0",
+    "victory-core": "^20.6.0",
     "victory-native": "^0.15.0"
   }
 }
