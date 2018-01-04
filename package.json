@@ -4,11 +4,13 @@
   "private": true,
   "devDependencies": {
     "babel-cli": "^6.26.0",
+    "babel-eslint": "^8.1.2",
     "babel-jest": "22.0.4",
     "babel-preset-flow": "^6.23.0",
     "babel-preset-react-native": "4.0.0",
     "flow-bin": "^0.56.0",
     "jest": "22.0.4",
+    "prettier-eslint": "^8.7.0",
     "react-test-renderer": "16.0.0",
     "redux-devtools": "^3.4.1",
     "redux-logger": "^3.0.6"
@@ -17,7 +19,11 @@
   "scripts": {
     "flow": "node_modules/flow-bin/flow-osx-v0.56.0/flow status",
     "test": "node node_modules/jest/bin/jest.js --watch",
-    "start": "node node_modules/react-native/local-cli/cli.js start"
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "flow start": "flow start",
+    "flow stop": "flow stop",
+    "flow status": "flow status",
+    "flow coverage": "flow coverage"
   },
   "jest": {
     "preset": "react-native"
