@@ -1,22 +1,16 @@
-import DbHelper from "./db/DbHelper";
+import * as Db from "./db/Db";
 
-export default class Queries {
-    
-    getWalletbyId(id:number) {
-        let results = DbHelper.getInstance()
-            .query('Wallet', 'id = ' + id);
-        return results;
-    }
+export function getWalletbyId(id) {
+    let results = Db.query('Wallet', 'id = ' + id);
+    return results;
+}
 
-    getExchangeWallets() {
-        let results = DbHelper.getInstance()
-            .query('ExchangeWallet');
-        return results;
-    }
-    
-    getLocalWallets(){
-        let results = DbHelper.getInstance()
-            .query('Wallet');
-        return results;
-    }
+export function getExchangeWallets() {
+    let results = Db.query('ExchangeWallet');
+    return results;
+}
+
+export function getLocalWallets(){
+    let results = Db.query('Wallet');
+    return results;
 }

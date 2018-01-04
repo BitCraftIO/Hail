@@ -1,52 +1,66 @@
-//@flow
 import Realm from "realm";
-export default class Db {
-	
-	constructor() {
-		//if (realm === null) {realm = require("realm");};
-	}
+import config from "./config";
+import Transaction from "../models/Transaction";
+import Wallet from "../models/Wallet";
+import ExchangeWallet from "../models/ExchangeWallet";
 
-	query(model: string, filter?: string) {
-		let results = this.Realm.objects(model);
-		if(filter) {
-			return results.filtered(filter);
-		}
-		return results;
+let realm = new Realm({
+	schema: [Wallet, Transaction, ExchangeWallet],
+	path: config.db_path,
+});
+
+function query(model, filter) {
+	let results = this.realm.objects(model);
+	if(filter) {
+		return results.filtered(filter);
 	}
-	
-	delete(model:string, obj) {
-		this.write(() => {
-			Realm.delete(obj);
+	return results;
+};
+
+function insert(model, options) {
+	this.write(() => {
+		realm.create(model, options);
+	});
+};
+
+function del(model, obj) {
+	this.write(() => {
+		realm.delete(obj);
+	});
+};
+
+function update(obj, options) {
+	this.write(() => {
+		Object.keys(options).map((key, attribute) => {
+			obj[key] = attribute;
 		});
-	}
+	});
+};
 
-	insert(model: string, options) {
-		this.write(() => {
-			Realm.create(model, options);
-		});
+function write(func){
+	try {
+		realm.write(func);
+	} catch(e) {
+		throw new Error('Db.js :: Write operation failed');
 	}
+};
 
-	update(obj, options) {
-		this.write(() => {
-			Object.keys(options).map((key, attribute) => {
-				obj[key] = attribute;
-			});
-		});
-	}
+function close() {
+	Realm.close()
+};
 
-	write(func){
-		try {
-			Realm.write(func);
-		} catch(e) {
-			throw new Error('Db.js :: Write operation failed');
-		}
-	}
+function createRealm() {
 
-	close() {
-		Realm.close()
-	}
-	
-	createRealm() {
+};
 
-	}
-}
+
+module.exports = {
+	query: query,
+	delete: del,
+	insert: insert,
+	update: update,
+	write: write,
+	close: close,
+	createRealm: createRealm,
+	realm: realm,
+};

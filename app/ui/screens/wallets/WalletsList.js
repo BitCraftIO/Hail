@@ -1,22 +1,52 @@
 import React from 'react';
 import {Header, SectionList, FlatList, StyleSheet, Text, View, TextInput, Button, Platform, NativeModules, StatusBar, Keyboard} from 'react-native';
+import * as Db from "../../../localstorage/db/Db";
 import WalletElement from "./WalletElement.js";
+import Actions from "../../../localstorage/Actions";
+import * as queries from "../../../localstorage/Queries";
 
 
 export default class WalletsList extends React.Component {
 
 	static navigationOptions = {
         header: () => {
-        }
+}
     };
 
     constructor(props) {
         super(props);
+
+        //Realm results objects
+        this.localWallets = queries.getLocalWallets().sorted('id');
+        this.exchangeWallets = queries.getExchangeWallets().sorted('id');
+        //Mark listeners
+        this.localWallets.addListener((wallets, changes) => {
+            this.setState({
+                walletData: this.localWallets
+            });
+            // changes.insertions.forEach((index) => {
+            //     this.setState({
+            //         walletData: this.walletData.push(wallets[index])
+            //     });
+            // });
+
+            // changes.modifications.forEach((index) => {
+            //     this.setState({
+            //         walletData: this.localWallets
+            //     });
+            // });
+        });
+        this.exchangeWallets.addListener((wallets, changes) => {
+            this.setState({
+                exchangeWalletData: this.exchangeWallets
+            });
+        });
+
         this.state = {
             "localWallets": true,
-            "walletData": this.walletData,
+            "walletData": this.localWallets,
             "exchangeWallets": true,
-            "exchangeWalletData":this.exchangeWalletData
+            "exchangeWalletData":this.exchangeWallets, 
         };
     }
 

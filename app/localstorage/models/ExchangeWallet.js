@@ -1,6 +1,7 @@
 import Db from "../db/Db";
 import Realm from "realm";
-export default class ExchangeWallet extends Realm {}
+
+export default class ExchangeWallet extends Realm.Object {}
 ExchangeWallet.schema = {
 	name: "ExchangeWallet",
 	primaryKey: "id",
