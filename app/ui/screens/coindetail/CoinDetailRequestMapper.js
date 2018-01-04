@@ -1,5 +1,7 @@
 // @flow
 
+import {getNewsItems} from "../../../coin/CoinNews";
+import type {CoinNewsItem} from "../../../coin/CoinNews";
 import type { CoinPrice } from "../../../coin/CoinPrice";
 import aggregate from "../../../coin/PriceDataAggregator";
 import { pricesByTheMinute, pricesByTheDay, pricesByTheHour } from "../../../network/HistoricalPricesApi"
@@ -51,4 +53,8 @@ export async function getCoinGraphData(coinName: string): Promise<CoinGraphData>
         month: aggregatedMonthByHour,
         year: oneYearByTheDay
     };
+}
+
+export async function getNews(coinName: string): Promise<Array<CoinNewsItem>> {
+    return getNewsItems(coinName);
 }

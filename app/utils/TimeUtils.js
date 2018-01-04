@@ -8,6 +8,8 @@ export const DAY = "day";
 export const ONE_MINUTE_IN_SECONDS: number = 60;
 export const ONE_HOUR_IN_SECONDS: number = 3600;
 export const ONE_DAY_IN_SECONDS: number = 86400;
+export const ONE_MONTH_IN_SECONDS: number = 2592000;
+export const ONE_YEAR_IN_SECONDS: number = 31536000;
 
 export const ONE_HOUR_IN_MINUTES: number = 60;
 export const ONE_DAY_IN_MINUTES: number = 1440;
@@ -45,9 +47,32 @@ export function calculateFromTime(interval: Interval): number {
     return timeDiff(SECOND, timeSinceInSeconds, now());
 }
 
+export function timeSinceString(sinceTimestamp: number | Date) {
+    let intervals = [
+        { label: 'year', seconds: ONE_YEAR_IN_SECONDS },
+        { label: 'month', seconds: ONE_MONTH_IN_SECONDS },
+        { label: 'day', seconds: ONE_DAY_IN_SECONDS },
+        { label: 'hour', seconds: ONE_HOUR_IN_SECONDS },
+        { label: 'minute', seconds: ONE_MINUTE_IN_SECONDS },
+        { label: 'second', seconds: 0 }
+    ];
+
+    if (typeof sinceTimestamp !== "number") {
+        sinceTimestamp = sinceTimestamp.getTime();
+    }
+    const seconds = now() - sinceTimestamp;
+    const interval = intervals.find(i => i.seconds < seconds);
+    const count = Math.floor(seconds / interval.seconds);
+    return `${count} ${interval.label}${count !== 1 ? 's' : ''} ago`;
+}
+
 export function timeDiff(timeUnit: TimeUnit, fromTime: number, toTime: number): number {
     const diff = toTime - fromTime;
     return secondsToUnit(diff, timeUnit);
+}
+
+export function timeFromDateString(date:string) {
+    return Math.floor(new Date(date).getTime() / 1000);
 }
 
 function unitToSeconds(number:number, unit: TimeUnit): number {
