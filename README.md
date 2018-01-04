@@ -1,3 +1,5 @@
+http://makeitopen.com/docs/en/1-2-design.html
+
 # Setup
 Things you'll need: 
 - [android sdk](https://developer.android.com/sdk/download.html) for creating and running emulators

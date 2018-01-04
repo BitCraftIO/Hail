@@ -9,7 +9,8 @@ export default WatchListActions = (dispatch) => {
     const creator = resourceActionCreator(dispatch);
     const getCoinData = creator(RESOURCE_GET_COIN_DATA, RESOURCE_GET_COIN_DATA_TAG, async () => {
             const coins = await allWatchlistCoins();
-            return getWatchlistCoinData(coins[0]);
+            const coinDataPromises = coins.map(coin => getWatchlistCoinData(coin));
+            return Promise.all(coinDataPromises);
     });
 
     return {

@@ -1,5 +1,4 @@
 import generateReducer from "../../../../reduxhelpers/CreateReducer";
-import { createGetWatchlistCoinsResourceReducer, GetWatchlistCoinsInitialState } from "../../../../shared/GetWatchlistCoinsResource";
 import { createResourceReducerStates , resourceInitialState } from "../../../../reduxhelpers/CreateResource";
 import {RESOURCE_GET_COIN_DATA, RESOURCE_GET_COIN_DATA_TAG} from "./WatchlistActions";
 

@@ -1,5 +1,5 @@
 // @flow
-import { storeListItem , getList } from "../../../LocalStorage";
+import { storeListItem , getList } from "../../../localstorage/SimpleStorage";
 
 const KEY_COIN_LIST = "WatchlistStorage.CoinList";
 

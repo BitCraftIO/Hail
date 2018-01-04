@@ -29,12 +29,11 @@
     "react-native-elements": "^0.18.5",
     "react-native-modalbox": "^1.4.2",
     "react-native-svg": "^5.5.1",
-    "react-navigation": "^1.0.0-beta.21",
+    "react-native-svg-charts": "^2.0.1",
+    "react-navigation": "^1.0.0-beta.22",
     "react-redux": "^5.0.6",
     "realm": "^2.0.13",
     "redux": "^3.7.2",
-    "redux-thunk": "^2.2.0",
-    "victory-core": "^20.6.0",
-    "victory-native": "^0.15.0"
+    "redux-thunk": "^2.2.0"
   }
 }
