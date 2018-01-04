@@ -7,7 +7,7 @@
     "jest-expo": "23.0.0",
     "react-test-renderer": "16.0.0",
     "redux-devtools": "^3.4.1",
-    "redux-logger": "latest"
+    "redux-logger": "^3.0.6"
   },
   "main": "./App.js",
   "scripts": {
@@ -18,15 +18,15 @@
     "preset": "jest-expo"
   },
   "dependencies": {
-    "cheerio": "^1.0.0-rc.2",
     "expo": "^23.0.4",
+    "expo": "^23.0.6",
     "numeral": "^2.0.6",
-    "react": "16.0.0",
+    "react": "^16.0.0",
     "react-native": "^0.51.0",
     "react-native-dropdownalert": "^3.1.2",
     "react-native-svg": "^5.5.1",
     "react-native-svg-charts": "^2.0.1",
-    "react-navigation": "^1.0.0-beta.21",
+    "react-navigation": "^1.0.0-beta.22",
     "react-redux": "^5.0.6",
     "redux": "^3.7.2",
     "redux-thunk": "^2.2.0"
