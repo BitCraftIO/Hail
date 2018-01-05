@@ -2,7 +2,7 @@ import React from 'react';
 import {Header, SectionList, FlatList, StyleSheet, Text, View, TextInput, Button, Platform, NativeModules, StatusBar, Keyboard} from 'react-native';
 import * as Db from "../../../localstorage/db/Db";
 import WalletElement from "./WalletElement.js";
-import Actions from "../../../localstorage/Actions";
+import * as actions from "../../../localstorage/Actions";
 import * as queries from "../../../localstorage/Queries";
 
 
