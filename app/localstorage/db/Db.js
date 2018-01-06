@@ -9,6 +9,8 @@ let realm = new Realm({
 	path: config.db_path,
 });
 
+console.log(realm.path);
+
 function query(model, filter) {
 	let results = this.realm.objects(model);
 	if(filter) {
