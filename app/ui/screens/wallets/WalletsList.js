@@ -15,39 +15,28 @@ export default class WalletsList extends React.Component {
 
     constructor(props) {
         super(props);
-
-        //Realm results objects
-        this.localWallets = queries.getLocalWallets().sorted('id');
-        this.exchangeWallets = queries.getExchangeWallets().sorted('id');
-        //Mark listeners
-        this.localWallets.addListener((wallets, changes) => {
-            this.setState({
-                walletData: this.localWallets
-            });
-            // changes.insertions.forEach((index) => {
-            //     this.setState({
-            //         walletData: this.walletData.push(wallets[index])
-            //     });
-            // });
-
-            // changes.modifications.forEach((index) => {
-            //     this.setState({
-            //         walletData: this.localWallets
-            //     });
-            // });
-        });
-        this.exchangeWallets.addListener((wallets, changes) => {
-            this.setState({
-                exchangeWalletData: this.exchangeWallets
-            });
-        });
-
         this.state = {
             "localWallets": true,
-            "walletData": this.localWallets,
             "exchangeWallets": true,
-            "exchangeWalletData":this.exchangeWallets, 
+            //Realm results objects
+            "localWalletData": queries.getLocalWallets().sorted('id'),
+            "exchangeWalletData": queries.getExchangeWallets().sorted('id'), 
         };
+        
+        //Mark listeners
+        this.state.localWalletData.addListener((wallets, changes) => {
+
+            //Better than doing forceUpdate
+            this.setState({
+                localWalletData: queries.getLocalWallets().sorted('id')
+            });
+        });
+
+        this.state.exchangeWalletData.addListener((wallets, changes) => {
+            this.setState({
+                exchangeWalletData:  queries.getExchangeWallets().sorted('id')
+            });
+        });
     }
 
     openWallet(walletID) {
@@ -73,43 +62,15 @@ export default class WalletsList extends React.Component {
                     sections ={[
                         {
                             //data: this.state.walletData,
-                            data: [
-                                {
-                                    symbol: "BTC",
-                                    aggregateCoins: 1.34,
-                                    name: "Personal Wallet",
-                                    aggregateValue: 15.123,
-                                    percentageGrowth: 53,
-                                    key: 1,
-                                    walletID: 123
-                                },
-                                {
-                                    symbol: "ETH",
-                                    aggregateCoins: 0.56,
-                                    name: "Public Wallet",
-                                    aggregateValue: 141.23,
-                                    percentageGrowth: -53,
-                                    key: 2,
-                                    walletID: 124
-                                },
-                                {
-                                    symbol: "XMR",
-                                    aggregateCoins: 300.34,
-                                    name: "Savings",
-                                    aggregateValue: 150,
-                                    percentageGrowth: 400,
-                                    key: 3,
-                                    walletID: 125
-                                },
-                            ],
+                            data: this.state.localWalletData,
                             title: "Local Wallets",
                             renderItem: (wallet) => 
                                 <WalletElement
-                                       symbol={wallet.item.symbol}
-                                       aggregateCoins={wallet.item.aggregateCoins}
+                                       symbol={wallet.item.network}
+                                       aggregateCoins={0}
                                        name={wallet.item.name}
-                                       aggregateValue={wallet.item.aggregateValue}
-                                       percentageGrowth={wallet.item.percentageGrowth}
+                                       aggregateValue={0}
+                                       percentageGrowth={0}
                                        onPress={() => this.openWallet(wallet.item.walletID)}
                                />
     
