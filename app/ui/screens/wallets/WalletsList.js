@@ -18,6 +18,7 @@ export default class WalletsList extends React.Component {
         this.state = {
             "localWallets": true,
             "exchangeWallets": true,
+
             //Realm results objects
             "localWalletData": queries.getLocalWallets().sorted('id'),
             "exchangeWalletData": queries.getExchangeWallets().sorted('id'), 
@@ -39,7 +40,7 @@ export default class WalletsList extends React.Component {
         });
     }
 
-    openWallet(walletID) {
+    _openWallet(walletID) {
         const {navigate} = this.props.navigation;
         navigate("WalletDetailsPage", {"walletID": walletID});
     }
@@ -49,77 +50,61 @@ export default class WalletsList extends React.Component {
         navigate("NewWalletPage");
     }
 
+    _newWalletButton() {
+        return (
+            <Button 
+                title={"New Wallet"}
+                onPress={() => this._newWallet()}
+            />
+        );
+    }
+
+    _walletsList() {
+        var sections = [
+            {
+                data: this.state.localWalletData,
+                title: "Local Wallets",
+                renderItem: (wallet) => 
+                    <WalletElement
+                        symbol={wallet.item.network}
+                        aggregateCoins={0}
+                        name={wallet.item.name}
+                        aggregateValue={0}
+                        percentageGrowth={0}
+                        onPress={() => this._openWallet(wallet.item.walletID)}
+                    />
+
+                
+            },
+            {
+                data: this.state.exchangeWalletData,
+                title: "Exchange Wallets",
+                renderItem: (wallet) => 
+                    <WalletElement
+                        symbol={wallet.item.symbol}
+                        aggregateCoins={wallet.item.aggregateCoins}
+                        name={wallet.item.name}
+                        aggregateValue={wallet.item.aggregateValue}
+                        percentageGrowth={wallet.item.percentageGrowth}
+                        onPress={() => this._openWallet(wallet.item.walletID)}
+                    />
+            },
+        ]
+
+        return (
+            <SectionList
+                style={styles.list}
+                renderSectionHeader={({section}) => <Text style={styles.sectionHeader}>{section.title} </Text>}
+                sections={sections}   
+            />
+        );
+    }
+
     render() {
         return (
             <View style={styles.background}>
-                <Button 
-                    title={"New Wallet"}
-                    onPress={() => this._newWallet()}
-                />
-                <SectionList
-                    style={styles.list}
-                    renderSectionHeader={({section}) => <Text style={styles.sectionHeader}>{section.title} </Text>}
-                    sections ={[
-                        {
-                            //data: this.state.walletData,
-                            data: this.state.localWalletData,
-                            title: "Local Wallets",
-                            renderItem: (wallet) => 
-                                <WalletElement
-                                       symbol={wallet.item.network}
-                                       aggregateCoins={0}
-                                       name={wallet.item.name}
-                                       aggregateValue={0}
-                                       percentageGrowth={0}
-                                       onPress={() => this.openWallet(wallet.item.walletID)}
-                               />
-    
-                            
-                        },
-                        {
-                            //data: this.state.exchangeWalletData,
-                            data: [
-                                {
-                                    symbol: "BTC",
-                                    aggregateCoins: 1.34,
-                                    name: "COINBASE",
-                                    aggregateValue: 15.123,
-                                    percentageGrowth: 53,
-                                    key: 1,
-                                    walletID: 123
-                                },
-                                {
-                                    symbol: "ETH",
-                                    aggregateCoins: 0.56,
-                                    name: "GEMINI",
-                                    aggregateValue: 141.23,
-                                    percentageGrowth: -53,
-                                    key: 2,
-                                    walletID: 124
-                                },
-                                {
-                                    symbol: "XMR",
-                                    aggregateCoins: 300.34,
-                                    name: "BITFINEX",
-                                    aggregateValue: 150,
-                                    percentageGrowth: 400,
-                                    key: 3,
-                                    walletID: 125
-                                },
-                            ],
-                            title: "Exchange Wallets",
-                            renderItem: (wallet) => 
-                                <WalletElement
-                                       symbol={wallet.item.symbol}
-                                       aggregateCoins={wallet.item.aggregateCoins}
-                                       name={wallet.item.name}
-                                       aggregateValue={wallet.item.aggregateValue}
-                                       percentageGrowth={wallet.item.percentageGrowth}
-                                       onPress={() => this.openWallet(wallet.item.walletID)}
-                               />
-                        },
-                    ]}   
-                />
+                {this._newWalletButton()}
+                {this._walletsList()}
             </View>
 
         )
@@ -134,7 +119,7 @@ styles = StyleSheet.create({
         backgroundColor: '#11151c',
     },
     list: {
-        paddingTop: 70,
+        //paddingTop: 70,
     },
     sectionHeader: {
         fontFamily: "Avenir",
