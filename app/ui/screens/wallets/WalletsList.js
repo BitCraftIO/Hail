@@ -26,17 +26,12 @@ export default class WalletsList extends React.Component {
         
         //Mark listeners
         this.state.localWalletData.addListener((wallets, changes) => {
-
-            //Better than doing forceUpdate
-            this.setState({
-                localWalletData: queries.getLocalWallets().sorted('id')
-            });
+            this.setState(this.state);
         });
 
         this.state.exchangeWalletData.addListener((wallets, changes) => {
-            this.setState({
-                exchangeWalletData:  queries.getExchangeWallets().sorted('id')
-            });
+            this.setState(this.state);
+
         });
     }
 
