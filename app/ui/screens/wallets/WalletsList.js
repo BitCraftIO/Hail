@@ -35,9 +35,9 @@ export default class WalletsList extends React.Component {
         });
     }
 
-    _openWallet(walletID) {
+    _openWallet(wallet) {
         const {navigate} = this.props.navigation;
-        navigate("WalletDetailsPage", {"walletID": walletID});
+        navigate("WalletDetailsPage", {"wallet": wallet});
     }
 
     _newWallet() {
@@ -66,7 +66,7 @@ export default class WalletsList extends React.Component {
                         name={wallet.item.name}
                         aggregateValue={0}
                         percentageGrowth={0}
-                        onPress={() => this._openWallet(wallet.item.walletID)}
+                        onPress={() => this._openWallet(wallet.item)}
                     />
 
                 
@@ -81,7 +81,7 @@ export default class WalletsList extends React.Component {
                         name={wallet.item.name}
                         aggregateValue={wallet.item.aggregateValue}
                         percentageGrowth={wallet.item.percentageGrowth}
-                        onPress={() => this._openWallet(wallet.item.walletID)}
+                        onPress={() => this._openWallet(wallet.item)}
                     />
             },
         ]

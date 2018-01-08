@@ -2,14 +2,14 @@ import React from 'react';
 import {FlatList, StyleSheet, Text, View, TextInput, Button, Platform, NativeModules, StatusBar, Keyboard} from 'react-native';
 import PropTypes from 'prop-types';
 
-export default class WalletsList extends React.Component {
+export default class WalletDetailsPage extends React.Component {
+	
 	constructor(props) {
-    	super(props)
-    	const wallet = this.getWalletFromID(this.props.navigation.state.params.walletID)
-    	this.state = {
-            walletID: this.props.navigation.state.params.walletID,
-            wallet: wallet 
-        };
+		super(props)
+		
+		this.state = {
+			wallet: props.navigation.state.params.wallet,
+		};
     }
 
     getWalletFromID(id) {
@@ -112,11 +112,11 @@ export default class WalletsList extends React.Component {
 	render() {
 		return (
 			<View>
-				<Text> {this.state.walletID} </Text>
+				<Text> {this.state.wallet.id} </Text>
 				<Text> {this.state.wallet.name} </Text>
 				<Text> {this.state.wallet.network} </Text>
-				<Text> {this.state.wallet.aggregateCoins()} </Text>
-				<Text> {this.state.wallet.aggregateValue()['value']} </Text>
+				<Text> {this.state.wallet.aggregateCoins} </Text>
+				<Text> {this.state.wallet.aggregateValue} </Text>
 				<Button 
 					title="MakeOrReceiveTransaction"
 					onPress={() => this.goToMakeOrReceiveTransaction(this.state.walletID)} 
