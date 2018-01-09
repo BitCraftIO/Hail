@@ -15,13 +15,7 @@ export default class WalletDetailsPage extends React.Component {
     }
 
     goToMakeOrReceiveTransaction = (walletID) => {
-        // const {navigate} = this.props.navigation;
-        // navigate("MakeOrReceiveTransactionPage", {
-        // 	"walletID": walletID, 
-        // 	"network": this.state.wallet.network,
-        // 	"aggregateCoins": this.state.wallet.aggregateCoins(),
-        // 	"aggregateValue": this.state.wallet.aggregateValue(),
-        // });
+
     }
 
     _deleteThisWallet(id) {
