@@ -1,9 +1,9 @@
 import Db from "../db/Db";
 import Realm from "realm";
 
-export default class ExchangeWallet extends Realm.Object {}
-ExchangeWallet.schema = {
-	name: "ExchangeWallet",
+export default class BitstampWallet extends Realm.Object {}
+BitstampWallet.schema = {
+	name: "BitstampWallet",
 	primaryKey: "id",
 	properties: {
 		id: "int",

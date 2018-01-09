@@ -1,9 +1,9 @@
 import Db from "../db/Db";
 import Realm from "realm";
 
-export default class Transaction extends Realm.Object{}
-Transaction.schema = {
-	name: "Transaction",
+export default class BTCTransaction extends Realm.Object{}
+BTCTransaction.schema = {
+	name: "BTCTransaction",
 	primaryKey: "id",
 	properties: {
 		id: "int",

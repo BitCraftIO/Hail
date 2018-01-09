@@ -1,11 +1,13 @@
 import Realm from "realm";
 import config from "./config";
-import Transaction from "../models/Transaction";
-import Wallet from "../models/Wallet";
-import ExchangeWallet from "../models/ExchangeWallet";
+import BTCTransaction from "../models/BTCTransaction";
+import LTCTransaction from "../models/LTCTransaction";
+import BTCWallet from "../models/BTCWallet";
+import LTCWallet from "../models/LTCWallet";
+import Bitstampwallet from "../models/Bitstampwallet";
 
 let realm = new Realm({
-	schema: [Wallet, Transaction, ExchangeWallet],
+	schema: [BTCWallet, BTCTransaction, LTCWallet, LTCTransaction, Bitstampwallet],
 	path: config.db_path,
 });
 
