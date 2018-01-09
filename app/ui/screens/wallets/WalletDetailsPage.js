@@ -1,6 +1,7 @@
 import React from 'react';
 import {FlatList, StyleSheet, Text, View, TextInput, Button, Platform, NativeModules, StatusBar, Keyboard} from 'react-native';
 import PropTypes from 'prop-types';
+import * as actions from "../../../localstorage/Actions";
 
 export default class WalletDetailsPage extends React.Component {
 	
@@ -9,90 +10,8 @@ export default class WalletDetailsPage extends React.Component {
 		
 		this.state = {
 			wallet: props.navigation.state.params.wallet,
+			renderSuccess: false,
 		};
-    }
-
-    getWalletFromID(id) {
-    	//TODO: Implement datasource
-    	const data = {
-			123: {
-				name: "Personal Wallet",
-				network: "BTC",
-				masterKey: "29sfdsf8gudsfgslsdfgAV",
-				id: 123,
-				receiveAddresses: [
-					"ASDFASDFSAGDSFGssfg"
-				],
-				changeAddress: "ASDFASDFSAGDSFGssfg",
-				transactions: [
-					{
-						inputs: ["ASDFASDFSAGDSFGssfg"],
-						outputs: ["ASDFASDFSAGDSFGssfg"]
-					}
-				],
-				aggregateCoins: () => {
-					//counts coins
-					return 1.34
-				},
-				aggregateValue: () => {
-					//pass aggregate coins to server and ask for price data
-					return {value: 15.123, currency: "USD"}
-				}
-			},
-			124: {
-				name: "Public Wallet",
-				network: "ETH",
-				masterKey: "29sfdsf8gudsfgslsdfgAV",
-				id: 124,
-				receiveAddresses: [
-					"ASDFASDFSAGDSFGssfg"
-				],
-				changeAddress: "ASDFASDFSAGDSFGssfg",
-				transactions: [
-					{
-						inputs: ["ASDFASDFSAGDSFGssfg"],
-						outputs: ["ASDFASDFSAGDSFGssfg"]
-					}
-				],
-				aggregateCoins: () => {
-					//counts coins
-					return 1.34
-				},
-				aggregateValue: () => {
-					//pass aggregate coins to server and ask for price data
-					return {value: 15.123, currency: "USD"}
-				}
-			},
-			125: {
-				name: "Personal Wallet",
-				network: "XMR",
-				masterKey: "29sfdsf8gudsfgslsdfgAV",
-				id: 125,
-				receiveAddresses: [
-					"ASDFASDFSAGDSFGssfg"
-				],
-				changeAddress: "ASDFASDFSAGDSFGssfg",
-				transactions: [
-					{
-						inputs: ["ASDFASDFSAGDSFGssfg"],
-						outputs: ["ASDFASDFSAGDSFGssfg"]
-					}
-				],
-				aggregateCoins: () => {
-					//counts coins
-					return 1.34
-				},
-				aggregateValue: () => {
-					//pass aggregate coins to server and ask for price data
-					return {value: 15.123, currency: "USD"}
-				}
-			}
-    	}
-    	return data[id]
-    }
-
-	static propTypes = {
-        //walletID: PropTypes.number.isRequired,
     }
 
     goToMakeOrReceiveTransaction = (walletID) => {
@@ -105,9 +24,17 @@ export default class WalletDetailsPage extends React.Component {
         // });
     }
 
-    _deleteThisWallet() {
-
-    }
+    _deleteThisWallet(id) {
+		actions.deleteWalletById(id);
+		const {goBack} = this.props.navigation;
+        goBack();
+	}
+	
+	_renderSuccess(){
+		return (
+			<Text>Success</Text>
+		);
+	}
 
 	render() {
 		return (
@@ -123,8 +50,9 @@ export default class WalletDetailsPage extends React.Component {
 				/>
 				<Button 
                     title={"Delete Wallet"}
-                    onPress={this._deleteThisWallet()}
+                    onPress={() => this._deleteThisWallet(this.state.wallet.id)}
                 />
+				{this.state.renderSuccess ? this._renderSuccess : null}
 			</View>
 		);
 	};
