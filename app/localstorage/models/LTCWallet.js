@@ -1,9 +1,9 @@
 import Db from "../db/Db";
 import Realm from "realm";
 
-export default class LTCwallet extends Realm.Object {}
-LTCwallet.schema = {
-	name: "LTCwallet",
+export default class LTCWallet extends Realm.Object {}
+LTCWallet.schema = {
+	name: "LTCWallet",
 	primaryKey: "id",
 	properties: {
 		id: "int",
