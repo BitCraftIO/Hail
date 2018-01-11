@@ -9,9 +9,9 @@ export const codeToCoin = {
 }
 
 export const exchangeToCode = {
-    "Bitfinex":"0001",
+    "Bitstamp":"0001",
 }
 
 export const codeToExchange = {
-    "0001":"Bitfinex",
+    "0001":"Bitstamp",
 }
