@@ -1,5 +1,6 @@
 import * as Db from "./db/Db";
 import * as idhelper from "./utils/idhelper";
+import * as networkCodes from "./utils/networkcodes";
 
 export function getWalletbyId(id) {
     let results = Db.query(idhelper.getModelForId(id), 'id = ' + id);
@@ -10,11 +11,17 @@ export function getWalletbyId(id) {
 }
 
 export function getExchangeWallets() {
-    let results = Db.query('ExchangeWallet');
+    results = [];
+    for (var exchange in networkCodes.exchangeToCode) {
+        results.concat(Array.from(Db.query(exchange+"Wallet")));
+    }
     return results;
 }
 
 export function getLocalWallets(){
-    let results = Db.query('Wallet');
+    results = [];
+    for (var coin in networkCodes.coinToCode) {
+        results.concat(Array.from(Db.query(coin+"Wallet")));
+    }
     return results;
 }
