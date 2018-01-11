@@ -1,13 +1,17 @@
-export const localCodes = {
+export const coinToCode = {
     "BTC":"0001",
     "LTC":"0002",
+}
 
+export const codeToCoin = {
     "0001":"BTC",
     "0002":"LTC",
 }
 
-export const exchangeCodes = {
+export const exchangeToCode = {
     "Bitfinex":"0001",
-    
-    "0001":"Bitfinex"
+}
+
+export const codeToExchange = {
+    "0001":"Bitfinex",
 }

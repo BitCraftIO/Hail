@@ -1,13 +1,13 @@
 import * as queries from "../Queries";
-import {localCodes, exchangeCodes} from "./networkcodes";
+import {coinToCode, exchangeToCode, codeToCoin, codeToExchange} from "./networkcodes";
 
 export function createId(walletType, implementationCode) {
     var id = ""
     if (walletType === "local") {
-        id = "1" + localCodes[implementationCode];
+        id = "1" + coinToCode[implementationCode];
     }
     else if (walletType === "exchange") {
-        id = "2" + exchangeCodes[implementationCode];
+        id = "2" + exchangeToCode[implementationCode];
     }
     else {
         throw new Error("idhelper.js :: walletType was not provided, createId failed");
@@ -27,16 +27,16 @@ export function createId(walletType, implementationCode) {
 export function getModelForId(id) {
     id = String(id);
     if (id[0] == 1) {
-        if (!localCodes[id.substring(1, 5)]){
+        if (!codeToCoin[id.substring(1, 5)]){
             throw new Error("idhelper.js :: id "+id+" did not match");
         }
-        return localCodes[id.substring(1, 5)]+"Wallet";
+        return codeToCoin[id.substring(1, 5)]+"Wallet";
     }
     else if (id[0] == 2) {
-        if (!exchangeCodes[id.substring(1, 5)]){
+        if (!codeToExchange[id.substring(1, 5)]){
             throw new Error("idhelper.js :: id "+id+" did not match");
         }
-        return exchangeCodes[id.substring(1, 5)]+"Wallet";
+        return codeToExchange[id.substring(1, 5)]+"Wallet";
     }
     throw new Error("idhelper.js :: id "+id+" did not match");
 
