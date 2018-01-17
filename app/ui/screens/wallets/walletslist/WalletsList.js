@@ -79,8 +79,11 @@ export default class WalletsList extends React.Component {
     }
 
     render() {
-        console.log(this.props.wallets);
-        if (this.props.wallets.result.local || this.props.wallets.result.exchange) {
+        // if (navigation.state.params.refresh) {
+        //     this.props.getWallets()
+        // }
+        console.log(this.props.wallets.result)
+        if (this.props.wallets.result) { //|| this.props.wallets.result.exchange || this.props.wallets.result.local) {
             var walletsList = this._walletsList();
         } else {
             var walletsList = null;
