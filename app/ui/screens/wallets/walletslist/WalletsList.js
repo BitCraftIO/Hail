@@ -14,9 +14,22 @@ export default class WalletsList extends React.Component {
 
     constructor(props) {
         super(props);
+        this.setState({
+            refresh: true,
+        })
     }
 
+    refresh = () => {
+        console.log(this);
+        this.props.getWallets()
+    }
+
+    //TODO: is this doing anything?
     componentDidMount(){
+        this.props.getWallets()
+    }
+
+    componentWillMount(){
         this.props.getWallets()
     }
 
@@ -27,7 +40,7 @@ export default class WalletsList extends React.Component {
 
     _newWallet() {
         const {navigate} = this.props.navigation;
-        navigate("NewWalletPage");
+        navigate("NewWalletPage", {refresh: this.refresh});
     }
 
     _newWalletButton() {
@@ -79,15 +92,13 @@ export default class WalletsList extends React.Component {
     }
 
     render() {
-        // if (navigation.state.params.refresh) {
-        //     this.props.getWallets()
-        // }
-        console.log(this.props.wallets.result)
-        if (this.props.wallets.result) { //|| this.props.wallets.result.exchange || this.props.wallets.result.local) {
+
+        if (this.props.wallets.result) {
             var walletsList = this._walletsList();
         } else {
             var walletsList = null;
         }
+
         return (
             <View style={styles.background}>
                 {this._newWalletButton()}

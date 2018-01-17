@@ -24,7 +24,7 @@ const Navigator = StackNavigator({
     },
 
     WalletsList: {
-    	screen: WalletsList
+        screen: WalletsList,
     },
 
     CoinDetail: {

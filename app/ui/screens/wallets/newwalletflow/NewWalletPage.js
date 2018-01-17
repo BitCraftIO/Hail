@@ -23,6 +23,17 @@ export default class MakeOrReceiveTransactionPage extends React.Component {
 		};
 	}
 
+	static navigationOptions = {
+        header: () => {}
+    };
+
+	goBack() {
+		const { navigation } = this.props;
+		navigation.goBack();
+		navigation.state.params.refresh();
+		
+	  }
+
 	createWallet() {
 		this.setState({
 			successInfo: "...",
@@ -195,6 +206,10 @@ export default class MakeOrReceiveTransactionPage extends React.Component {
 	render() {
 		return (
 			<View>
+				<Button 
+					title={"Back"}
+					onPress={() => {this.goBack()}}
+				/>
 				<Text>Wallet Name</Text>
 				<TextInput
 					onChangeText={(text) => this.setState({name: text})}
