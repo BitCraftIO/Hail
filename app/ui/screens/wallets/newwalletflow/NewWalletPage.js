@@ -41,7 +41,7 @@ export default class MakeOrReceiveTransactionPage extends React.Component {
 			return
 		}
 		else {
-			const options = {
+			var options = {
 				id: this.state.id,
 				network: this.state.network,
 				name: this.state.name,
@@ -50,32 +50,92 @@ export default class MakeOrReceiveTransactionPage extends React.Component {
 				],
 				masterKey: "Masterkey string",
 				changeAddress: "changeAddress string",
-				transactions: [
-					{
-						id: Math.floor(Math.random()*10000000000),
-						tx: "tx str",
-						fee: 2,
-						input: [
-							"input tx str"
-						],
-						output: [
-							"output tx str"
-						],
-					},
-					{
-						id: Math.floor(Math.random()*10000000000),
-						tx: "tx str",
-						fee: 2,
-						input: [
-							"input tx str"
-						],
-						output: [
-							"output tx str"
-						],
-					}
-	
-				],
 			}; 
+
+			//this is gross
+			switch (this.state.network) {
+				case "BTC":
+					options.BTCTransaction = [
+						{
+							id: Math.floor(Math.random()*10000000000),
+							tx: "tx str",
+							fee: 2,
+							input: [
+								"input tx str"
+							],
+							output: [
+								"output tx str"
+							],
+						},
+						{
+							id: Math.floor(Math.random()*10000000000),
+							tx: "tx str",
+							fee: 2,
+							input: [
+								"input tx str"
+							],
+							output: [
+								"output tx str"
+							],
+						}
+					]
+					break;
+				case "LTC":
+					options.LTCTransaction = [
+						{
+							id: Math.floor(Math.random()*10000000000),
+							tx: "tx str",
+							fee: 2,
+							input: [
+								"input tx str"
+							],
+							output: [
+								"output tx str"
+							],
+						},
+						{
+							id: Math.floor(Math.random()*10000000000),
+							tx: "tx str",
+							fee: 2,
+							input: [
+								"input tx str"
+							],
+							output: [
+								"output tx str"
+							],
+						}
+					]
+					break;
+				case "XMR": 
+					options.XMRTransaction = [
+						{
+							id: Math.floor(Math.random()*10000000000),
+							tx: "tx str",
+							fee: 2,
+							input: [
+								"input tx str"
+							],
+							output: [
+								"output tx str"
+							],
+						},
+						{
+							id: Math.floor(Math.random()*10000000000),
+							tx: "tx str",
+							fee: 2,
+							input: [
+								"input tx str"
+							],
+							output: [
+								"output tx str"
+							],
+						}
+					]
+					break;
+				default:
+					console.log("Switch broke");
+			}
+
 			actions.createWallet(options);
 		}
 		this.setState({

@@ -12,6 +12,6 @@ LTCWallet.schema = {
 		masterKey: "string",
 		receiveAddresses: "string[]",
 		changeAddress: "string",
-		transactions: "Transaction[]"
+		transactions: "LTCTransaction[]"
 	}
 };

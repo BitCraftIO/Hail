@@ -1,38 +1,23 @@
 import React from 'react';
 import {Header, SectionList, FlatList, StyleSheet, Text, View, TextInput, Button, Platform, NativeModules, StatusBar, Keyboard} from 'react-native';
-import * as Db from "../../../localstorage/db/Db";
-import WalletElement from "./components/WalletElement";
-import * as actions from "../../../localstorage/Actions";
-import * as queries from "../../../localstorage/Queries";
+import * as Db from "../../../../localstorage/db/Db";
+import WalletElement from "./../components/WalletElement";
+import * as actions from "../../../../localstorage/Actions";
+import * as queries from "../../../../localstorage/Queries";
 
 
 export default class WalletsList extends React.Component {
 
 	static navigationOptions = {
-        header: () => {
-}
+        header: () => {}
     };
 
     constructor(props) {
         super(props);
-        this.state = {
-            "localWallets": true,
-            "exchangeWallets": true,
+    }
 
-            //Realm results objects
-            "localWalletData": queries.getLocalWallets().sorted('id'),
-            "exchangeWalletData": queries.getExchangeWallets().sorted('id'), 
-        };
-        
-        //Mark listeners
-        this.state.localWalletData.addListener((wallets, changes) => {
-            this.setState(this.state);
-        });
-
-        this.state.exchangeWalletData.addListener((wallets, changes) => {
-            this.setState(this.state);
-
-        });
+    componentDidMount(){
+        this.props.getWallets()
     }
 
     _openWallet(wallet) {
@@ -57,7 +42,7 @@ export default class WalletsList extends React.Component {
     _walletsList() {
         var sections = [
             {
-                data: this.state.localWalletData,
+                data: this.props.wallets.result.local,
                 title: "Local Wallets",
                 renderItem: (wallet) => 
                     <WalletElement
@@ -68,11 +53,9 @@ export default class WalletsList extends React.Component {
                         percentageGrowth={0}
                         onPress={() => this._openWallet(wallet.item)}
                     />
-
-                
             },
             {
-                data: this.state.exchangeWalletData,
+                data: this.props.wallets.result.exchange,
                 title: "Exchange Wallets",
                 renderItem: (wallet) => 
                     <WalletElement
@@ -96,10 +79,16 @@ export default class WalletsList extends React.Component {
     }
 
     render() {
+        console.log(this.props.wallets);
+        if (this.props.wallets.result.local || this.props.wallets.result.exchange) {
+            var walletsList = this._walletsList();
+        } else {
+            var walletsList = null;
+        }
         return (
             <View style={styles.background}>
                 {this._newWalletButton()}
-                {this._walletsList()}
+                {walletsList}
             </View>
 
         )

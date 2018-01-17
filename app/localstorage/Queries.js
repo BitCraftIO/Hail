@@ -13,7 +13,7 @@ export function getWalletbyId(id) {
 export function getExchangeWallets() {
     results = [];
     for (var exchange in networkCodes.exchangeToCode) {
-        results.concat(Array.from(Db.query(exchange+"Wallet")));
+        results = results.concat(Array.from(Db.query(exchange+"Wallet")));
     }
     return results;
 }
@@ -21,7 +21,7 @@ export function getExchangeWallets() {
 export function getLocalWallets(){
     results = [];
     for (var coin in networkCodes.coinToCode) {
-        results.concat(Array.from(Db.query(coin+"Wallet")));
+        results = results.concat(Array.from(Db.query(coin+"Wallet")));
     }
     return results;
 }

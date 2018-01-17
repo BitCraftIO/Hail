@@ -4,10 +4,10 @@ import BTCTransaction from "../models/BTCTransaction";
 import LTCTransaction from "../models/LTCTransaction";
 import BTCWallet from "../models/BTCWallet";
 import LTCWallet from "../models/LTCWallet";
-import Bitstampwallet from "../models/Bitstampwallet";
+import BitstampWallet from "../models/BitstampWallet";
 
 let realm = new Realm({
-	schema: [BTCWallet, BTCTransaction, LTCWallet, LTCTransaction, Bitstampwallet],
+	schema: [BTCWallet, BTCTransaction, LTCWallet, LTCTransaction, BitstampWallet],
 	path: config.db_path,
 });
 
