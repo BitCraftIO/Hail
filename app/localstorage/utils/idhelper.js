@@ -16,7 +16,7 @@ export function createId(walletType, implementationCode) {
     var checked = false;
     while (!checked) {
         var tryId = randomIdGenerator()
-        if (queries.getWalletbyId(id+tryId) != null) {
+        if (queries.getWalletbyId(id+tryId) == 0) {
             checked = true
             id += tryId;
         }

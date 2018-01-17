@@ -3,6 +3,7 @@ import {FlatList, StyleSheet, Text, View, TextInput, Button, Platform, NativeMod
 import {CheckBox} from "react-native-elements"
 import PropTypes from "prop-types";
 import * as actions from "../../../../localstorage/Actions";
+import * as idhelper from "../../../../localstorage/utils/idhelper";
 
 
 export default class MakeOrReceiveTransactionPage extends React.Component {
@@ -19,7 +20,7 @@ export default class MakeOrReceiveTransactionPage extends React.Component {
 			xmrchecked: false,
 			network: null,
 			type: null,
-			id: Math.floor(Math.random()*10000000000)
+			id: null,
 		};
 	}
 
@@ -49,11 +50,12 @@ export default class MakeOrReceiveTransactionPage extends React.Component {
 			return
 		}
 		if (this.state.type == "exchange") {
+			alert("No exchanges implemented");
 			return
 		}
 		else {
 			var options = {
-				id: this.state.id,
+				id: idhelper.createId("local", this.state.network),
 				network: this.state.network,
 				name: this.state.name,
 				receiveAddresses: [

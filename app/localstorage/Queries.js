@@ -4,9 +4,6 @@ import * as networkCodes from "./utils/networkcodes";
 
 export function getWalletbyId(id) {
     let results = Db.query(idhelper.getModelForId(id), 'id = ' + id);
-    if (results.length == 0){
-        return null;
-    }
     return results;
 }
 
