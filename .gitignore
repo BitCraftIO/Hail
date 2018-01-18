@@ -1,10 +1,14 @@
 # See https://help.github.com/ignore-files/ for more about ignoring files.
-
+.eslintrc.json
 # expo
 .expo/
 
 # dependencies
 /node_modules
+
+.vscode/*
+android/app/build
+android/build
 
 # misc
 .env.local

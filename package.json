@@ -1,10 +1,16 @@
 {
-  "name": "hail-react-native",
+  "name": "hail",
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-eslint": "^8.1.2",
+    "babel-jest": "22.0.4",
+    "babel-preset-flow": "^6.23.0",
+    "babel-preset-react-native": "4.0.0",
     "flow-bin": "^0.56.0",
-    "jest-expo": "23.0.0",
+    "jest": "22.0.4",
+    "prettier-eslint": "^8.7.0",
     "react-test-renderer": "16.0.0",
     "redux-devtools": "^3.4.1",
     "redux-logger": "^3.0.6"
@@ -12,22 +18,29 @@
   "main": "./App.js",
   "scripts": {
     "flow": "node_modules/flow-bin/flow-osx-v0.56.0/flow status",
-    "test": "node node_modules/jest/bin/jest.js --watch"
+    "test": "node node_modules/jest/bin/jest.js --watch",
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "flow start": "flow start",
+    "flow stop": "flow stop",
+    "flow status": "flow status",
+    "flow coverage": "flow coverage"
   },
   "jest": {
-    "preset": "jest-expo"
+    "preset": "react-native"
   },
   "dependencies": {
-    "expo": "^23.0.4",
-    "expo": "^23.0.6",
     "numeral": "^2.0.6",
-    "react": "^16.0.0",
+    "react": "16.0.0",
     "react-native": "^0.51.0",
     "react-native-dropdownalert": "^3.1.2",
+    "react-native-elements": "^0.18.5",
+    "react-native-modalbox": "^1.4.2",
     "react-native-svg": "^5.5.1",
     "react-native-svg-charts": "^2.0.1",
+    "react-native-vector-icons": "^4.4.3",
     "react-navigation": "^1.0.0-beta.22",
     "react-redux": "^5.0.6",
+    "realm": "^2.0.13",
     "redux": "^3.7.2",
     "redux-thunk": "^2.2.0"
   }
