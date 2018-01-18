@@ -1,7 +1,7 @@
 import React from 'react';
 import {FlatList, StyleSheet, Text, View, TextInput, Button, Platform, NativeModules, StatusBar, Keyboard} from 'react-native';
 import PropTypes from 'prop-types';
-import * as actions from "../../../localstorage/Actions";
+import * as actions from "hail/app/ui/screens/wallets/utils/Actions";
 
 export default class WalletDetailsPage extends React.Component {
 	

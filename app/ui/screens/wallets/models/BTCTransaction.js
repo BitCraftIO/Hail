@@ -1,4 +1,4 @@
-import Db from "../db/Db";
+import Db from "hail/app/localstorage/db/Db";
 import Realm from "realm";
 
 export default class BTCTransaction extends Realm.Object{}

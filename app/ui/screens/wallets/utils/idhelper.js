@@ -1,4 +1,4 @@
-import * as queries from "../Queries";
+import * as queries from "./Queries";
 import {coinToCode, exchangeToCode, codeToCoin, codeToExchange} from "./networkcodes";
 
 export function createId(walletType, implementationCode) {

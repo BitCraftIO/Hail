@@ -1,7 +1,7 @@
-import * as Db from "./db/Db";
+import * as Db from "hail/app/localstorage/db/Db";
 import * as queries from "./Queries";
-import * as idhelper from "./utils/idhelper";
-import * as networkCodes from "./utils/networkcodes";
+import * as idhelper from "./idhelper";
+import * as networkCodes from "./networkcodes";
 
 //Realm write operations are synchronous
 

@@ -2,8 +2,8 @@ import React from "react";
 import {FlatList, StyleSheet, Text, View, TextInput, Button, Platform, NativeModules, StatusBar, Keyboard} from "react-native";
 import {CheckBox} from "react-native-elements"
 import PropTypes from "prop-types";
-import * as actions from "../../../../localstorage/Actions";
-import * as idhelper from "../../../../localstorage/utils/idhelper";
+import * as actions from "hail/app/ui/screens/wallets/utils/Actions";
+import * as idhelper from "hail/app/ui/screens/wallets/utils/idhelper";
 
 
 export default class MakeOrReceiveTransactionPage extends React.Component {
