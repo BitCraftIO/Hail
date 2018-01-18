@@ -7,15 +7,13 @@ export const WALLET_LIST_DATA_RESOURCE = "WalletDetailsPage.Resource.wallets";
 export const WALLET_LIST_DATA_RESOURCE_TAG = "wallets";
 export const PAGE = "WalletList";
 
-export function WalletListAction(dispath) {
+export function WalletListAction(dispatch) {
     return {
-        getWallets: createResourceAction(dispath, WALLET_LIST_DATA_RESOURCE, WALLET_LIST_DATA_RESOURCE_TAG, () => {
-            return new Promise((resolve, reject) => {
-                resolve({
+        getWallets: createResourceAction(dispatch, WALLET_LIST_DATA_RESOURCE, WALLET_LIST_DATA_RESOURCE_TAG, async () => {
+                return ({
                     local: queries.getLocalWallets(),
                     exchange: queries.getExchangeWallets()
                 })
-            })
         }),
     }
 }

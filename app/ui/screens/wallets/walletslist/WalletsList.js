@@ -24,6 +24,13 @@ export default class WalletsList extends React.Component {
         this.props.getWallets()
     }
 
+    shouldComponentUpdate(nextProps, nextState) {
+        // if (nextProps.wallet === this.props.wallet) {
+        //     return false;
+        // } else { return true; }
+        return true;
+    }
+
     //TODO: is this doing anything?
     componentDidMount(){
         this.props.getWallets()
@@ -35,7 +42,7 @@ export default class WalletsList extends React.Component {
 
     _openWallet(wallet) {
         const {navigate} = this.props.navigation;
-        navigate("WalletDetailsPage", {"wallet": wallet});
+        navigate("WalletDetailsPage", {"wallet": wallet, refresh: this.refresh});
     }
 
     _newWallet() {
@@ -91,11 +98,18 @@ export default class WalletsList extends React.Component {
         );
     }
 
-    render() {
+    loading() {
+        
+    }
 
-        if (this.props.wallets.result) {
+    render() {
+        if (this.props.wallets.result && !this.props.wallets.loading) {
             var walletsList = this._walletsList();
-        } else {
+        } 
+        else if (this.props.wallets.loading) {
+            var walletsList = null;
+        }
+        else {
             var walletsList = null;
         }
 

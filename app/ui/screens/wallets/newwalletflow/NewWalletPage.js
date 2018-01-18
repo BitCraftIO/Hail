@@ -33,7 +33,7 @@ export default class MakeOrReceiveTransactionPage extends React.Component {
 		navigation.goBack();
 		navigation.state.params.refresh();
 		
-	  }
+	}
 
 	createWallet() {
 		this.setState({

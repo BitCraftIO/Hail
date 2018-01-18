@@ -20,8 +20,16 @@ export default class WalletDetailsPage extends React.Component {
 
     _deleteThisWallet(id) {
 		actions.deleteWalletById(id);
-		const {goBack} = this.props.navigation;
-        goBack();
+		const { navigation } = this.props;
+		navigation.state.params.refresh();
+		// this.setState({wallet: null});
+		this.goBack();
+	}
+
+	goBack() {
+		const { navigation } = this.props;
+		//navigation.state.params.refresh();
+		navigation.goBack();
 	}
 	
 	_renderSuccess(){
