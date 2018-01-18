@@ -24,12 +24,12 @@ export default class WalletsList extends React.Component {
         this.props.getWallets()
     }
 
-    shouldComponentUpdate(nextProps, nextState) {
-        // if (nextProps.wallet === this.props.wallet) {
-        //     return false;
-        // } else { return true; }
-        return true;
-    }
+    // shouldComponentUpdate(nextProps, nextState) {
+    //     // if (nextProps.wallet === this.props.wallet) {
+    //     //     return false;
+    //     // } else { return true; }
+    //     return true;
+    // }
 
     //TODO: is this doing anything?
     componentDidMount(){
@@ -40,26 +40,26 @@ export default class WalletsList extends React.Component {
         this.props.getWallets()
     }
 
-    _openWallet(wallet) {
+    openWallet(wallet) {
         const {navigate} = this.props.navigation;
         navigate("WalletDetailsPage", {"wallet": wallet, refresh: this.refresh});
     }
 
-    _newWallet() {
+    newWallet() {
         const {navigate} = this.props.navigation;
         navigate("NewWalletPage", {refresh: this.refresh});
     }
 
-    _newWalletButton() {
+    newWalletButton() {
         return (
             <Button 
                 title={"New Wallet"}
-                onPress={() => this._newWallet()}
+                onPress={() => this.newWallet()}
             />
         );
     }
 
-    _walletsList() {
+    walletsList() {
         var sections = [
             {
                 data: this.props.wallets.result.local,
@@ -71,7 +71,7 @@ export default class WalletsList extends React.Component {
                         name={wallet.item.name}
                         aggregateValue={0}
                         percentageGrowth={0}
-                        onPress={() => this._openWallet(wallet.item)}
+                        onPress={() => this.openWallet(wallet.item)}
                     />
             },
             {
@@ -84,7 +84,7 @@ export default class WalletsList extends React.Component {
                         name={wallet.item.name}
                         aggregateValue={wallet.item.aggregateValue}
                         percentageGrowth={wallet.item.percentageGrowth}
-                        onPress={() => this._openWallet(wallet.item)}
+                        onPress={() => this.openWallet(wallet.item)}
                     />
             },
         ]
@@ -104,10 +104,10 @@ export default class WalletsList extends React.Component {
 
     render() {
         if (this.props.wallets.result && !this.props.wallets.loading) {
-            var walletsList = this._walletsList();
+            var walletsList = this.walletsList();
         } 
         else if (this.props.wallets.loading) {
-            var walletsList = null;
+            return null;
         }
         else {
             var walletsList = null;
@@ -115,7 +115,7 @@ export default class WalletsList extends React.Component {
 
         return (
             <View style={styles.background}>
-                {this._newWalletButton()}
+                {this.newWalletButton()}
                 {walletsList}
             </View>
 
