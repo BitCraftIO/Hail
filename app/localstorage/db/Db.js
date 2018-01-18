@@ -6,14 +6,18 @@ import BTCWallet from "../models/BTCWallet";
 import LTCWallet from "../models/LTCWallet";
 import BitstampWallet from "../models/BitstampWallet";
 
-let realm = new Realm({
-	schema: [BTCWallet, BTCTransaction, LTCWallet, LTCTransaction, BitstampWallet],
+export let realm = new Realm({
+	schema: [
+		BTCWallet, 
+		BTCTransaction, 
+		LTCWallet, 
+		LTCTransaction, 
+		BitstampWallet
+	],
 	path: config.db_path,
 });
 
-console.log(realm.path);
-
-function query(model, filter) {
+export function query(model, filter) {
 	let results = this.realm.objects(model);
 	if(filter) {
 		return results.filtered(filter);
@@ -21,19 +25,19 @@ function query(model, filter) {
 	return results;
 };
 
-function insert(model, options) {
+export function insert(model, options) {
 	this.write(() => {
 		realm.create(model, options);
 	});
 };
 
-function del(model, obj) {
+export function del(model, obj) {
 	this.write(() => {
 		realm.delete(obj);
 	});
 };
 
-function update(obj, options) {
+export function update(obj, options) {
 	this.write(() => {
 		Object.keys(options).map((key, attribute) => {
 			obj[key] = attribute;
@@ -41,7 +45,7 @@ function update(obj, options) {
 	});
 };
 
-function write(func){
+export function write(func){
 	try {
 		realm.write(func);
 	} catch(e) {
@@ -49,22 +53,12 @@ function write(func){
 	}
 };
 
-function close() {
+export function close() {
 	Realm.close()
 };
 
-function createRealm() {
+export function createRealm() {
 
 };
 
-
-module.exports = {
-	query: query,
-	delete: del,
-	insert: insert,
-	update: update,
-	write: write,
-	close: close,
-	createRealm: createRealm,
-	realm: realm,
-};
+console.log(realm.path);
