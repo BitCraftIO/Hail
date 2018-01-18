@@ -40,8 +40,6 @@ export default class MakeOrReceiveTransactionPage extends React.Component {
 			successInfo: "...",
 		});
 
-		//const id = Math.floor(Math.random * 1000);
-
 		if (this.state.network === null|| this.state.name === null || this.state.type === null) {
 			alert("Please input all fields")
 			this.setState({

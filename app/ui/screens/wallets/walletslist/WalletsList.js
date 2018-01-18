@@ -14,9 +14,6 @@ export default class WalletsList extends React.Component {
 
     constructor(props) {
         super(props);
-        this.setState({
-            refresh: true,
-        })
     }
 
     refresh = () => {
@@ -24,14 +21,6 @@ export default class WalletsList extends React.Component {
         this.props.getWallets()
     }
 
-    // shouldComponentUpdate(nextProps, nextState) {
-    //     // if (nextProps.wallet === this.props.wallet) {
-    //     //     return false;
-    //     // } else { return true; }
-    //     return true;
-    // }
-
-    //TODO: is this doing anything?
     componentDidMount(){
         this.props.getWallets()
     }
