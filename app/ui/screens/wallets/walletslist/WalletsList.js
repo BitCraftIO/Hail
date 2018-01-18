@@ -16,6 +16,7 @@ export default class WalletsList extends React.Component {
         super(props);
     }
 
+    //TODO: Possible memory leak
     refresh = () => {
         console.log(this);
         this.props.getWallets()
