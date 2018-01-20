@@ -1,10 +1,10 @@
 import Realm from "realm";
 import config from "./config";
-import BTCTransaction from "../models/BTCTransaction";
-import LTCTransaction from "../models/LTCTransaction";
-import BTCWallet from "../models/BTCWallet";
-import LTCWallet from "../models/LTCWallet";
-import BitstampWallet from "../models/BitstampWallet";
+import BTCTransaction from "../../ui/screens/wallets/models/BTCTransaction";
+import LTCTransaction from "../../ui/screens/wallets/models/LTCTransaction";
+import BTCWallet from "../../ui/screens/wallets/models/BTCWallet";
+import LTCWallet from "../../ui/screens/wallets/models/LTCWallet";
+import BitstampWallet from "../../ui/screens/wallets/models/BitstampWallet";
 
 export let realm = new Realm({
 	schema: [
