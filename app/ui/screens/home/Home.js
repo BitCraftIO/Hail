@@ -16,7 +16,12 @@ export default class Home extends React.Component {
                 <IndicatorViewPager
                     indicatorOnTop={true}
                     style={{flex:1, backgroundColor:'white'}}
-                    indicator={this._renderTitleIndicator()}>
+                    indicator={
+                        <PagerTitleIndicator
+                            itemStyle={styles.tabIndicator}
+                            selectedItemStyle={styles.tabIndicator}
+                            titles={["Watchlist", "Wallets"]}/>
+                    }>
                     <View>
                         <Watchlist navigate={this.props.navigation.navigate}/>
                     </View>
@@ -27,20 +32,9 @@ export default class Home extends React.Component {
             </View>
         );
     }
-
-    _renderTitleIndicator() {
-        return <PagerTitleIndicator
-            itemStyle={styles.tabIndicator}
-            selectedItemStyle={styles.tabIndicator}
-            titles={["Watchlist", "Wallets"]} />;
-    }
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex:1,
-        backgroundColor:"red"
-    },
     tabIndicator: {
         flex:1
     }

@@ -31,7 +31,6 @@ export default class SearchResults extends React.Component {
     }
 
     componentDidMount() {
-        console.log(this.props.navigation.state)
         const {state} = this.props.navigation
         if (state && state.params && state.params.query) {
             this.props.performSearch(state.params.query);
