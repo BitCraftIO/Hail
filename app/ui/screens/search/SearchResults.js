@@ -8,7 +8,6 @@ export default class SearchResults extends React.Component {
 
     static propTypes = {
         navigation: PropTypes.object.isRequired,
-
         search: PropTypes.object.isRequired,
         watchlistCoins: PropTypes.object.isRequired,
         addWatchList: PropTypes.object.isRequired
@@ -18,9 +17,24 @@ export default class SearchResults extends React.Component {
         header: () => { }
     };
 
+    constructor(props) {
+        super(props)
+        let query = ""
+        const {state} = this.props.navigation
+        if (state && state.params && state.params.query) {
+            query = state.params.query;
+        }
+
+        this.state = {
+            query:query
+        }
+    }
+
     componentDidMount() {
-        this.props.performSearch(this.props.navigation.state.params.query);
-        this.props.getWatchlistCoins();
+        const {state} = this.props.navigation
+        if (state && state.params && state.params.query) {
+            this.props.performSearch(state.params.query);
+        }
     }
 
     noResultView = () => {
@@ -38,7 +52,7 @@ export default class SearchResults extends React.Component {
             <FlatList
                 data={this.props.search.result}
                 renderItem={(item) => <SearchItem
-                                            isInWatchlist={this.props.watchlistCoins.result.includes(item.item.symbol)}
+                                            isInWatchlist={this.props.watchlistCoins.result && this.props.watchlistCoins.result.includes(item.item.symbol)}
                                             addToWatchlist={this.onAddWatchListClick}
                                             coin={item.item} />
                 }
@@ -62,7 +76,7 @@ export default class SearchResults extends React.Component {
     root = (children) => {
         return (
             <View>
-                <SearchBar defaultText={this.props.navigation.state.params.query} onSearchSubmit={this.props.performSearch}/>
+                <SearchBar defaultText={this.state.query} onSearchSubmit={this.props.performSearch}/>
                 {children}
             </View>
         )
