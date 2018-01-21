@@ -1,10 +1,10 @@
 import Realm from "realm";
 import config from "./config";
-import BTCTransaction from "../models/BTCTransaction";
-import LTCTransaction from "../models/LTCTransaction";
-import BTCWallet from "../models/BTCWallet";
-import LTCWallet from "../models/LTCWallet";
-import BitstampWallet from "../models/BitstampWallet";
+import BTCTransaction from "hail/app/ui/screens/wallets/models//BTCTransaction";
+import LTCTransaction from "hail/app/ui/screens/wallets/models//LTCTransaction";
+import BTCWallet from "hail/app/ui/screens/wallets/models//BTCWallet";
+import LTCWallet from "hail/app/ui/screens/wallets/models//LTCWallet";
+import BitstampWallet from "hail/app/ui/screens/wallets/models//BitstampWallet";
 
 export let realm = new Realm({
 	schema: [
