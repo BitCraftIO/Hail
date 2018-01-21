@@ -30,8 +30,8 @@
   },
   "dependencies": {
     "numeral": "^2.0.6",
-    "react": "16.0.0",
-    "react-native": "^0.51.0",
+    "react": "^16.2.0",
+    "react-native": "^0.52.0",
     "react-native-dropdownalert": "^3.1.2",
     "react-native-elements": "^0.18.5",
     "react-native-modalbox": "^1.4.2",
