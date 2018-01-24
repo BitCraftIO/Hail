@@ -29,6 +29,7 @@
     "preset": "react-native"
   },
   "dependencies": {
+
     "numeral": "^2.0.6",
     "react": "^16.2.0",
     "react-native": "^0.52.0",
@@ -43,6 +44,6 @@
     "realm": "^2.0.13",
     "redux": "^3.7.2",
     "redux-thunk": "^2.2.0",
-    "rn-viewpager": "^1.2.9"
+    "rn-viewpager": "calebdre/React-Native-ViewPager"
   }
 }
