@@ -32,7 +32,7 @@ export default class WalletsList extends React.Component {
 
     openWallet(wallet) {
         const {navigate} = this.props.navigation;
-        navigate("WalletDetailsPage", {"wallet": wallet, refresh: this.refresh});
+        navigate("WalletDetailsPage", {wallet, refresh: this.refresh});
     }
 
     newWallet() {

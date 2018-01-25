@@ -10,20 +10,21 @@ let store = createStore();
 export default class App extends React.Component {
 
  	componentDidMount() {
-		alert("ComponentDidMount");
 		DeepLinking.addScheme('hail://');
 		Linking.addEventListener('url', this.handleUrl);
 
-		DeepLinking.addRoute('/wallet/:id', (response) => {
-			this.setState(response);
+		DeepLinking.addRoute('/wallet/:id', ({scheme, path, id}) => {
+			console.log(scheme);
+			console.log(path);
+			console.log(id);
 		});
 
-		DeepLinking.addRoute('/wallet/setup/coinbase/continue', (state, code) => {
+		DeepLinking.addRoute('/wallet/setup/coinbase/continue#', ({scheme, path}) => {
 			//TODO: Fix this? Yea
-			console.log(state, code, "this is hitting");
+			console.log(scheme, path, "this is hitting");
 			// alert("this is hitting");
-			const {navigate} = this.props.navigation;
-        	navigate("WalletsList");
+			// const {navigate} = this.props.navigation;
+        	// navigate("WalletsList");
 		});
 
 		Linking.getInitialURL().then((url) => {
@@ -40,13 +41,12 @@ export default class App extends React.Component {
 
 	handleUrl = ({ url }) => {
 
-		alert("handleURL");
-
-		// Linking.canOpenURL(url).then((supported) => {
-		// 	if (supported) {
-		// 		DeepLinking.evaluateUrl(url);
-		// 	}
-		// });
+		console.log(url);
+		Linking.canOpenURL(url).then((supported) => {
+			if (supported) {
+				DeepLinking.evaluateUrl(url);
+			}
+		});
 	  }
 
 	render() {
