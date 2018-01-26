@@ -7,7 +7,7 @@
     "babel-eslint": "^8.1.2",
     "babel-jest": "22.0.4",
     "babel-preset-flow": "^6.23.0",
-    "babel-preset-react-native": "4.0.0",
+    "babel-preset-react-native": "^4.0.0",
     "flow-bin": "^0.56.0",
     "jest": "22.0.4",
     "prettier-eslint": "^8.7.0",
@@ -31,7 +31,8 @@
     "preset": "react-native"
   },
   "dependencies": {
-
+    "babel-plugin-rewrite-require": "^1.14.5",
+    "node-libs-browser": "^2.1.0",
     "numeral": "^2.0.6",
     "react": "^16.2.0",
     "react-native": "^0.52.0",
