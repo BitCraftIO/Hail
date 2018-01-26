@@ -5,12 +5,16 @@ import WalletElement from "./../components/WalletElement";
 import * as actions from "hail/app/ui/screens/wallets/utils/Actions";
 import * as queries from "hail/app/ui/screens/wallets/utils/Queries";
 
-
+import PropTypes from 'prop-types';
 export default class WalletsList extends React.Component {
 
 	static navigationOptions = {
         header: () => {}
     };
+
+    static propTypes = {
+        navigation: PropTypes.object.isRequired // must be instance of react-navigation
+    }
 
     constructor(props) {
         super(props);
