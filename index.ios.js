@@ -4,4 +4,4 @@ import {
 
 import app from "./app";
 
-AppRegistry.registerComponent('Hail', () => app);
+AppRegistry.registerComponent('Hail', () => app);  
