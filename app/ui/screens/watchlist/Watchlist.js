@@ -13,11 +13,6 @@ export default class Watchlist extends React.Component {
         }
     };
 
-    static propTypes = {
-        [RESOURCE_GET_COIN_DATA_TAG]: PropTypes.object.isRequired,
-        navigate: PropTypes.func.isRequired
-    }
-
     componentDidMount() {
         this.props.getWatchlistCoins();
     }

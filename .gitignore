@@ -3,8 +3,6 @@
 # expo
 .expo/
 
-*.pbxproj
-
 # dependencies
 /node_modules
 
