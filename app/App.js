@@ -19,15 +19,16 @@ export default class App extends React.Component {
 			console.log(id);
 		});
 
-		DeepLinking.addRoute('/wallet/setup/coinbase/continue#', ({scheme, path}) => {
+		DeepLinking.addRoute('/wallet/setup/coinbase/continue', ({scheme, path}) => {
 			//TODO: Fix this? Yea
-			console.log(scheme, path, "this is hitting");
+			//console.log("this is hitting");
 			// alert("this is hitting");
-			// const {navigate} = this.props.navigation;
-        	// navigate("WalletsList");
+			const {navigate} = this.props.navigation;
+        	navigate("WalletsList");
 		});
 
 		Linking.getInitialURL().then((url) => {
+			console.log("getInit " + url);
 			if (url) {
 			  Linking.openURL(url);
 			}
@@ -41,7 +42,7 @@ export default class App extends React.Component {
 
 	handleUrl = ({ url }) => {
 
-		console.log(url);
+		console.log("handle url " + url);
 		Linking.canOpenURL(url).then((supported) => {
 			if (supported) {
 				DeepLinking.evaluateUrl(url);
