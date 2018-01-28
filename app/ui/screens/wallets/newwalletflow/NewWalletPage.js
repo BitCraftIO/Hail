@@ -203,6 +203,13 @@ export default class MakeOrReceiveTransactionPage extends React.Component {
 		}
 	}
 
+	createExchangeWallet(network) {
+		actions.createExchangeWallet({
+			//name: this.state.name,
+			network: network
+		})
+	}
+
 	render() {
 		return (
 			<View>
@@ -273,8 +280,12 @@ export default class MakeOrReceiveTransactionPage extends React.Component {
 				</View>
 				
 				<Button 
-					title={"CreateWallet"}
+					title={"Create Wallet"}
 					onPress={() => this.createWallet()}
+				/>
+				<Button 
+					title={"Create Coinbase Wallet"}
+					onPress={() => this.createExchangeWallet("Coinbase")}
 				/>
 				<Text>{this.state.successInfo}</Text>
 			</View>
