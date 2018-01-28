@@ -5,6 +5,8 @@ import LTCTransaction from "hail/app/ui/screens/wallets/models/LTCTransaction";
 import BTCWallet from "hail/app/ui/screens/wallets/models/BTCWallet";
 import LTCWallet from "hail/app/ui/screens/wallets/models/LTCWallet";
 import BitstampWallet from "hail/app/ui/screens/wallets/models/BitstampWallet";
+import CoinbaseWallet from "hail/app/ui/screens/wallets/models/CoinbaseWallet";
+
 
 
 export let realm = new Realm({
