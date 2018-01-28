@@ -23,7 +23,9 @@
     "flow start": "flow start",
     "flow stop": "flow stop",
     "flow status": "flow status",
-    "flow coverage": "flow coverage"
+    "flow coverage": "flow coverage",
+    "eject": "rm -rf ios/ && rm -rf android && react-native eject",
+    "fresh-start": "rm -rf ./node_modules && npm install && npm run eject"
   },
   "jest": {
     "preset": "react-native"
