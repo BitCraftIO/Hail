@@ -21,7 +21,7 @@ export function createExchangeWallet(options) {
 
 //Can be used to delete exchange wallets
 export function deleteWalletById(id) {
-	Db.delete(idhelper.getModelForId(id), queries.getWalletbyId(id));
+	Db.del(idhelper.getModelForId(id), queries.getWalletbyId(id));
 }
 
 export function updateWalletById(id, options) {
