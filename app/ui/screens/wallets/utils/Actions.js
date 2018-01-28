@@ -18,24 +18,13 @@ export function createWallet(options) {
 	Db.insert(options.network+"Wallet", options);
 }
 
-export function createExchangeWallet(options) {
-	if (!options.id){
-		options.id = idhelper.createId("exchange", options.network);
-	}
-	//wouldn't it be nice if this returned the created wallet? 
-	this.createWallet(options);
-	alert(`You will now Leave Hail and go to ${options.network}`);
-
-	//TODO: Change this to use an object of functions cause that's cooler
-	switch(options.network) {
-		case "Coinbase": 
-			var wallet = queries.getWalletbyId(options.id);
-			wallet.authorize;
-			break;
-		default:
-			console.log(`${options.network} is not a valid network`)
-	}
-}
+// export function createExchangeWallet(options) {
+// 	if (!options.id){
+// 		options.id = idhelper.createId("exchange", options.network);
+// 	}
+// 	//wouldn't it be nice if this returned the created wallet? 
+// 	this.createWallet(options);
+// }
 
 export function registerExchangeWallet(options) {
 
