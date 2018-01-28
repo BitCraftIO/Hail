@@ -33,7 +33,7 @@ const babelRC = {
                 _stream_writable: 'readable-stream/writable',
                 //sys: 'util',
                 //timers: 'timers-browserify',
-                //tls: 'node-libs-browser/mock/tls',
+                tls: 'node-libs-browser/mock/tls',
                 //tty: 'tty-browserify',
                 //vm: 'vm-browserify',
                 //zlib: 'browserify-zlib',

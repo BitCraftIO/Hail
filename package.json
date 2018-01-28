@@ -33,6 +33,7 @@
     "babel-plugin-rewrite-require": "^1.14.5",
     "bignumber.js": "^6.0.0",
     "bitcoinjs-lib": "^3.3.2",
+    "electrum-client": "git+https://github.com/BitCraftIO/node-electrum-client.git",
     "eth-lightwallet": "^3.0.1",
     "node-libs-browser": "^2.1.0",
     "numeral": "^2.0.6",
