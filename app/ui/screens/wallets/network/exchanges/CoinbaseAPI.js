@@ -21,17 +21,40 @@ export function redirectToOAuth() {
     return success;
 }
 
-export function listAccounts(accessToken) {
-    fetch('https://api.coinbase.com/v2/accounts', {
+export function listTransactions(account_id) {
+    return fetch(`https://api.coinbase.com/v2/accounts/${account_id}/transactions`, {
         method: 'GET',
         headers: {
             Authorization: `Bearer ${accessToken}`,
         }
     })
+    .then((response) => response.json())
+    .then((responseJson) => {
+        resolve(responseJson.data);
+    })
+    .catch(e => {
+        reject(e);
+    })
+}
+
+export function listAccounts(accessToken) {
+    return fetch('https://api.coinbase.com/v2/accounts', {
+        method: 'GET',
+        headers: {
+            Authorization: `Bearer ${accessToken}`,
+        }
+    })
+    .then((response) => response.json())
+    .then((responseJson) => {
+        resolve(responseJson.data);
+    })
+    .catch(e => {
+        reject(e);
+    })
 }
 
 export function getAccessToken(auth_code){
-    fetch('POST https://api.coinbase.com/oauth/token', {
+    return fetch('POST https://api.coinbase.com/oauth/token', {
         method: 'POST',
         headers: {},
         body: JSON.stringify({
@@ -44,12 +67,12 @@ export function getAccessToken(auth_code){
     })
     .then((response) => response.json())
     .then((responseJson) => {
-        return {
+        resolve({
             accessToken: responseJson.access_token,
             refreshToken: responseJson.refresh_token,
-        }
+        })
     })
     .catch(e => {
-        console.log(e);
+        reject(e);
     })
 }
