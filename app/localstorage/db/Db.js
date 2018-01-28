@@ -6,6 +6,8 @@ import BTCWallet from "hail/app/ui/screens/wallets/models/BTCWallet";
 import LTCWallet from "hail/app/ui/screens/wallets/models/LTCWallet";
 import BitstampWallet from "hail/app/ui/screens/wallets/models/BitstampWallet";
 import CoinbaseWallet from "hail/app/ui/screens/wallets/models/CoinbaseWallet";
+import CoinbaseAccount from "hail/app/ui/screens/wallets/models/CoinbaseAccount";
+import CoinbaseTransaction from "hail/app/ui/screens/wallets/models/CoinbaseTransaction";
 
 
 
@@ -17,6 +19,8 @@ export let realm = new Realm({
 		LTCTransaction, 
 		BitstampWallet,
 		CoinbaseWallet,
+		CoinbaseAccount,
+		CoinbaseTransaction
 	],
 	path: config.db_path,
 });
