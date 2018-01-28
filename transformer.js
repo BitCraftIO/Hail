@@ -21,7 +21,7 @@ const babelRC = {
                 //fs: 'node-libs-browser/mock/empty',
                 //http: 'stream-http',
                 //https: 'https-browserify',
-                //net: 'node-libs-browser/mock/net',
+                net: 'react-native-tcp',
                 //os: 'os-browserify/browser',
                 //path: 'path-browserify',
                 //querystring: 'querystring-es3',
