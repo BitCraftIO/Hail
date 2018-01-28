@@ -7,7 +7,7 @@ import CoinDetail from "./ui/screens/coindetail/CoinDetailContainer";
 import WalletDetailsPage from "./ui/screens/wallets/WalletDetailsPage";
 import MakeOrReceiveTransactionInputAmountPage from "./ui/screens/wallets/MakeOrReceiveTransactionFlow/MakeOrReceiveTransactionInputAmountPage";
 import NewWalletPage from "./ui/screens/wallets/newwalletflow/NewWalletPage";
-import CoinbaseSuccessPage from "./ui/screens/wallets/newwalletflow/CoinbaseSuccessPage";
+import CoinbaseSuccessPage from "./ui/screens/wallets/newwalletflow/coinbasesuccesspage/CoinbaseSuccessPage";
 // https://reactnavigation.org/docs/intro/basic-app
 const Navigator = StackNavigator({
     Home: {
