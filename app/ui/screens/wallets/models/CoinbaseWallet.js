@@ -4,11 +4,6 @@ import CoinbaseAPI from "../network/exchanges/CoinbaseAPI"
 
 export default class CoinbaseWallet extends Realm.Object{
 
-    authorize() {
-        if (!coinbaseAPI.redirectToOAuth()) {
-            alert("auth failed!");
-        }
-    }
 }
 CoinbaseWallet.schema = {
 	name: "CoinbaseWallet",

@@ -29,7 +29,8 @@ export function createExchangeWallet(options) {
 	//TODO: Change this to use an object of functions cause that's cooler
 	switch(options.network) {
 		case "Coinbase": 
-			queries.getWalletbyId(options.id).authorize();
+			var wallet = queries.getWalletbyId(options.id);
+			wallet.authorize;
 			break;
 		default:
 			console.log(`${options.network} is not a valid network`)

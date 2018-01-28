@@ -4,7 +4,7 @@ import {CheckBox} from "react-native-elements"
 import PropTypes from "prop-types";
 import * as actions from "hail/app/ui/screens/wallets/utils/Actions";
 import * as idhelper from "hail/app/ui/screens/wallets/utils/idhelper";
-
+import * as CoinbaseAPI from "hail/app/ui/screens/wallets/network/exchanges/CoinbaseAPI";
 
 export default class MakeOrReceiveTransactionPage extends React.Component {
 
@@ -204,10 +204,13 @@ export default class MakeOrReceiveTransactionPage extends React.Component {
 	}
 
 	createExchangeWallet(network) {
-		actions.createExchangeWallet({
-			//name: this.state.name,
-			network: network
-		})
+		switch (network) {
+			case "Coinbase":
+				CoinbaseAPI.redirectToOAuth();
+				break;
+			default:
+				break;
+		}
 	}
 
 	render() {
