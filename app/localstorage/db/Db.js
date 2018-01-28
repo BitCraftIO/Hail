@@ -13,7 +13,8 @@ export let realm = new Realm({
 		BTCTransaction, 
 		LTCWallet, 
 		LTCTransaction, 
-		BitstampWallet
+		BitstampWallet,
+		CoinbaseWallet,
 	],
 	path: config.db_path,
 });
