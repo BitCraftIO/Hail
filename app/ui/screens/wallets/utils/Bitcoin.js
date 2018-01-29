@@ -1,4 +1,5 @@
-const bitcoinjs = require('bitcoinjs-lib')
+import { ECPair, HDNode, TransactionBuilder } from 'bitcoinjs-lib'
+const bip39 = require('bip39')
 
 /**
  * Util class for dealing with calculations for any Bitcoin-based coin.
@@ -10,24 +11,36 @@ export default class Bitcoin {
      * @param {*} network Network used for operations in this instance.
      */
     constructor(network) {
-        this.network = _getNetworkFromKey(network)
+        this.network = Bitcoin._getNetworkFromKey(network)
     }
 
     /**
-     * Randomly generate a new elliptic-curve keypair.
+     * Generates a BIP39 mnemonic and a corresponding HD node.
      */
-    getRandomKeyPair() {
-        return bitcoinjs.ECPair.makeRandom({
-            network: this.network
-        })
+    getRandomMnemonic() {
+        return bip39.generateMnemonic()
     }
 
     /**
-     * 
-     * @param {*} keyPair 
+     * Returns true if a valid mnemonic is supplied.
      */
-    getPublicAddressFromKeyPair(keyPair) {
-        return keyPair.getAddress()
+    validateMnemonic(mnemonic) {
+        properLength = mnemonic.trim().split(/\s+/g).length >= 12
+        return bip39.validateMnemonic(mnemonic) && properLength
+    }
+
+    /**
+     * Returns the HD node from a supplied BIP39 mnemonic.
+     */
+    getHDNodeFromMnemonic(mnemonic) {
+        if (!this.validateMnemonic(mnemonic))
+            throw new Error('Invalid mnemonic passed.')
+        seed = bip39.mnemonicToSeed(mnemonic)
+        return HDNode.fromSeedBuffer(seed, this.network)
+    }
+
+    deriveHDNodeFromParent(parentHDNode, index) {
+        return parentHDNode.derive(index)
     }
 
     /**
