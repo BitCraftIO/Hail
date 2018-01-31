@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { mapResourceToProps } from "../../../../reduxhelpers/CreateResource";
+import { mapResourceToProps } from "hail/app/reduxhelpers/CreateResource";
 import CoinbaseSuccessPage from "./CoinbaseSuccessPage";
 import {CREATE_REALM_COINBASE_WALLET, CREATE_REALM_COINBASE_WALLET_TAG, SuccessCoinbasePageActions, PAGE} from "./CoinbaseSuccessPageState";
 

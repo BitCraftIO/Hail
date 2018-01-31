@@ -15,7 +15,7 @@ import * as CoinbaseAPI from "../network/exchanges/CoinbaseAPI";
     @param apiKey: (optional) for the use of an exchange using apiKey, not required for localwallets or exchanges that use oauth flow
 */
 export function createWallet(options) {
-	if (!options.id & options.network){
+	if (!options.id && options.network){
 		options.id = idhelper.createId("exchange", options.network);
 	} else {throw new Error("Actions.js :: required Network option null");}
 	Db.insert(options.network+"Wallet", options);

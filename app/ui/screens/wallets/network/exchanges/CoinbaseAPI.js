@@ -15,9 +15,7 @@ export function redirectToOAuth() {
         } else {
             console.log("Doesn't look like we support that Uri "+webUri)
         }
-    }).then(() => {
-        console.log("Shit ain't supported LOL ")
-    });
+    })
     return success;
 }
 
@@ -46,15 +44,41 @@ export function listAccounts(accessToken) {
     })
     .then((response) => response.json())
     .then((responseJson) => {
-        resolve(responseJson.data);
-    })
-    .catch(e => {
-        reject(e);
+        return responseJson.data;
     })
 }
 
 export function getAccessToken(auth_code){
-    return fetch('POST https://api.coinbase.com/oauth/token', {
+    // return new Promise((resolve, reject) => {
+    //     const responseJson = fetch('https://api.coinbase.com/oauth/token', {
+    //         method: 'POST',
+    //         headers: {},
+    //         body: JSON.stringify({
+    //             grant_type: 'authorization_code',
+    //             code: auth_code,
+    //             client_id: clientId,
+    //             client_secret: clientSecret,
+    //             redirect_uri: 'hail://wallet/oauth/coinbase/redirect'
+    //         })
+    //     })
+    //     .then((response) => {
+    //         if (!response.ok) {
+    //             reject(err);
+    //         }
+    //         else {
+    //             resolve(response.json());
+    //         }
+    //     })
+    //     console.log("We out here"+ responseJson);
+    //     resolve({
+    //         accessToken: responseJson.access_token,
+    //         refreshToken: responseJson.refresh_token,
+    //     })
+    // })
+    
+    
+    //v1
+    return fetch('https://api.coinbase.com/oauth/token', {
         method: 'POST',
         headers: {},
         body: JSON.stringify({
@@ -65,14 +89,17 @@ export function getAccessToken(auth_code){
             redirect_uri: 'hail://wallet/oauth/coinbase/redirect'
         })
     })
-    .then((response) => response.json())
+    .then((response) => {
+        console.log(response.json());
+        if(!response.ok){
+            throw new Error (response.statusText)
+        }
+        return response.json();
+    })
     .then((responseJson) => {
-        resolve({
+        return {
             accessToken: responseJson.access_token,
             refreshToken: responseJson.refresh_token,
-        })
-    })
-    .catch(e => {
-        reject(e);
+        }
     })
 }

@@ -10,32 +10,37 @@ export default class CoinbaseSuccessPage extends React.Component {
 
     constructor(props) {
         super(props);
-        this.setState({
-            code: this.props.state.code,
-        });
-        console.log(this.props.state);
+        console.log(this.props.navigation.state.code);
 
     }
+
+    componentDidMount() {
+        this.props.createCoinbaseWallet(this.props.navigation.state.params.code);
+    }
     success() {
-        this.props.createCoinbaseWallet(this.state.code)
-        if (this.props.cb.result.success){
-            return (
-                <View>
-                    <Text>Success</Text>
-                    <Text>{this.props.cb.result.wallet.name}</Text>
-                </View>
-            )
-        }
-        else if (!this.props.cb.result.success){
-            return (
-                <View>
-                    <Text>Failure</Text>
-                    <Text>{this.props.cb.result.errormessage}</Text>
-                </View>
-            )
-        }
-        else {
-            return null;
+        if (!this.props.cb.loading){
+            //fix this in home.js
+            
+            if(this.props.cb.result != undefined) {
+                if (this.props.cb.result.success){
+                    return (
+                        <View>
+                            <Text>Success</Text>
+                            <Text>{this.props.cb.result.wallet.name}</Text>
+                        </View>
+                    )
+                }
+                else if (!this.props.cb.result.success){
+                    return (
+                        <View>
+                            <Text>Failure</Text>
+                            <Text>{this.props.cb.result.errormessage}</Text>
+                        </View>
+                    )
+                }
+            } else {
+                return null;
+            }
         }
     }
 
@@ -43,7 +48,7 @@ export default class CoinbaseSuccessPage extends React.Component {
         return (
             <View>
                 <Text>Only way you're seeing this is if Deep linking works!</Text>
-                {this.success}
+                {this.success()}
             </View>
         );
     }

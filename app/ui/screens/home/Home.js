@@ -24,18 +24,20 @@ export default class Home extends React.Component {
     }
     
     navigate(url) {
-        var route = url.replace('hail:\/\/(.+)\?', '');
-        var params = url.split('&').reduce((accum, item) => {
+        var route = url.split('?')[0].substring(7);
+        var params = url.split('?')[1].split('&').reduce((accum, item) => {
             let [key, value] = item.split('=');
-            return accum[key] = value;
+            accum[key] = value;
+            return accum;
         }, {});
 
 
 
-        if (route === 'hail://wallet/oauth/coinbase?') {
+        if (route === 'wallet/oauth/coinbase/') {
             this.props.navigation.navigate('CoinbaseSuccessPage', params);
+            console.log(`Redirected with redirect_uri ${params}`);
         }
-        if (route === 'hail://wallet/oauth/coinbase/redirect?') {
+        if (route === 'wallet/oauth/coinbase/redirect/') {
             console.log(`Redirected with redirect_uri ${params}`);
         }
     }
