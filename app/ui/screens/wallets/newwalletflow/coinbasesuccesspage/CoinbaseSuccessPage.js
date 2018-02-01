@@ -18,31 +18,38 @@ export default class CoinbaseSuccessPage extends React.Component {
         this.props.createCoinbaseWallet(this.props.navigation.state.params.code);
     }
     success() {
+        var status = null;
+        var message = null;
         if (!this.props.cb.loading){
             //fix this in home.js
             
             if(this.props.cb.result != undefined) {
                 if (this.props.cb.result.success){
-                    return (
-                        <View>
-                            <Text>Success</Text>
-                            <Text>{this.props.cb.result.wallet.name}</Text>
-                        </View>
-                    )
+                    status = 'Success';
+                    message = this.props.cb.result.wallet.name
                 }
                 else if (!this.props.cb.result.success){
-                    return (
-                        <View>
-                            <Text>Failure</Text>
-                            <Text>{this.props.cb.result.errormessage}</Text>
-                        </View>
-                    )
+                    status = 'Failure';
+                    message = this.props.cb.result.errormessage;
                 }
-            } else {
-                return null;
             }
+        } else {
+            status = 'Loading';
+            message = '';
         }
-    }
+        if (this.props.cb.error) {
+            console.log('failing');
+            status = 'Failure';
+            message = this.props.cb.error.message 
+        }
+
+        return (
+            <View>
+                <Text>{status}</Text>
+                <Text>{message}</Text>
+            </View>
+        )
+    } //{this.success()}
 
     render() {
         return (
