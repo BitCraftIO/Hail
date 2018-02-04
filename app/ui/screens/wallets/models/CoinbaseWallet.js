@@ -8,6 +8,7 @@ CoinbaseWallet.schema = {
     properties: {
         id: "int",
         apiKey: "string?",
+        name: "string?",
         //Sometimes called bearer token
         accessToken: "string?",
         refreshToken: "string?",
