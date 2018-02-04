@@ -26,7 +26,7 @@ export default class CoinbaseSuccessPage extends React.Component {
             if(this.props.cb.result != undefined) {
                 if (this.props.cb.result.success){
                     status = 'Success';
-                    message = this.props.cb.result.wallet.name
+                    message = '';
                 }
                 else if (!this.props.cb.result.success){
                     status = 'Failure';
