@@ -8,6 +8,7 @@ const webUri = `https://www.coinbase.com/oauth/authorize?client_id=${clientId}&r
                 //scopes
                 +`wallet:accounts:read,`
                 +`wallet:accounts:create,`
+                +`wallet:accounts:update,`
                 +`wallet:addresses:read,`
                 +`wallet:addresses:create,`
                 +`wallet:buys:read,`
@@ -15,7 +16,8 @@ const webUri = `https://www.coinbase.com/oauth/authorize?client_id=${clientId}&r
                 +`wallet:deposits:read,`
                 +`wallet:user:email,`
                 +`wallet:withdrawals:read,`
-                +`wallet:transactions:read`
+                +`wallet:transactions:read,`
+                +`wallet:transactions:send,`
 
 export function redirectToOAuth() {
     var success = false;
@@ -94,36 +96,3 @@ function serializeJSON(data) {
       return encodeURIComponent(keyName) + '=' + encodeURIComponent(data[keyName])
     }).join('&');
 }
-
-
-// Response {type: "default", status: 200, ok: true, statusText: undefined, headers: Headers, …}
-// bodyUsed
-// :
-// true
-// headers
-// :
-// Headers {map: {…}}
-// ok
-// :
-// true
-// status
-// :
-// 200
-// statusText
-// :
-// undefined
-// type
-// :
-// "default"
-// url
-// :
-// "https://api.coinbase.com/oauth/token"
-// _bodyInit
-// :
-// "{"access_token":"4ac3452ee2a3b9f5335eb75a510617d9e7e4bffa63baebb972f3067043289a68","token_type":"bearer","expires_in":7200,"refresh_token":"edb16633aff8ea5b3d3f96098fcd88935b189fdb326d1ab0735cd8ef540e1e1d","scope":"wallet:accounts:read wallet:accounts:create wallet:addresses:read wallet:addresses:create wallet:buys:read wallet:buys:create wallet:deposits:read wallet:user:email wallet:withdrawals:read"}"
-// _bodyText
-// :
-// "{"access_token":"4ac3452ee2a3b9f5335eb75a510617d9e7e4bffa63baebb972f3067043289a68","token_type":"bearer","expires_in":7200,"refresh_token":"edb16633aff8ea5b3d3f96098fcd88935b189fdb326d1ab0735cd8ef540e1e1d","scope":"wallet:accounts:read wallet:accounts:create wallet:addresses:read wallet:addresses:create wallet:buys:read wallet:buys:create wallet:deposits:read wallet:user:email wallet:withdrawals:read"}"
-// __proto__
-// :
-// Object
