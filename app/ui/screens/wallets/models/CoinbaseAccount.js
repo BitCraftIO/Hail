@@ -8,9 +8,9 @@ CoinbaseAccount.schema = {
     primaryKey: "id",
     properties: {
         //Created by Coinbase
-        id: "int",
+        id: "string",
         currency: "string",
-        transactions: "CoinbaseTransaction[]",
+        transactions: {type:"CoinbaseTransaction[]", default: []},
         name: "string?",
     }
 };
