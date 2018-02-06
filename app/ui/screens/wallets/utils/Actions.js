@@ -3,7 +3,7 @@ import * as Db from "hail/app/localstorage/db/Db";
 import * as queries from "./Queries";
 import * as idhelper from "./idhelper";
 import * as networkCodes from "./networkcodes";
-import * as CoinbaseAPI from "../network/exchanges/CoinbaseAPI";
+import * as CoinbaseAPI from "../network/exchanges/coinbase/CoinbaseAPI";
 
 //Realm write operations are synchronous
 

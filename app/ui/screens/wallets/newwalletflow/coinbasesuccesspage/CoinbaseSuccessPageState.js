@@ -2,7 +2,7 @@ import {createResourceAction, createResourceReducerStates, resourceInitialState}
 import createReducer from "hail/app/reduxhelpers/CreateReducer";
 import * as queries from "hail/app/ui/screens/wallets/utils/Queries";
 import * as actions from "hail/app/ui/screens/wallets/utils/Actions";
-import {getAccessToken, listAccounts, listTransactions} from 'hail/app/ui/screens/wallets/network/exchanges/CoinbaseAPI.js';
+import {getAccessToken, listAccounts, listTransactions} from 'hail/app/ui/screens/wallets/network/exchanges/coinbase/CoinbaseAPI.js';
 import CoinbaseAccount from "../../models/CoinbaseAccount";
 import CoinbaseTransaction from "../../models/CoinbaseTransaction";
 

@@ -3,7 +3,7 @@ import {Text, View} from "react-native";
 import PropTypes from "prop-types";
 import * as actions from "hail/app/ui/screens/wallets/utils/Actions";
 import * as idhelper from "hail/app/ui/screens/wallets/utils/idhelper";
-import * as CoinbaseAPI from "hail/app/ui/screens/wallets/network/exchanges/CoinbaseAPI";
+import * as CoinbaseAPI from "hail/app/ui/screens/wallets/network/exchanges/coinbase/CoinbaseAPI";
 
 
 export default class CoinbaseSuccessPage extends React.Component {
