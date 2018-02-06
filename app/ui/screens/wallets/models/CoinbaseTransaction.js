@@ -8,10 +8,10 @@ CoinbaseTransaction.schema = {
     primaryKey: "id",
     properties: {
         //Created by Coinbase
-        id: "int",
+        id: "string",
         type: "string",
         currency: "string",
-        amount: "int",
+        amount: "double",
         to: "string",
         toType: "string",
         description: "string?"
