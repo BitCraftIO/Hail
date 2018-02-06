@@ -1,5 +1,6 @@
 import {Linking} from 'react-native';
 import {clientId, clientSecret, appUri, webUri} from './config';
+import {serializeJSON} from '../utils/utils';
 
 export function redirectToOAuth() {
     var success = false;
@@ -120,10 +121,4 @@ export function send(account_id, options) {
         },
         body: serializeJSON(body),
     })
-}
-
-function serializeJSON(data) {
-    return Object.keys(data).map(function (keyName) {
-      return encodeURIComponent(keyName) + '=' + encodeURIComponent(data[keyName])
-    }).join('&');
 }
