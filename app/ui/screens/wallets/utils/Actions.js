@@ -1,3 +1,4 @@
+// @flow
 import * as Db from "hail/app/localstorage/db/Db";
 import * as queries from "./Queries";
 import * as idhelper from "./idhelper";
@@ -22,14 +23,14 @@ export function createWallet(options) {
 	return options.id;
 }
 
-// export function createExchangeWallet(options) {
-// 	if (!options.id){
-// 		options.id = idhelper.createId("exchange", options.network);
-// 	}
-// 	//wouldn't it be nice if this returned the created wallet? 
-// 	this.createWallet(options);
-// }
-
+/*
+	@param one: the thing to be attached to. Ex. const one = wallet.addresses
+	@param many: the thing to attach. Must be in list
+*/
+export function append(one, many: List) {
+	Db.doOneToMany(one, many);
+}
+ 
 export function registerExchangeWallet(options) {
 
 }
