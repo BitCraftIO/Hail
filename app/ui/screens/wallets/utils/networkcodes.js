@@ -3,15 +3,22 @@ export const coinToCode = {
     "LTC":"0002",
 }
 
-export const codeToCoin = {
-    "0001":"BTC",
-    "0002":"LTC",
-}
-
 export const exchangeToCode = {
     "Bitstamp":"0001",
 }
 
-export const codeToExchange = {
-    "0001":"Bitstamp",
+export const codeToCoin = () => {
+    var ret = {};
+    for(var coin in coinToCode){
+        ret[coinToCode[coin]] = key;
+    }
+    return ret;
+}
+
+export const codeToExchange = () => {
+    var ret = {};
+    for(var exchange in exchangeToCode){
+        ret[exchangeToCode[exchange]] = key;
+    }
+    return ret;
 }
