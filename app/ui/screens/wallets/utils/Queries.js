@@ -2,6 +2,10 @@ import * as Db from "hail/app/localstorage/db/Db.js";
 import * as idhelper from "./idhelper";
 import * as networkCodes from "./networkcodes";
 
+/*
+ TODO: 
+ move this to /app/screen/wallets/models
+*/
 export function getWalletbyId(id) {
     let results = Db.query(idhelper.getModelForId(id), 'id = ' + id);
     return results;
