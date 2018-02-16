@@ -1,6 +1,8 @@
 import { ECPair, HDNode, TransactionBuilder } from 'bitcoinjs-lib'
 const bip39 = require('bip39')
 
+// TODO: move this to /app/screen/wallets/crypto
+
 /**
  * Util class for dealing with calculations for any Bitcoin-based coin.
  * Does not keep track of wallets.
