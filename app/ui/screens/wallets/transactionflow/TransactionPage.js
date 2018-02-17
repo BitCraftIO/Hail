@@ -1,37 +1,19 @@
 import React from 'react';
-import {FlatList, StyleSheet, Text, View, TextInput, Button, Platform, NativeModules, StatusBar, Keyboard} from 'react-native';
+import {FlatList, StyleSheet, Text, View, TextInput, Button, Platform, NativeModules, Keyboard} from 'react-native';
+import {CheckBox} from "react-native-elements"
 import PropTypes from 'prop-types';
 
-export default class MakeOrReceiveTransactionPage extends React.Component {
+export default class TransactionPage extends React.Component {
 	constructor(props){
 		super(props)
 		this.state = {
-			"text": "Type your Address here",
-			"walletID": this.props.navigation.state.params.walletID,
-			"network": this.props.navigation.state.params.network,
-        	"aggregateCoins": this.props.navigation.state.params.aggregateCoins,
-        	"aggregateValue": this.props.navigation.state.params.aggregateValue,
-        	"isfailureBannerVisible": false,
+			"action": null,
+			"address": "",
+			"amount": "",
+			"fee": "",
+			"typeleftchecked": false,
+			"typerightchecked": false,
 		}
-	}
-
-	goToNextPage(address) {
-		if (this.checkIfValidAddress(address)) {
-			const {navigate} = this.props.navigation;
-	        navigate("MakeOrReceiveTransactionInputAmountPage", {
-	        	"address": this.state.text,
-	        	"walletID": this.state.walletID,
-				"network": this.state.network,
-	        	"aggregateCoins": this.state.aggregateCoins,
-	        	"aggregateValue": this.state.aggregateValue,
-	        });
-		}
-		else {
-			this.setState({
-				"isfailureBannerVisible": true,
-			})
-		}
-		
 	}
 
 	checkIfValidAddress(address) {
@@ -55,9 +37,122 @@ export default class MakeOrReceiveTransactionPage extends React.Component {
 		}
 	}
 
+	chooseActionView() {
+		if(this.state.action == null ) {
+			return (
+				<View style={{paddingTop: 30}}>
+					<Text>Send or Receive?</Text>
+					<View style={{flexDirection: 'row'}}>
+						<View>
+							<CheckBox 
+								title="Send"
+								checked={this.state.typeleftchecked}
+								right={true}
+								onPress={() => this.chooseAction("send")}
+							/>
+						</View>
+						<View>
+							<CheckBox 
+								title="Receive"
+								checked={this.state.typerightchecked}
+								onPress={() => this.chooseAction("receive")}
+							/>
+						</View>
+					</View>
+				</View>
+			);
+		}
+		else {
+			return null;
+		}
+	}
+
+	chooseAction(action) {
+		this.setState({
+			action,
+		});
+	}
+
+	action() {
+		if(this.state.action != null ) {
+			var act = null;
+			if (this.state.action == "send") {
+				act = this.sendActionView;
+			}
+			else {
+				act = this.receiveActionView;
+			}
+			return (
+				<View>
+					{act(this.state)}
+				</View>
+			);
+		} 
+		else {
+			return null;
+		}
+
+	}
+
+	sendActionView(state) {
+		this.state = state;
+		return(
+			<View>
+				<View>
+					<Text style={{fontWeight:'bold'}}>Address</Text>
+					<TextInput
+						onChangeText={(text) => this.setState({"address": text})}
+						value={this.state.address}
+						placeholder={'a string'}
+						placeholderTextColor={'grey'}
+					/>
+				</View>
+				<View style={{paddingTop: 20}}>
+					<Text style={{fontWeight:'bold'}}>Amount</Text>
+					<TextInput
+						onChangeText={(text) => this.setState({"amount": text})}
+						value={this.state.amount}
+						placeholder={'a number'}
+						placeholderTextColor={'grey'}
+					/>
+				</View>
+				<View style={{paddingTop: 20}}>
+					<Text style={{fontWeight:'bold'}}>Fee</Text>
+					<TextInput
+						onChangeText={(text) => this.setState({"fee": text})}
+						value={this.state.fee}
+						placeholder={'a number'}
+						placeholderTextColor={'grey'}
+					/>
+					<Text>Recommended fee: {} </Text>
+				</View>
+				<View style={{paddingTop: 20}}>
+					<Button
+						title={'Send'}
+						onPress={() => this.sendAction()}
+					/>
+				</View>
+			
+			</View>
+		)
+	}
+
+	sendAction() {
+
+	}
+
+	receiveActionView() {
+
+	}
+
 	//TODO: Compartmentalize these components dawg
 	render() {
-		return null
+		return (
+			<View>
+				{this.chooseActionView()}
+				{this.action()}
+			</View>			
+		)
 	}
 
 }
@@ -79,18 +174,5 @@ styles = StyleSheet.create({
 		alignSelf: 'stretch',
     	textAlign: 'center',   
     },
-    failureBannerText: {
-    	color: 'white',
-    	//alignItems: 'center',
-    },
-    // list: {
-    //     paddingTop: 70,
-    // },
-    // sectionHeader: {
-    //     fontFamily: "Avenir",
-    //     fontSize: 9,
-    //     color: "#9b9b9b",
-    //     paddingTop: 30,
-    //     paddingBottom: 15
-    // },
+
 });
