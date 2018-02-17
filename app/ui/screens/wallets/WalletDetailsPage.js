@@ -14,11 +14,11 @@ export default class WalletDetailsPage extends React.Component {
 		};
     }
 
-    goToMakeOrReceiveTransaction = (walletID) => {
+    goToTransactionPage = (walletID) => {
 
     }
 
-    _deleteThisWallet(id) {
+    deleteThisWallet(id) {
 		actions.deleteWalletById(id);
 		const { navigation } = this.props;
 		navigation.state.params.refresh();
@@ -45,12 +45,12 @@ export default class WalletDetailsPage extends React.Component {
 				<Text> {this.state.wallet.aggregateCoins} </Text>
 				<Text> {this.state.wallet.aggregateValue} </Text>
 				<Button 
-					title="MakeOrReceiveTransaction"
-					onPress={() => this.goToMakeOrReceiveTransaction(this.state.walletID)} 
+					title="Make a Tx"
+					onPress={() => this.goToTransactionPage(this.state.walletID)} 
 				/>
 				<Button 
                     title={"Delete Wallet"}
-                    onPress={() => this._deleteThisWallet(this.state.wallet.id)}
+                    onPress={() => this.deleteThisWallet(this.state.wallet.id)}
                 />
 				{this.state.renderSuccess ? this._renderSuccess : null}
 			</View>

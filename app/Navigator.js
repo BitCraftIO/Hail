@@ -5,7 +5,7 @@ import WalletsList from "./ui/screens/wallets/walletslist/WalletsListContainer";
 import Watchlist from "./ui/screens/watchlist/state/WatchlistContainer";
 import CoinDetail from "./ui/screens/coindetail/CoinDetailContainer";
 import WalletDetailsPage from "./ui/screens/wallets/WalletDetailsPage";
-import MakeOrReceiveTransactionInputAmountPage from "./ui/screens/wallets/MakeOrReceiveTransactionFlow/MakeOrReceiveTransactionInputAmountPage";
+import TransactionPage from "./ui/screens/wallets/transactionflow/TransactionPage";
 import NewWalletPage from "./ui/screens/wallets/newwalletflow/NewWalletPage"
 
 // https://reactnavigation.org/docs/intro/basic-app
@@ -34,12 +34,8 @@ const Navigator = StackNavigator({
     	screen: WalletDetailsPage
     },
 
-    // MakeOrReceiveTransactionPage: {
-    // 	screen: MakeOrReceiveTransactionPage
-    // },
-
-    MakeOrReceiveTransactionInputAmountPage: {
-        screen: MakeOrReceiveTransactionInputAmountPage
+    TransactionPage: {
+    	screen: TransactionPage
     },
     
     NewWalletPage: {
