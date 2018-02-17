@@ -1,5 +1,5 @@
 import React from 'react';
-import {FlatList, StyleSheet, Text, View, TextInput, Button, Platform, NativeModules, Keyboard} from 'react-native';
+import {FlatList, StyleSheet, Clipboard, Text, View, TextInput, Button, Platform, NativeModules, Keyboard} from 'react-native';
 import {CheckBox} from "react-native-elements"
 import PropTypes from 'prop-types';
 
@@ -13,6 +13,7 @@ export default class TransactionPage extends React.Component {
 			"fee": "",
 			"typeleftchecked": false,
 			"typerightchecked": false,
+			"status": null,
 		}
 	}
 
@@ -94,8 +95,7 @@ export default class TransactionPage extends React.Component {
 
 	}
 
-	sendActionView(state) {
-		this.state = state;
+	sendActionView = () => {
 		return(
 			<View>
 				<View>
@@ -132,25 +132,58 @@ export default class TransactionPage extends React.Component {
 						onPress={() => this.sendAction()}
 					/>
 				</View>
-			
 			</View>
 		)
 	}
 
 	sendAction() {
-
+		//TODO
 	}
 
-	receiveActionView() {
-
+	receiveActionView = () => {
+		//grab new addr from util
+		const addr = "Some typical address";
+		return (
+			<View>
+				<Text>{addr}</Text>
+				<Button
+					title={'Copy to clipboard'}
+					onPress={() => this.copyToClipboard(addr)}
+				/>
+				<Button
+					title={'Generate New Address'}
+					onPress={() => this.generateNewAddress()}
+				/>
+			</View>
+		)
 	}
 
-	//TODO: Compartmentalize these components dawg
+	copyToClipboard = (addr) => {
+		Clipboard.setString(addr);
+		this.setState({status: "Copied to Clipboard"});
+	}
+
+	generateNewAddress() {
+		//TODO
+	}
+
+	status() {
+		if (this.state.status != null) {
+			return (
+				<Text> {this.state.status} </Text>
+			)
+		}
+		else {
+			return null;
+		}
+	}
+
 	render() {
 		return (
 			<View>
 				{this.chooseActionView()}
 				{this.action()}
+				{this.status()}
 			</View>			
 		)
 	}
@@ -160,19 +193,7 @@ export default class TransactionPage extends React.Component {
 styles = StyleSheet.create({
     background: {
         flex: 1,
-        //backgroundColor: '#11151c',
         alignItems: 'center',
         backgroundColor: '#11151c',
     },
-    inputBox: {
-    	borderColor: '#000000',
-
-    },
-    failureBanner: {
-    	backgroundColor: 'red',
-    	height: 20,
-		alignSelf: 'stretch',
-    	textAlign: 'center',   
-    },
-
 });
