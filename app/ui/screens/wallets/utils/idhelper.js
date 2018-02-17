@@ -26,17 +26,18 @@ export function createId(walletType, implementationCode) {
 
 export function getModelForId(id) {
     id = String(id);
+    console.log(codeToCoin());
     if (id[0] == 1) {
-        if (!codeToCoin[id.substring(1, 5)]){
+        if (!codeToCoin()[id.substring(1, 5)]){
             throw new Error("idhelper.js :: id "+id+" did not match");
         }
-        return codeToCoin[id.substring(1, 5)]+"Wallet";
+        return codeToCoin()[id.substring(1, 5)]+"Wallet";
     }
     else if (id[0] == 2) {
-        if (!codeToExchange[id.substring(1, 5)]){
+        if (!codeToExchange()[id.substring(1, 5)]){
             throw new Error("idhelper.js :: id "+id+" did not match");
         }
-        return codeToExchange[id.substring(1, 5)]+"Wallet";
+        return codeToExchange()[id.substring(1, 5)]+"Wallet";
     }
     throw new Error("idhelper.js :: id "+id+" did not match");
 

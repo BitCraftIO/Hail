@@ -1,12 +1,12 @@
 export const coinToCode = {
     "BTC":"0001",
-    "BTCT":"0002",
+   // "BTCT":"0002",
     "LTC":"0003",
 }
 
 export const exchangeToCode = {
-    "Bitstamp":"0001",
-    "Coinbase":"0002",
+    // "Bitstamp":"0001",
+    // "Coinbase":"0002",
 }
 
 export const codeToCoin = () => {
