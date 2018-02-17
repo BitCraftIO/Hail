@@ -6,7 +6,7 @@ import * as actions from "hail/app/ui/screens/wallets/utils/Actions";
 import * as idhelper from "hail/app/ui/screens/wallets/utils/idhelper";
 
 
-export default class MakeOrReceiveTransactionPage extends React.Component {
+export default class NewWalletPage extends React.Component {
 
 	constructor(props) {
 		super(props);
