@@ -4,6 +4,8 @@ import {CheckBox} from "react-native-elements"
 import PropTypes from 'prop-types';
 
 export default class TransactionPage extends React.Component {
+
+	//You should have access to wallet in props
 	constructor(props){
 		super(props)
 		this.state = {
@@ -14,27 +16,6 @@ export default class TransactionPage extends React.Component {
 			"typeleftchecked": false,
 			"typerightchecked": false,
 			"status": null,
-		}
-	}
-
-	checkIfValidAddress(address) {
-		isValid = true
-		this.setState({
-			"isfailureBannerVisible": !isValid,
-		});
-		return isValid;
-	}
-
-	_renderFailureBanner() {
-		if (this.state.isfailureBannerVisible) {
-			return (
-				<View style={styles.failureBanner}>
-					<Text style={styles.failureBannerText}> Address Not Valid </Text>
-				</View>
-			)
-		}
-		else {
-			return null;
 		}
 	}
 
