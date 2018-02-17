@@ -7,13 +7,12 @@
     "babel-eslint": "^8.1.2",
     "babel-jest": "22.0.4",
     "babel-preset-flow": "^6.23.0",
-    "babel-preset-react-native": "4.0.0",
+    "babel-preset-react-native": "^4.0.0",
     "flow-bin": "^0.56.0",
     "jest": "22.0.4",
     "prettier-eslint": "^8.7.0",
     "react-test-renderer": "16.0.0",
-    "redux-devtools": "^3.4.1",
-    "redux-logger": "^3.0.6"
+    "redux-devtools": "^3.4.1"
   },
   "main": "./App.js",
   "scripts": {
@@ -31,20 +30,31 @@
     "preset": "react-native"
   },
   "dependencies": {
+    "babel-plugin-rewrite-require": "^1.14.5",
+    "bignumber.js": "^6.0.0",
+    "bip39": "^2.5.0",
+    "bitcoinjs-lib": "^3.3.2",
+    "electrum-client": "git+https://github.com/BitCraftIO/node-electrum-client.git",
+    "eth-lightwallet": "^3.0.1",
+    "node-libs-browser": "^2.1.0",
     "numeral": "^2.0.6",
     "react": "^16.2.0",
     "react-native": "^0.52.0",
     "react-native-dropdownalert": "^3.1.2",
     "react-native-elements": "^0.18.5",
     "react-native-modalbox": "^1.4.2",
+    "react-native-randombytes": "^3.0.0",
     "react-native-svg": "^5.5.1",
     "react-native-svg-charts": "^2.0.1",
+    "react-native-tcp": "^3.3.0",
     "react-native-vector-icons": "^4.4.3",
     "react-navigation": "^1.0.0-beta.22",
     "react-redux": "^5.0.6",
     "realm": "^2.0.13",
     "redux": "^3.7.2",
+    "redux-logger": "^3.0.6",
     "redux-thunk": "^2.2.0",
-    "rn-viewpager": "calebdre/React-Native-ViewPager"
+    "rn-viewpager": "calebdre/React-Native-ViewPager",
+    "vm": "^0.1.0"
   }
 }
