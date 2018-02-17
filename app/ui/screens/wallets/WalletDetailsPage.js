@@ -14,8 +14,8 @@ export default class WalletDetailsPage extends React.Component {
 		};
     }
 
-    goToTransactionPage = (walletID) => {
-
+    goToTransactionPage(walletID) {
+		this.props.navigation.navigate("TransactionPage", {wallet: this.state.wallet});
     }
 
     deleteThisWallet(id) {
@@ -46,7 +46,7 @@ export default class WalletDetailsPage extends React.Component {
 				<Text> {this.state.wallet.aggregateValue} </Text>
 				<Button 
 					title="Make a Tx"
-					onPress={() => this.goToTransactionPage(this.state.walletID)} 
+					onPress={() => this.goToTransactionPage()} 
 				/>
 				<Button 
                     title={"Delete Wallet"}
