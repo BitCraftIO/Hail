@@ -2,6 +2,9 @@ export const coinToCode = {
     "BTC":"0001",
    // "BTCT":"0002",
     "LTC":"0003",
+    //"LTCT":"0004",
+    "ETH":"0005",
+    //"ETHROP":0006,
 }
 
 export const exchangeToCode = {
