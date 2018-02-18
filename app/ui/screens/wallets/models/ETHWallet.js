@@ -12,6 +12,6 @@ ETHWallet.schema = {
 		masterKey: "string",
         publicKey: "string",
         address: "string[]",
-		transactions: "ETHTransaction?[]"
+		transactions: {type: "ETHTransaction[]", default: []}
 	}
 };

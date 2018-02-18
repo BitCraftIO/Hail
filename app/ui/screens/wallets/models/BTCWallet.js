@@ -6,6 +6,7 @@ BTCWallet.schema = {
 	primaryKey: "id",
 	properties: {
 		id: "int",
+		//test or main
 		network: "string",
 		name: "string",
 		masterKey: "string",

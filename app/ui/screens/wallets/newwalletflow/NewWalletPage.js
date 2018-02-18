@@ -18,6 +18,7 @@ export default class NewWalletPage extends React.Component {
 			btcchecked: false,
 			ltcchecked: false,
 			ethchecked: false,
+			testnet: true,
 			network: null,
 			type: null,
 			id: null,
@@ -52,6 +53,7 @@ export default class NewWalletPage extends React.Component {
 			return
 		}
 		else {
+			
 			var options = {
 				id: idhelper.createId("local", this.state.network),
 				network: this.state.network,
@@ -118,31 +120,7 @@ export default class NewWalletPage extends React.Component {
 					]
 					break;
 				case "ETH": 
-					options.ETHTransaction = [
-						{
-							id: Math.floor(Math.random()*10000000000),
-							tx: "tx str",
-							fee: 2,
-							input: [
-								"input tx str"
-							],
-							output: [
-								"output tx str"
-							],
-						},
-						{
-							id: Math.floor(Math.random()*10000000000),
-							tx: "tx str",
-							fee: 2,
-							input: [
-								"input tx str"
-							],
-							output: [
-								"output tx str"
-							],
-						}
-					]
-					break;
+					//No dirty test params
 				default:
 					console.log("Switch broke");
 			}
@@ -270,6 +248,12 @@ export default class NewWalletPage extends React.Component {
 							/>
 						</View>
 					</View>
+					<CheckBox
+						title="Testnet"
+						checked={this.state.testnet}
+						onPress={() => {this.setState({testnet: !this.state.testnet})}}
+						right={true}
+					/>
 				</View>
 				
 				<Button 
