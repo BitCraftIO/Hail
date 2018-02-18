@@ -16,7 +16,7 @@ const babelRC = {
             aliases: {
                 constants: 'constants-browserify',
                 crypto: 'crypto-browserify',
-                buffer: 'safe-buffer',
+                //buffer: 'safe-buffer',
                 //dns: 'node-libs-browser/mock/dns',
                 //domain: 'domain-browser',
                 //fs: 'node-libs-browser/mock/empty',
