@@ -1,4 +1,3 @@
-import Db from "hail/app/localstorage/db/Db";
 import Realm from "realm";
 
 export default class BTCWallet extends Realm.Object {}
