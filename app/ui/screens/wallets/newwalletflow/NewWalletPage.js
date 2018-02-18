@@ -17,7 +17,7 @@ export default class NewWalletPage extends React.Component {
 			typerightchecked: false,
 			btcchecked: false,
 			ltcchecked: false,
-			xmrchecked: false,
+			ethchecked: false,
 			network: null,
 			type: null,
 			id: null,
@@ -117,8 +117,8 @@ export default class NewWalletPage extends React.Component {
 						}
 					]
 					break;
-				case "XMR": 
-					options.XMRTransaction = [
+				case "ETH": 
+					options.ETHTransaction = [
 						{
 							id: Math.floor(Math.random()*10000000000),
 							tx: "tx str",
@@ -178,7 +178,7 @@ export default class NewWalletPage extends React.Component {
 				this.setState({
 					btcchecked: true,
 					ltcchecked: false,
-					xmrchecked: false,
+					ethchecked: false,
 					network: "BTC"
 				});
 				break;
@@ -186,16 +186,16 @@ export default class NewWalletPage extends React.Component {
 				this.setState({
 					btcchecked: false,
 					ltcchecked: true,
-					xmrchecked: false,
+					ethchecked: false,
 					network: "LTC"
 				});
 				break;
-			case "XMR":
+			case "ETH":
 				this.setState({
 					btcchecked: false,
 					ltcchecked: false,
-					xmrchecked: true,
-					network: "XMR"
+					ethchecked: true,
+					network: "ETH"
 				});
 				break;
 			default:
@@ -264,9 +264,9 @@ export default class NewWalletPage extends React.Component {
 						</View>
 						<View>
 							<CheckBox 
-								title="XMR"
-								checked={this.state.xmrchecked}
-								onPress={() => this._pressWalletTypeCheckBox("XMR")}
+								title="ETH"
+								checked={this.state.ethchecked}
+								onPress={() => this._pressWalletTypeCheckBox("ETH")}
 							/>
 						</View>
 					</View>
