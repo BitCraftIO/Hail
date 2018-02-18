@@ -1,7 +1,7 @@
 // Inject node globals into React Native global scope.
 // Required for crypto functionality for bitcoinjs-lib, web3, etc.
 
-global.Buffer = require('buffer').Buffer;
+global.Buffer = require('safe-buffer').Buffer;
 
 global.process = require('process');
 global.process.env.NODE_ENV = __DEV__ ? 'development' : 'production';
@@ -18,6 +18,7 @@ var getRandomValues = function (byteArray) {
 // However, crypto-browserify does not support getRandomValues, so we
 // must re-add it after loading the module.
 global.crypto = { getRandomValues };
+global.crypto.rng = require('react-native-randombytes');
 global.crypto = require('crypto');
 global.crypto.getRandomValues = getRandomValues;
 global.crypto.rng = require('react-native-randombytes');
