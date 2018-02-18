@@ -4,7 +4,8 @@ import BTCTransaction from "hail/app/ui/screens/wallets/models/BTCTransaction";
 import LTCTransaction from "hail/app/ui/screens/wallets/models/LTCTransaction";
 import BTCWallet from "hail/app/ui/screens/wallets/models/BTCWallet";
 import LTCWallet from "hail/app/ui/screens/wallets/models/LTCWallet";
-import BitstampWallet from "hail/app/ui/screens/wallets/models/BitstampWallet";
+import ETHWallet from "../../ui/screens/wallets/models/ETHWallet";
+import ETHTransaction from "../../ui/screens/wallets/models/ETHTransaction";
 
 export let realm = new Realm({
 	schema: [
@@ -12,7 +13,8 @@ export let realm = new Realm({
 		BTCTransaction, 
 		LTCWallet, 
 		LTCTransaction, 
-		BitstampWallet
+		ETHWallet,
+		ETHTransaction,
 	],
 	path: config.db_path,
 });
