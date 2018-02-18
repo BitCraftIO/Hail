@@ -4,7 +4,7 @@ import {CheckBox} from "react-native-elements"
 import PropTypes from "prop-types";
 import * as actions from "hail/app/ui/screens/wallets/utils/Actions";
 import * as idhelper from "hail/app/ui/screens/wallets/utils/idhelper";
-
+import * as wallet from "hail/app/ui/screens/wallets/utils/WalletActions";
 
 export default class NewWalletPage extends React.Component {
 
@@ -19,7 +19,7 @@ export default class NewWalletPage extends React.Component {
 			ltcchecked: false,
 			ethchecked: false,
 			testnet: true,
-			network: null,
+			coin: null,
 			type: null,
 			id: null,
 		};
@@ -41,7 +41,7 @@ export default class NewWalletPage extends React.Component {
 			successInfo: "...",
 		});
 
-		if (this.state.network === null|| this.state.name === null || this.state.type === null) {
+		if (this.state.coin === null|| this.state.name === null || this.state.type === null) {
 			alert("Please input all fields")
 			this.setState({
 				successInfo: "Failed",
@@ -55,9 +55,9 @@ export default class NewWalletPage extends React.Component {
 		else {
 			
 			var options = {
-				id: idhelper.createId("local", this.state.network),
-				network: this.state.network,
-				name: this.state.name,
+				id: idhelper.createId("local", this.state.coin),
+				coin: this.state.coin,
+				network: this.state.testnet? 'test' : 'main',
 				receiveAddresses: [
 					"receiveAddr 1",
 				],
@@ -66,7 +66,7 @@ export default class NewWalletPage extends React.Component {
 			}; 
 
 			//this is gross
-			switch (this.state.network) {
+			switch (this.state.coin) {
 				case "BTC":
 					options.BTCTransaction = [
 						{
@@ -120,7 +120,9 @@ export default class NewWalletPage extends React.Component {
 					]
 					break;
 				case "ETH": 
-					//No dirty test params
+					const result = wallet.createPrivateKeyPair(this.state.coin);
+					console.log(result);
+					break;
 				default:
 					console.log("Switch broke");
 			}
@@ -157,7 +159,7 @@ export default class NewWalletPage extends React.Component {
 					btcchecked: true,
 					ltcchecked: false,
 					ethchecked: false,
-					network: "BTC"
+					coin: "BTC"
 				});
 				break;
 			case "LTC":
@@ -165,7 +167,7 @@ export default class NewWalletPage extends React.Component {
 					btcchecked: false,
 					ltcchecked: true,
 					ethchecked: false,
-					network: "LTC"
+					coin: "LTC"
 				});
 				break;
 			case "ETH":
@@ -173,7 +175,7 @@ export default class NewWalletPage extends React.Component {
 					btcchecked: false,
 					ltcchecked: false,
 					ethchecked: true,
-					network: "ETH"
+					coin: "ETH"
 				});
 				break;
 			default:

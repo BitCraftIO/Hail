@@ -18,6 +18,7 @@ var getRandomValues = function (byteArray) {
 // However, crypto-browserify does not support getRandomValues, so we
 // must re-add it after loading the module.
 global.crypto = { getRandomValues };
+global.crypto.rng = require('react-native-randombytes');
 global.crypto = require('crypto');
 global.crypto.getRandomValues = getRandomValues;
 global.crypto.rng = require('react-native-randombytes');

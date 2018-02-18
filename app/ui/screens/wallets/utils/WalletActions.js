@@ -16,6 +16,7 @@ export function createPrivateKeyPair(network) {
             break;
         case "ETH":
             const mnemonic = bip39.generateMnemonic();
+            console.log(mnemonic);
             const newAccount = bip44hdkey.fromMasterSeed(mnemonic);
             const keynode = newAccount.derivePath("m/44'/60'/0'/0");
             const address = keynode.deriveChild(0);
