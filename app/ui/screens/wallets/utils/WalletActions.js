@@ -31,10 +31,13 @@ export function createPrivateKeyPair(network) {
                 .getWallet()
                 .getChecksumAddressString();
 
+            console.log(
+                'Private Key: ' + bip39.mnemonicToSeed(mnemonic).toString('hex')
+            );
+
             //Note: this is all incorrect if you see this comment
             return {
-                masterKey: root.privateExtendedKey(),
-                mnemonic: mnemonic,
+                masterKey: bip39.mnemonicToSeed(mnemonic).toString('hex'),
                 address: "m/44'/60'/0'/0 " + address
             };
             break;
