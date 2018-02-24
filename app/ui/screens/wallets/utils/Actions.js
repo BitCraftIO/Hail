@@ -1,10 +1,9 @@
-import * as Db from "hail/app/localstorage/db/Db";
-import * as queries from "./Queries";
-import * as idhelper from "./idhelper";
-import * as networkCodes from "./networkcodes";
+import * as Db from 'hail/app/localstorage/db/Db';
+import * as queries from './Queries';
+import * as idhelper from './idhelper';
+import * as networkCodes from './networkcodes';
 
 //Realm write operations are synchronous
-
 
 /*
 	See <coin>Wallet.js for needed options
@@ -12,18 +11,16 @@ import * as networkCodes from "./networkcodes";
 	@param coin: ex, BTC, LTC, ETH etc...
 */
 export function createWallet(options) {
-	Db.insert(options.network+"Wallet", options);
+    Db.insert(options.coin + 'Wallet', options);
 }
 
-export function createExchangeWallet(options) {
-
-}
+export function createExchangeWallet(options) {}
 
 //Can be used to delete exchange wallets
 export function deleteWalletById(id) {
-	Db.del(idhelper.getModelForId(id), queries.getWalletbyId(id));
+    Db.del(idhelper.getModelForId(id), queries.getWalletbyId(id));
 }
 
 export function updateWalletById(id, options) {
-	Db.update(queries.getWalletbyId(id), options);
+    Db.update(queries.getWalletbyId(id), options);
 }
