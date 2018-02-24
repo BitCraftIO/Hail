@@ -24,14 +24,7 @@ export function createPrivateKeyPair(network) {
                 'BIP32 Extended Private Key: ' +
                     derivedNode.privateExtendedKey()
             );
-            console.log(
-                bip44hdkey
-                    .fromExtendedKey(derivedNode.publicExtendedKey())
-                    .deriveChild(0)
-                    .getWallet()
-                    .getChecksumAddressString()
-                //.toString('hex')
-            );
+
             const address = bip44hdkey
                 .fromExtendedKey(derivedNode.publicExtendedKey())
                 .deriveChild(0)
@@ -40,9 +33,9 @@ export function createPrivateKeyPair(network) {
 
             //Note: this is all incorrect if you see this comment
             return {
-                masterKey: bip39.mnemonicToSeedHex(mnemonic),
+                masterKey: root.privateExtendedKey(),
                 mnemonic: mnemonic,
-                address: "m/44'/60'/0'/0 " + address //.publicExtendedKey()
+                address: "m/44'/60'/0'/0 " + address
             };
             break;
         default:
