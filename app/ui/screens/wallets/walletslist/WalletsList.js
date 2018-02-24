@@ -1,20 +1,32 @@
 import React from 'react';
-import {Header, SectionList, FlatList, StyleSheet, Text, View, TextInput, Button, Platform, NativeModules, StatusBar, Keyboard} from 'react-native';
-import * as Db from "hail/app/localstorage/db/Db";
-import WalletElement from "./../components/WalletElement";
-import * as actions from "hail/app/ui/screens/wallets/utils/Actions";
-import * as queries from "hail/app/ui/screens/wallets/utils/Queries";
+import {
+    Header,
+    SectionList,
+    FlatList,
+    StyleSheet,
+    Text,
+    View,
+    TextInput,
+    Button,
+    Platform,
+    NativeModules,
+    StatusBar,
+    Keyboard
+} from 'react-native';
+import * as Db from 'hail/app/localstorage/db/Db';
+import WalletElement from './../components/WalletElement';
+import * as actions from 'hail/app/ui/screens/wallets/utils/Actions';
+import * as queries from 'hail/app/ui/screens/wallets/utils/Queries';
 
 import PropTypes from 'prop-types';
 export default class WalletsList extends React.Component {
-
-	static navigationOptions = {
+    static navigationOptions = {
         header: () => {}
     };
 
     static propTypes = {
         navigation: PropTypes.object.isRequired // must be instance of react-navigation
-    }
+    };
 
     constructor(props) {
         super(props);
@@ -23,42 +35,41 @@ export default class WalletsList extends React.Component {
     //TODO: Possible memory leak
     refresh = () => {
         console.log(this);
-        this.props.getWallets()
+        this.props.getWallets();
+    };
+
+    componentDidMount() {
+        this.props.getWallets();
     }
 
-    componentDidMount(){
-        this.props.getWallets()
-    }
-
-    componentWillMount(){
-        this.props.getWallets()
+    componentWillMount() {
+        this.props.getWallets();
     }
 
     openWallet(wallet) {
-        const {navigate} = this.props.navigation;
-        navigate("WalletDetailsPage", {"wallet": wallet, refresh: this.refresh});
+        const { navigate } = this.props.navigation;
+        navigate('WalletDetailsPage', {
+            wallet: wallet,
+            refresh: this.refresh
+        });
     }
 
     newWallet() {
-        const {navigate} = this.props.navigation;
-        navigate("NewWalletPage", {refresh: this.refresh});
+        const { navigate } = this.props.navigation;
+        navigate('NewWalletPage', { refresh: this.refresh });
     }
 
     newWalletButton() {
-        return (
-            <Button 
-                title={"New Wallet"}
-                onPress={() => this.newWallet()}
-            />
-        );
+        return <Button title={'New Wallet'} onPress={() => this.newWallet()} />;
     }
 
+    //TODO: Fix network/coin mixup
     walletsList() {
         var sections = [
             {
                 data: this.props.wallets.result.local,
-                title: "Local Wallets",
-                renderItem: (wallet) => 
+                title: 'Local Wallets',
+                renderItem: wallet => (
                     <WalletElement
                         symbol={wallet.item.network}
                         aggregateCoins={0}
@@ -67,11 +78,12 @@ export default class WalletsList extends React.Component {
                         percentageGrowth={0}
                         onPress={() => this.openWallet(wallet.item)}
                     />
+                )
             },
             {
                 data: this.props.wallets.result.exchange,
-                title: "Exchange Wallets",
-                renderItem: (wallet) => 
+                title: 'Exchange Wallets',
+                renderItem: wallet => (
                     <WalletElement
                         symbol={wallet.item.symbol}
                         aggregateCoins={wallet.item.aggregateCoins}
@@ -80,30 +92,29 @@ export default class WalletsList extends React.Component {
                         percentageGrowth={wallet.item.percentageGrowth}
                         onPress={() => this.openWallet(wallet.item)}
                     />
-            },
-        ]
+                )
+            }
+        ];
 
         return (
             <SectionList
                 style={styles.list}
-                renderSectionHeader={({section}) => <Text style={styles.sectionHeader}>{section.title} </Text>}
-                sections={sections}   
+                renderSectionHeader={({ section }) => (
+                    <Text style={styles.sectionHeader}>{section.title} </Text>
+                )}
+                sections={sections}
             />
         );
     }
 
-    loading() {
-        
-    }
+    loading() {}
 
     render() {
         if (this.props.wallets.result && !this.props.wallets.loading) {
             var walletsList = this.walletsList();
-        } 
-        else if (this.props.wallets.loading) {
+        } else if (this.props.wallets.loading) {
             return null;
-        }
-        else {
+        } else {
             var walletsList = null;
         }
 
@@ -112,9 +123,8 @@ export default class WalletsList extends React.Component {
                 {this.newWalletButton()}
                 {walletsList}
             </View>
-
-        )
-    };
+        );
+    }
 }
 
 styles = StyleSheet.create({
@@ -122,20 +132,20 @@ styles = StyleSheet.create({
         flex: 1,
         //backgroundColor: '#11151c',
         alignItems: 'center',
-        backgroundColor: '#11151c',
+        backgroundColor: '#11151c'
     },
     list: {
         //paddingTop: 70,
     },
     sectionHeader: {
-        fontFamily: "Avenir",
+        fontFamily: 'Avenir',
         fontSize: 9,
-        color: "#9b9b9b",
+        color: '#9b9b9b',
         paddingTop: 30,
         paddingBottom: 15
     },
     modal: {
         height: 230,
-        backgroundColor: "#3B5998"
-    },
+        backgroundColor: '#3B5998'
+    }
 });
