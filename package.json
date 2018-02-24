@@ -32,8 +32,13 @@
   "dependencies": {
     "babel-plugin-rewrite-require": "^1.14.5",
     "bignumber.js": "^6.0.0",
+    "bip39": "^2.5.0",
     "bitcoinjs-lib": "^3.3.2",
+    "buffer": "^5.1.0",
     "electrum-client": "git+https://github.com/BitCraftIO/node-electrum-client.git",
+    "ethereumjs-tx": "^1.3.3",
+    "ethereumjs-util": "^5.1.4",
+    "ethereumjs-wallet": "^0.6.0",
     "node-libs-browser": "^2.1.0",
     "numeral": "^2.0.6",
     "react": "^16.2.0",
@@ -43,10 +48,6 @@
     "react-native-modalbox": "^1.4.2",
     "react-native-randombytes": "^3.0.0",
     "react-native-svg": "^5.5.1",
-    "ethereumjs-wallet": "^0.6.0",
-    "ethereumjs-tx": "^1.3.3",
-    "ethereumjs-util": "^5.1.4",
-    "bip39": "^2.5.0",
     "react-native-svg-charts": "^2.0.1",
     "react-native-tcp": "^3.3.0",
     "react-native-vector-icons": "^4.4.3",
@@ -59,5 +60,10 @@
     "rn-viewpager": "calebdre/React-Native-ViewPager",
     "safe-buffer": "^5.1.1",
     "vm": "^0.1.0"
+  },
+  "prettier": {
+    "tabWidth": 2,
+    "semi": true,
+    "singleQuote": true
   }
 }

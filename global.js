@@ -2,16 +2,17 @@
 // Required for crypto functionality for bitcoinjs-lib, web3, etc.
 
 global.Buffer = require('buffer').Buffer;
+//global.Buffer.TYPED_ARRAY_SUPPORT = false;
 
 global.process = require('process');
 global.process.env.NODE_ENV = __DEV__ ? 'development' : 'production';
 
-var getRandomValues = function (byteArray) {
-    var bytes = crypto.rng.randomBytes(byteArray.length);
-    for (let i = 0; i < byteArray.length; i++) {
-        byteArray[i] = bytes[i];
-    }
-}
+var getRandomValues = function(byteArray) {
+  var bytes = crypto.rng.randomBytes(byteArray.length);
+  for (let i = 0; i < byteArray.length; i++) {
+    byteArray[i] = bytes[i];
+  }
+};
 // "But Zach, aren't you just doing the same thing twice?"
 // Yes. Initializing the crypto-browserify module eventually requires
 // crypto.getRandomValues to exist, so we must add it here once.
@@ -26,5 +27,5 @@ crypto.rng.seedSJCL();
 
 // Needed so that 'stream-http' chooses the right default protocol.
 global.location = {
-    protocol: 'file:',
+  protocol: 'file:'
 };
