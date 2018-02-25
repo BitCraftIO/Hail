@@ -11,23 +11,16 @@ export default class Ethereum {
      */
     static generateHDWallet() {
         const mnemonic = bip39.generateMnemonic();
-        console.log(mnemonic);
+        console.log(`Mnemonic: ${mnemonic}`);
         const root = bip44hdkey.fromMasterSeed(bip39.mnemonicToSeed(mnemonic));
         const derivedNode = root.derivePath("m/44'/60'/0'/0");
-
-        console.log(
-            'BIP32 Extended Private Key: ' + derivedNode.privateExtendedKey()
-        );
-
         const address = this.generateAddress(derivedNode);
-        console.log(
-            'Private Key: ' + bip39.mnemonicToSeed(mnemonic).toString('hex')
-        );
+        console.log(`Private Key: ${root._hdkey.privateKey.toString('hex')}`);
 
+        //TODO: Verify that this private key relates to the address
         //Note: this is all incorrect if you see this comment
-        //Unsure if this returns private key
         return {
-            masterKey: bip39.mnemonicToSeed(mnemonic).toString('hex'),
+            masterKey: root._hdkey.privateKey.toString('hex'),
             address: "m/44'/60'/0'/0 " + address
         };
     }
