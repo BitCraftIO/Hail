@@ -1,18 +1,5 @@
 import React from 'react';
-import {
-    Header,
-    SectionList,
-    FlatList,
-    StyleSheet,
-    Text,
-    View,
-    TextInput,
-    Button,
-    Platform,
-    NativeModules,
-    StatusBar,
-    Keyboard
-} from 'react-native';
+import { Header, SectionList, FlatList, StyleSheet, Text, View, TextInput, Button, Platform, NativeModules, StatusBar, Keyboard } from 'react-native';
 import * as Db from 'hail/app/localstorage/db/Db';
 import WalletElement from './../components/WalletElement';
 import * as actions from 'hail/app/ui/screens/wallets/utils/Actions';
@@ -64,6 +51,7 @@ export default class WalletsList extends React.Component {
     }
 
     //TODO: Fix network/coin mixup
+    //prettier-ignore
     walletsList() {
         var sections = [
             {
@@ -109,6 +97,7 @@ export default class WalletsList extends React.Component {
 
     loading() {}
 
+    //prettier-ignore
     render() {
         if (this.props.wallets.result && !this.props.wallets.loading) {
             var walletsList = this.walletsList();
