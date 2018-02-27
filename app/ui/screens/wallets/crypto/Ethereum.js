@@ -1,5 +1,5 @@
 import bip44hdkey from 'ethereumjs-wallet/hdkey';
-import ethwallet from 'ethereumjs-wallet';
+import wallet from 'ethereumjs-wallet';
 import ethtx from 'ethereumjs-tx';
 import bip39 from 'bip39';
 //import web3 from '../network/coins/Ethereum/Web3';
@@ -25,6 +25,11 @@ export default class Ethereum {
         };
     }
 
+    /**
+     * Ensure that the node passed through has a path similar to m/purpose/cointype/0'/0
+     * @param {hdkey} node
+     * @param {int} index
+     */
     static generateAddress(node, index = 0) {
         return bip44hdkey
             .fromExtendedKey(node.publicExtendedKey())
@@ -33,6 +38,15 @@ export default class Ethereum {
             .getChecksumAddressString();
     }
 
+    /**
+     *
+     * @param {string} privateKey
+     * @param {string} password the password to encrypt the keystore to
+     */
+    generateKeyStore(privateKey, password) {
+        const wal = wallet.fromPrivateKey(Buffer.from(privateKey, 'hex'));
+        return wal.toV3String(password);
+    }
     generateWalletFromKey() {}
 
     /**
