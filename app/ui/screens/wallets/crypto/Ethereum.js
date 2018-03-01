@@ -1,6 +1,6 @@
 import bip44hdkey from 'ethereumjs-wallet/hdkey';
 import wallet from 'ethereumjs-wallet';
-import ethtx from 'ethereumjs-tx';
+import EthereumTx from 'ethereumjs-tx';
 import bip39 from 'bip39';
 //import web3 from '../network/coins/Ethereum/Web3';
 
@@ -47,19 +47,22 @@ export default class Ethereum {
         const wal = wallet.fromPrivateKey(Buffer.from(privateKey, 'hex'));
         return wal.toV3String(password);
     }
+
     generateWalletFromKey() {}
 
     /**
-     *
-     * @param {*} privateKey
-     * @param {*} fromAddress
-     * @param {*} toAddress
-     * @param {*} gasLimit
-     * @param {*} gasPrice
+     * https://github.com/ethereumjs/ethereumjs-tx#usage
+     * @param {string} nonce must have 0x preceeding
+     * @param {string} privateKey
+     * @param {string} to destination address
+     * @param {string} gasLimit must have 0x preceeding
+     * @param {string} gasPrice must have 0x preceeding
+     * @param {string} value must have 0x preceeding
+     * @param {int} chainId EIP 155 chainId - mainnet: 1, ropsten: 3
      */
-    createRawTransaction(options) {}
-
-    _buildTransaction() {}
-
-    _signTransaction() {}
+    createRawTransaction(options) {
+        const tx = new EthereumTx(options);
+        tx.sign(options.privateKey);
+        return tx.serialize();
+    }
 }
