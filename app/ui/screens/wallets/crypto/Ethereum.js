@@ -26,6 +26,18 @@ export default class Ethereum {
     }
 
     /**
+     *
+     * @param {string} privateKey
+     */
+    static privateKeyToNode(privateKey) {
+        return (bip44hdkey.privateKey = privateKey);
+    }
+
+    static privateKeyToAddrNode(privateKey) {
+        return privateKeyToNode(privateKey).deriveChild("m/44'/60'/0'/0");
+    }
+
+    /**
      * Ensure that the node passed through has a path similar to m/purpose/cointype/0'/0
      * @param {hdkey} node
      * @param {int} index
@@ -43,12 +55,14 @@ export default class Ethereum {
      * @param {string} privateKey
      * @param {string} password the password to encrypt the keystore to
      */
-    generateKeyStore(privateKey, password) {
+    static generateKeyStore(privateKey, password) {
         const wal = wallet.fromPrivateKey(Buffer.from(privateKey, 'hex'));
         return wal.toV3String(password);
     }
 
-    generateWalletFromKey() {}
+    generateWalletFromKey() {
+        //TODO:
+    }
 
     /**
      * https://github.com/ethereumjs/ethereumjs-tx#usage
@@ -60,7 +74,7 @@ export default class Ethereum {
      * @param {string} value must have 0x preceeding
      * @param {int} chainId EIP 155 chainId - mainnet: 1, ropsten: 3
      */
-    createRawTransaction(options) {
+    static createRawTransaction(options) {
         const tx = new EthereumTx(options);
         tx.sign(options.privateKey);
         return tx.serialize();
