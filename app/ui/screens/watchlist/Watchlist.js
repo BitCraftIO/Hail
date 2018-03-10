@@ -1,22 +1,25 @@
+// @flow
+
 import React from 'react';
-import {View, Text, FlatList, StyleSheet} from 'react-native';
-import {Button} from 'react-native-elements'
-import PropTypes from 'prop-types';
+import ReactNative from 'react-native'
+const {View, Text, FlatList, StyleSheet} = ReactNative
 import {ResourceComponent} from "../../../reduxhelpers/CreateResource";
+import {Colors} from "../Colors";
 
-import {RESOURCE_GET_COIN_DATA_TAG} from "./state/WatchlistActions";
+import type {WatchlistCoinData} from "./WatchlistCoinDataRequestMapper";
 import WatchlistItem from "./WatchlistItem";
+import Touchable from 'react-native-platform-touchable';
 
-export default class Watchlist extends React.Component {
+type Props = {
+    coinData: WatchlistCoinData,
+    navigate: void => void
+}
+
+export default class Watchlist extends React.Component<Props> {
     static navigationOptions = {
         header: () => {
         }
     };
-
-    static propTypes = {
-        [RESOURCE_GET_COIN_DATA_TAG]: PropTypes.object.isRequired,
-        navigate: PropTypes.func.isRequired
-    }
 
     componentDidMount() {
         this.props.getWatchlistCoins();
@@ -26,48 +29,64 @@ export default class Watchlist extends React.Component {
         this.props.navigation.navigate("CoinDetail", {coin: item.coin});
     }
 
-    showCoins = (coinData) => {
-        if (coinData.length > 0) {
-            return (
-                <View style={styles.container}>
-                    <Text>Favorites</Text>
-                    <FlatList
-                        data={coinData}
-                        renderItem={item => <WatchlistItem item={item.item} onClick={this.onWatchlistItemClick}/>}
-                        keyExtractor={(item, index) => item.coin + item.currentPrice + index}
-                    />
-                </View>
-            );
-        } else {
-            return (
-                <View style={{flex: 1, alignItems: "center", justifyContent: "center"}}>
-                    <Text style={{fontSize: 16, color: "#777", marginTop: 16, textAlign:"center", lineHeight: 26}}>You aren't watching any coins!{"\n"}Let's fix that.</Text>
-                    <Button
-                        onPress={() => this.props.navigate("SearchResults")}
-                        borderRadius={4}
-                        title={"Search for coins"}
-                        color={"#fff"}
-                        backgroundColor={"#50d8b7"}
-                        containerViewStyle={{marginTop: 12}}/>
-                </View>
-            )
-        }
+    showData = data => {
+        return (
+            <FlatList
+                ListHeaderComponent={
+                    <Text style={styles.header}>WATCHING</Text>
+                }
+                ListEmptyComponent={
+                    <Touchable
+                        style={styles.emptyListContainer}
+                        onPress={() => this.props.navigate("SearchResults")}>
+                        <Text style={styles.emptyListText}>You aren't watching an coins{"\n\n"}Tap here to search for coins to start watching</Text>
+                    </Touchable>
+                }
+                data={data}
+                renderItem={item =>
+                    <WatchlistItem
+                        item={item.item}
+                        onClick={this.onWatchlistItemClick}/>
+                }
+                keyExtractor={(item, index) => item.coin + item.currentPrice + index}
+            />
+        );
     }
 
     render() {
         return (
-            <ResourceComponent
-                resource={this.props.coinData}
-                progressView={() => (<Text>Loading</Text>)}
-                errorView={() => (<Text>Error</Text>)}
-                dataView={this.showCoins}/>
+            <View style={styles.container}>
+                <ResourceComponent
+                    resource={this.props.coinData}
+                    progressView={() => (<Text>Loading</Text>)}
+                    errorView={() => (<Text>Error</Text>)}
+                    dataView={this.showData}/>
+            </View>
         )
     }
 }
 
 const styles = StyleSheet.create({
     container: {
-        marginLeft: 24,
-        marginRight: 24
+        flex:1,
+        backgroundColor: Colors.PrimaryBackground,
+        paddingLeft: 30,
+        paddingRight: 24,
+        paddingTop:32
+    },
+
+    emptyListContainer: {
+      paddingTop:24,
+      paddingBottom:24,
+    },
+
+    emptyListText: {
+        color: Colors.PrimaryBackgroundText,
+        width: 225
+    },
+
+    header: {
+        fontSize:12,
+        color: Colors.PrimaryBackgroundText,
     }
 });

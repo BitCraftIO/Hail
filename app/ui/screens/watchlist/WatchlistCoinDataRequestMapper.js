@@ -2,7 +2,18 @@
 import { pricesByTheMinute } from "../../../network/HistoricalPricesApi";
 import { ONE_DAY_IN_SECONDS } from "../../../utils/TimeUtils";
 
-export default async function getWatchlistCoinData(coin: string): Promise<Object> {
+export type GraphData = {
+    x: number[],
+    y: number[]
+}
+
+export type WatchlistCoinData = {
+    graphData: GraphData,
+    currentPrice: number,
+    coin: string
+}
+
+export default async function getWatchlistCoinData(coin: string): Promise<WatchlistCoinData> {
     const now = Math.floor(Date.now() / 1000);
     const prices = await pricesByTheMinute(now - ONE_DAY_IN_SECONDS, coin);
     if (prices.length === 0) {
