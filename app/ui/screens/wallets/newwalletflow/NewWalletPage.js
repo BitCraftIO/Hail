@@ -1,16 +1,5 @@
 import React from 'react';
-import {
-    FlatList,
-    StyleSheet,
-    Text,
-    View,
-    TextInput,
-    Button,
-    Platform,
-    NativeModules,
-    StatusBar,
-    Keyboard
-} from 'react-native';
+import { FlatList, StyleSheet, Text, View, TextInput, Button, Platform, NativeModules, StatusBar, Keyboard } from 'react-native';
 import { CheckBox } from 'react-native-elements';
 import PropTypes from 'prop-types';
 import * as actions from 'hail/app/ui/screens/wallets/utils/Actions';
@@ -50,11 +39,7 @@ export default class NewWalletPage extends React.Component {
             successInfo: '...'
         });
 
-        if (
-            this.state.coin === null ||
-            this.state.name === null ||
-            this.state.type === null
-        ) {
+        if (this.state.coin === null || this.state.name === null || this.state.type === null) {
             alert('Please input all fields');
             this.setState({
                 successInfo: 'Failed'
@@ -76,7 +61,7 @@ export default class NewWalletPage extends React.Component {
                 changeAddress: 'changeAddress string'
             };
 
-            //this is gross
+            //TODO: Remove hardcoded dummy variables
             switch (this.state.coin) {
                 case 'BTC':
                     options.BTCTransaction = [
@@ -188,38 +173,19 @@ export default class NewWalletPage extends React.Component {
                     }}
                 />
                 <Text>Wallet Name</Text>
-                <TextInput
-                    onChangeText={text => this.setState({ name: text })}
-                    value={this.state.name}
-                    placeholder={this.state.name}
-                />
+                <TextInput onChangeText={text => this.setState({ name: text })} value={this.state.name} placeholder={this.state.name} />
                 <View style={{ paddingTop: 30 }}>
                     <Text>id</Text>
-                    <TextInput
-                        onChangeText={text =>
-                            this.setState({ id: Number(text) })
-                        }
-                        value={String(this.state.id)}
-                        placeholder={'null'}
-                    />
+                    <TextInput onChangeText={text => this.setState({ id: Number(text) })} value={String(this.state.id)} placeholder={'null'} />
                 </View>
                 <View style={{ paddingTop: 30 }}>
                     <Text>Type</Text>
                     <View style={{ flexDirection: 'row' }}>
                         <View>
-                            <CheckBox
-                                title="Exchange"
-                                checked={this.state.typeleftchecked}
-                                right={true}
-                                onPress={() => this._pressTypeCheckBox('left')}
-                            />
+                            <CheckBox title="Exchange" checked={this.state.typeleftchecked} right={true} onPress={() => this._pressTypeCheckBox('left')} />
                         </View>
                         <View>
-                            <CheckBox
-                                title="LocalWallet"
-                                checked={this.state.typerightchecked}
-                                onPress={() => this._pressTypeCheckBox('right')}
-                            />
+                            <CheckBox title="LocalWallet" checked={this.state.typerightchecked} onPress={() => this._pressTypeCheckBox('right')} />
                         </View>
                     </View>
                 </View>
@@ -227,32 +193,13 @@ export default class NewWalletPage extends React.Component {
                     <Text>LocalWallet Type</Text>
                     <View style={{ flexDirection: 'row' }}>
                         <View>
-                            <CheckBox
-                                title="BTC"
-                                checked={this.state.btcchecked}
-                                right={true}
-                                onPress={() =>
-                                    this._pressWalletTypeCheckBox('BTC')
-                                }
-                            />
+                            <CheckBox title="BTC" checked={this.state.btcchecked} right={true} onPress={() => this._pressWalletTypeCheckBox('BTC')} />
                         </View>
                         <View>
-                            <CheckBox
-                                title="LTC"
-                                checked={this.state.ltcchecked}
-                                onPress={() =>
-                                    this._pressWalletTypeCheckBox('LTC')
-                                }
-                            />
+                            <CheckBox title="LTC" checked={this.state.ltcchecked} onPress={() => this._pressWalletTypeCheckBox('LTC')} />
                         </View>
                         <View>
-                            <CheckBox
-                                title="ETH"
-                                checked={this.state.ethchecked}
-                                onPress={() =>
-                                    this._pressWalletTypeCheckBox('ETH')
-                                }
-                            />
+                            <CheckBox title="ETH" checked={this.state.ethchecked} onPress={() => this._pressWalletTypeCheckBox('ETH')} />
                         </View>
                     </View>
                     <CheckBox
@@ -265,10 +212,7 @@ export default class NewWalletPage extends React.Component {
                     />
                 </View>
 
-                <Button
-                    title={'CreateWallet'}
-                    onPress={() => this.createWallet()}
-                />
+                <Button title={'CreateWallet'} onPress={() => this.createWallet()} />
                 <Text>{this.state.successInfo}</Text>
             </View>
         );

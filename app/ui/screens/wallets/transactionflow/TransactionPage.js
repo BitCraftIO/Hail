@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 import * as walletActions from '../utils/WalletActions';
 
 export default class TransactionPage extends React.Component {
-    //You should have access to wallet in props
     constructor(props) {
         super(props);
         this.state = {
@@ -99,13 +98,13 @@ export default class TransactionPage extends React.Component {
 
         const buf = new Buffer(this.state.wallet.masterKey, 'hex');
         const params = {
-            gasPrice: (20000000000).toString(16), //Number(this.state.fee).toString(16),
-            gasLimit: (100000).toString(16), //Number(this.state.gasPrice).toString(16),
+            gasPrice: (20000000000).toString(16),
+            gasLimit: (100000).toString(16),
             from: this.state.wallet.address[0].split(' ')[1],
             to: `0x${this.state.address}`,
-            value: (1000).toString(16), //Number(this.state.amount).toString(16),
+            value: (1000).toString(16),
             chainId: 3,
-            nonce: '0x00', //Number(this.state.wallet.transactions.count).toString(16),
+            nonce: '0x00',
             privateKey: buf
         };
         console.log(params);
@@ -135,7 +134,6 @@ export default class TransactionPage extends React.Component {
 
     generateNewAddress() {
         //TODO: Do this right after refactor. Only works for ethereum
-        //return Ethereum.generateNewAddress(Ethereum.privateKeyToAddrNode(this.state.wallet.masterKey), this.state.wallet.address.length);
     }
 
     status() {

@@ -8,14 +8,7 @@ import ETHWallet from '../../ui/screens/wallets/models/ETHWallet';
 import ETHTransaction from '../../ui/screens/wallets/models/ETHTransaction';
 
 export let realm = new Realm({
-    schema: [
-        BTCWallet,
-        BTCTransaction,
-        LTCWallet,
-        LTCTransaction,
-        ETHWallet,
-        ETHTransaction
-    ],
+    schema: [BTCWallet, BTCTransaction, LTCWallet, LTCTransaction, ETHWallet, ETHTransaction],
     path: config.db_path
 });
 
@@ -61,4 +54,5 @@ export function close() {
 
 export function createRealm() {}
 
+//TODO: Replace with logger
 console.log(realm.path);

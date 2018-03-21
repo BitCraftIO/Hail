@@ -2,13 +2,13 @@ import bip44hdkey from 'ethereumjs-wallet/hdkey';
 import Wallet from 'ethereumjs-wallet';
 import EthereumTx from 'ethereumjs-tx';
 import bip39 from 'bip39';
-//import web3 from '../network/coins/Ethereum/Web3';
 
 /**
  * @param masterKey
  * @param address
  */
 export function generateHDWallet() {
+    //TODO: Convert console.log to logger with appropriate log level
     const mnemonic = bip39.generateMnemonic();
     console.log(`Mnemonic: ${mnemonic}`);
     const root = bip44hdkey.fromMasterSeed(bip39.mnemonicToSeed(mnemonic));
@@ -18,10 +18,7 @@ export function generateHDWallet() {
 
     /*
         for now we must save the extended private key and generate the private key from that
-        as hdkey has no good way of beginning from a private key. Rather than amend the problem in the repo,
-        I'll spend my time doing something better. Like making sure transactions work
-
-        //root._hdkey.privateKey.toString('hex')
+        as hdkey has no good way of beginning from a private key. 
     */
     return {
         masterKey: root._hdkey.privateKey.toString('hex'),
@@ -41,6 +38,10 @@ export function privateKeyToNode(privateKey) {
     return node;
 }
 
+/**
+ *
+ * @param {string} privateKey
+ */
 export function privateKeyToAddrNode(privateKey) {
     return privateKeyToNode(privateKey).deriveChild("m/44'/60'/0'/0");
 }

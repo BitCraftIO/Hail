@@ -17,10 +17,7 @@ import { Alert } from 'react-native';
  */
 export function send(coin, params, network = 'main') {
     switch (coin) {
-        case 'BTC':
-            break;
         case 'ETH':
-            web3.eth.getBalance(params.from).then((error, result) => console.log(error, result));
             const rawTx = Ethereum.createRawTransaction(params);
             Alert.alert('Ready to Send?', 'This will send a transaction across testnet. Are you ready?', [
                 {
@@ -48,7 +45,6 @@ export function estimateFee(coin, from, to, value) {
     switch (coin) {
         case 'ETH':
             return web3.eth.estimateGas({ from, to });
-
             break;
         default:
     }
@@ -60,12 +56,7 @@ export function getGasPrice() {
 
 export function createPrivateKeyPair(coin, network = 'main') {
     switch (coin) {
-        case 'BTC':
-            break;
-        case 'LTC':
-            break;
         case 'ETH':
-            console.log(Ethereum);
             return Ethereum.generateHDWallet();
             break;
         default:

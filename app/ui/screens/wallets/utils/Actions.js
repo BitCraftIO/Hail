@@ -3,6 +3,8 @@ import * as queries from './Queries';
 import * as idhelper from './idhelper';
 import * as networkCodes from './networkcodes';
 
+//TODO: conform to new refactor plan
+
 //Realm write operations are synchronous
 
 /*

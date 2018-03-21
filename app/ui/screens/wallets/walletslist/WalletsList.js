@@ -119,13 +119,10 @@ export default class WalletsList extends React.Component {
 styles = StyleSheet.create({
     background: {
         flex: 1,
-        //backgroundColor: '#11151c',
         alignItems: 'center',
         backgroundColor: '#11151c'
     },
-    list: {
-        //paddingTop: 70,
-    },
+    list: {},
     sectionHeader: {
         fontFamily: 'Avenir',
         fontSize: 9,
