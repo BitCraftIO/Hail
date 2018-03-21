@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, TextInput, Button } from 'react-native';
 import PropTypes from 'prop-types';
 import * as actions from 'hail/app/ui/screens/wallets/utils/Actions';
 import { getModelForId } from 'hail/app/ui/screens/wallets/utils/idhelper.js';
+//import Blockies from 'react-blockies';
 
 export default class WalletDetailsPage extends React.Component {
     constructor(props) {
@@ -43,9 +44,17 @@ export default class WalletDetailsPage extends React.Component {
         });
     }
 
+    //TODO: Make this only show up if ethereum
+    //TODO: https://github.com/AugurProject/react-blockies/issues/5
+    identicon() {
+        //return <Blockies seed={this.state.wallet.masterKey} />;
+        return null;
+    }
+
     render() {
         return (
             <View>
+                {this.identicon()}
                 <Text> Id: {this.state.wallet.id} </Text>
                 <Text> Name: {this.state.wallet.name} </Text>
                 <Text> Coin: {this.state.wallet.coin} </Text>
