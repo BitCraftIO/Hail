@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import * as actions from 'hail/app/ui/screens/wallets/utils/Actions';
 import * as idhelper from 'hail/app/ui/screens/wallets/utils/idhelper';
 import * as wallet from 'hail/app/ui/screens/wallets/utils/WalletActions';
+import * as CoinbaseAPI from 'hail/app/ui/screens/wallets/network/exchanges/coinbase/CoinbaseAPI';
 
 export default class NewWalletPage extends React.Component {
     constructor(props) {
@@ -116,7 +117,7 @@ export default class NewWalletPage extends React.Component {
         });
     }
 
-    _pressTypeCheckBox(box) {
+    pressTypeCheckBox(box) {
         if (box == 'left') {
             this.setState({
                 typeleftchecked: true,
@@ -132,7 +133,7 @@ export default class NewWalletPage extends React.Component {
         }
     }
 
-    _pressWalletTypeCheckBox(symbol) {
+    pressWalletTypeCheckBox(symbol) {
         switch (symbol) {
             case 'BTC':
                 this.setState({
@@ -163,15 +164,20 @@ export default class NewWalletPage extends React.Component {
         }
     }
 
+    createExchangeWallet(network) {
+        switch (network) {
+            case 'Coinbase':
+                CoinbaseAPI.redirectToOAuth();
+                break;
+            default:
+                break;
+        }
+    }
+
     render() {
         return (
             <View>
-                <Button
-                    title={'Back'}
-                    onPress={() => {
-                        this.goBack();
-                    }}
-                />
+                <Button title={'Back'} onPress={() => this.goBack()} />
                 <Text>Wallet Name</Text>
                 <TextInput onChangeText={text => this.setState({ name: text })} value={this.state.name} placeholder={this.state.name} />
                 <View style={{ paddingTop: 30 }}>
@@ -182,10 +188,10 @@ export default class NewWalletPage extends React.Component {
                     <Text>Type</Text>
                     <View style={{ flexDirection: 'row' }}>
                         <View>
-                            <CheckBox title="Exchange" checked={this.state.typeleftchecked} right={true} onPress={() => this._pressTypeCheckBox('left')} />
+                            <CheckBox title="Exchange" checked={this.state.typeleftchecked} right={true} onPress={() => this.pressTypeCheckBox('left')} />
                         </View>
                         <View>
-                            <CheckBox title="LocalWallet" checked={this.state.typerightchecked} onPress={() => this._pressTypeCheckBox('right')} />
+                            <CheckBox title="LocalWallet" checked={this.state.typerightchecked} onPress={() => this.pressTypeCheckBox('right')} />
                         </View>
                     </View>
                 </View>
@@ -193,13 +199,13 @@ export default class NewWalletPage extends React.Component {
                     <Text>LocalWallet Type</Text>
                     <View style={{ flexDirection: 'row' }}>
                         <View>
-                            <CheckBox title="BTC" checked={this.state.btcchecked} right={true} onPress={() => this._pressWalletTypeCheckBox('BTC')} />
+                            <CheckBox title="BTC" checked={this.state.btcchecked} right={true} onPress={() => this.pressWalletTypeCheckBox('BTC')} />
                         </View>
                         <View>
-                            <CheckBox title="LTC" checked={this.state.ltcchecked} onPress={() => this._pressWalletTypeCheckBox('LTC')} />
+                            <CheckBox title="LTC" checked={this.state.ltcchecked} onPress={() => this.pressWalletTypeCheckBox('LTC')} />
                         </View>
                         <View>
-                            <CheckBox title="ETH" checked={this.state.ethchecked} onPress={() => this._pressWalletTypeCheckBox('ETH')} />
+                            <CheckBox title="ETH" checked={this.state.ethchecked} onPress={() => this.pressWalletTypeCheckBox('ETH')} />
                         </View>
                     </View>
                     <CheckBox
@@ -211,8 +217,8 @@ export default class NewWalletPage extends React.Component {
                         right={true}
                     />
                 </View>
-
                 <Button title={'CreateWallet'} onPress={() => this.createWallet()} />
+                <Button title={'Create Coinbase Wallet'} onPress={() => this.createExchangeWallet('Coinbase')} />
                 <Text>{this.state.successInfo}</Text>
             </View>
         );

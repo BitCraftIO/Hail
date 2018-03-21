@@ -6,11 +6,23 @@ import BTCWallet from 'hail/app/ui/screens/wallets/models/BTCWallet';
 import LTCWallet from 'hail/app/ui/screens/wallets/models/LTCWallet';
 import ETHWallet from '../../ui/screens/wallets/models/ETHWallet';
 import ETHTransaction from '../../ui/screens/wallets/models/ETHTransaction';
+import CoinbaseWallet from 'hail/app/ui/screens/wallets/models/CoinbaseWallet';
+import CoinbaseAccount from 'hail/app/ui/screens/wallets/models/CoinbaseAccount';
+import CoinbaseTransaction from 'hail/app/ui/screens/wallets/models/CoinbaseTransaction';
 
 export let realm = new Realm({
-    schema: [BTCWallet, BTCTransaction, LTCWallet, LTCTransaction, ETHWallet, ETHTransaction],
+    schema: [BTCWallet, BTCTransaction, LTCWallet, LTCTransaction, CoinbaseWallet, CoinbaseAccount, CoinbaseTransaction, ETHWallet, ETHTransaction],
     path: config.db_path
 });
+
+//https://realm.io/docs/javascript/latest/#to-many-relationships
+export function doOneToMany(one, many) {
+    many.forEach(m => {
+        this.write(() => {
+            one.push(m);
+        });
+    });
+}
 
 export function query(model, filter) {
     let results = this.realm.objects(model);
@@ -20,10 +32,21 @@ export function query(model, filter) {
     return results;
 }
 
+/*
+	Side note: You can create sub classes recursively. Let's see how that works 
+		https://realm.io/docs/javascript/latest/#creating-objects
+	
+*/
 export function insert(model, options) {
-    this.write(() => {
-        realm.create(model, options);
-    });
+    if (options == undefined && model instanceof Realm.Object) {
+        this.write(() => {
+            realm.create(model);
+        });
+    } else {
+        this.write(() => {
+            realm.create(model, options);
+        });
+    }
 }
 
 export function del(model, obj) {
@@ -44,7 +67,7 @@ export function write(func) {
     try {
         realm.write(func);
     } catch (e) {
-        throw new Error('Db.js :: Write operation failed ' + e);
+        throw new Error('Db.js :: Write operation failed ::', e);
     }
 }
 

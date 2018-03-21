@@ -4,8 +4,8 @@ import * as Db from 'hail/app/localstorage/db/Db';
 import WalletElement from './../components/WalletElement';
 import * as actions from 'hail/app/ui/screens/wallets/utils/Actions';
 import * as queries from 'hail/app/ui/screens/wallets/utils/Queries';
-import PropTypes from 'prop-types';
 
+import PropTypes from 'prop-types';
 export default class WalletsList extends React.Component {
     static navigationOptions = {
         header: () => {}
@@ -35,10 +35,7 @@ export default class WalletsList extends React.Component {
 
     openWallet(wallet) {
         const { navigate } = this.props.navigation;
-        navigate('WalletDetailsPage', {
-            wallet: wallet,
-            refresh: this.refresh
-        });
+        navigate('WalletDetailsPage', { wallet, refresh: this.refresh });
     }
 
     newWallet() {
@@ -58,14 +55,7 @@ export default class WalletsList extends React.Component {
                 data: this.props.wallets.result.local,
                 title: 'Local Wallets',
                 renderItem: wallet => (
-                    <WalletElement
-                        symbol={wallet.item.network}
-                        aggregateCoins={0}
-                        name={wallet.item.name}
-                        aggregateValue={0}
-                        percentageGrowth={0}
-                        onPress={() => this.openWallet(wallet.item)}
-                    />
+                    <WalletElement symbol={wallet.item.network} aggregateCoins={0} name={wallet.item.name} aggregateValue={0} percentageGrowth={0} onPress={() => this.openWallet(wallet.item)} />
                 )
             },
             {
@@ -84,15 +74,7 @@ export default class WalletsList extends React.Component {
             }
         ];
 
-        return (
-            <SectionList
-                style={styles.list}
-                renderSectionHeader={({ section }) => (
-                    <Text style={styles.sectionHeader}>{section.title} </Text>
-                )}
-                sections={sections}
-            />
-        );
+        return <SectionList style={styles.list} renderSectionHeader={({ section }) => <Text style={styles.sectionHeader}>{section.title} </Text>} sections={sections} />;
     }
 
     loading() {}
