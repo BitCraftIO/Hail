@@ -1,17 +1,11 @@
 import Realm from 'realm';
 import config from './config';
-import BTCTransaction from 'hail/app/ui/screens/wallets/models/BTCTransaction';
-import LTCTransaction from 'hail/app/ui/screens/wallets/models/LTCTransaction';
-import BTCWallet from 'hail/app/ui/screens/wallets/models/BTCWallet';
-import LTCWallet from 'hail/app/ui/screens/wallets/models/LTCWallet';
-import ETHWallet from '../../ui/screens/wallets/models/ETHWallet';
-import ETHTransaction from '../../ui/screens/wallets/models/ETHTransaction';
-import CoinbaseWallet from 'hail/app/ui/screens/wallets/models/CoinbaseWallet';
-import CoinbaseAccount from 'hail/app/ui/screens/wallets/models/CoinbaseAccount';
-import CoinbaseTransaction from 'hail/app/ui/screens/wallets/models/CoinbaseTransaction';
+import HDWallet from './models/HDWallet';
+import HDWalletAddress from './models/HDWalletAddress';
+import HDWalletTransaction from './models/HDWalletTransaction';
 
 export let realm = new Realm({
-    schema: [BTCWallet, BTCTransaction, LTCWallet, LTCTransaction, CoinbaseWallet, CoinbaseAccount, CoinbaseTransaction, ETHWallet, ETHTransaction],
+    schema: [HDWallet, HDWalletAddress, HDWalletTransaction],
     path: config.db_path
 });
 

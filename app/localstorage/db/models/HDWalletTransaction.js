@@ -12,6 +12,7 @@ HDWalletTransaction.schema = {
         gasPrice: 'double?',
         gasLimit: 'double?',
         from: 'string?', //hex
-        nonce: 'double?'
+        nonce: 'double?',
+        data: 'string?' //hex
     }
 };
