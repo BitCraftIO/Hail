@@ -1,8 +1,20 @@
+import web3 from '../network/coins/Ethereum/Web3';
 import bip44hdkey from 'ethereumjs-wallet/hdkey';
 import Wallet from 'ethereumjs-wallet';
 import EthereumTx from 'ethereumjs-tx';
 import bip39 from 'bip39';
 
+export function send() {
+    const rawTx = createRawTransaction(params);
+    web3.eth.sendSignedTransaction(`0x${rawTx.toString('hex')}`, (error, result) => {
+        if (error) {
+            console.log(`Error: ${error}`);
+        } else {
+            console.log(`Result: ${result}`);
+            return result;
+        }
+    });
+}
 /**
  * @param masterKey
  * @param address

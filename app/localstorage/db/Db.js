@@ -3,9 +3,10 @@ import config from './config';
 import HDWallet from './models/HDWallet';
 import HDWalletAddress from './models/HDWalletAddress';
 import HDWalletTransaction from './models/HDWalletTransaction';
+import Log from './models/Log';
 
 export let realm = new Realm({
-    schema: [HDWallet, HDWalletAddress, HDWalletTransaction],
+    schema: [HDWallet, HDWalletAddress, HDWalletTransaction, Log],
     path: config.db_path
 });
 

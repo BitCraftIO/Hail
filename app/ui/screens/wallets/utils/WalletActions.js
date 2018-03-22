@@ -1,6 +1,7 @@
 import * as Ethereum from '../crypto/Ethereum.js';
 import web3 from '../network/coins/Ethereum/Web3';
 import { Alert } from 'react-native';
+import * as coins from 'hail/app/crypto/coins'
 
 /**
  *
@@ -16,28 +17,24 @@ import { Alert } from 'react-native';
  * @param {int} params.chainId EIP 155 chainId - mainnet: 1, ropsten: 3
  */
 export function send(coin, params, network = 'main') {
-    switch (coin) {
-        case 'ETH':
-            const rawTx = Ethereum.createRawTransaction(params);
-            Alert.alert('Ready to Send?', 'This will send a transaction across testnet. Are you ready?', [
-                {
-                    //TODO: Replace console.log with proper logger
-                    text: 'Send',
-                    onPress: () => {
-                        web3.eth.sendSignedTransaction(`0x${rawTx.toString('hex')}`, (error, result) => {
-                            if (error) {
-                                console.log(`Error: ${error}`);
-                            } else {
-                                console.log(`Result: ${result}`);
-                                return result;
-                            }
-                        });
+    return 
+    const rawTx = Ethereum.createRawTransaction(params);
+    Alert.alert('Ready to Send?', 'This will send a transaction across testnet. Are you ready?', [
+        {
+            //TODO: Replace console.log with proper logger
+            text: 'Send',
+            onPress: () => {
+                web3.eth.sendSignedTransaction(`0x${rawTx.toString('hex')}`, (error, result) => {
+                    if (error) {
+                        console.log(`Error: ${error}`);
+                    } else {
+                        console.log(`Result: ${result}`);
+                        return result;
                     }
-                }
-            ]);
-            break;
-        default:
-            break;
+                });
+            }
+        }
+    ]);
     }
 }
 
