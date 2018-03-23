@@ -1,12 +1,13 @@
 import Realm from 'realm';
 import config from './config';
-import HDWallet from './models/HDWallet';
-import HDWalletAddress from './models/HDWalletAddress';
-import HDWalletTransaction from './models/HDWalletTransaction';
+import Wallet from './models/HDWallet';
+import WalletAddress from './models/WalletAddress';
+import WalletTransaction from './models/WalletTransaction';
 import Log from './models/Log';
+import { logger } from '../../utils/Logger';
 
 export let realm = new Realm({
-    schema: [HDWallet, HDWalletAddress, HDWalletTransaction, Log],
+    schema: [Wallet, WalletAddress, WalletTransaction, Log],
     path: config.db_path
 });
 
@@ -62,6 +63,7 @@ export function write(func) {
     try {
         realm.write(func);
     } catch (e) {
+        logger(0, e);
         throw new Error('Db.js :: Write operation failed ::', e);
     }
 }
@@ -73,4 +75,4 @@ export function close() {
 export function createRealm() {}
 
 //TODO: Replace with logger
-console.log(realm.path);
+logger(2, realm.path);

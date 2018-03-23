@@ -1,7 +1,7 @@
 import Realm from 'realm';
 
-export default class HDWalletTransaction extends Realm.Object {}
-HDWalletTransaction.schema = {
+export default class WalletTransaction extends Realm.Object {}
+WalletTransaction.schema = {
     name: 'HDWalletTransaction',
     primaryKey: 'id',
     properties: {

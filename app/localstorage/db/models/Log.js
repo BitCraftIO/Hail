@@ -7,7 +7,7 @@ Log.schema = {
     properties: {
         date: 'date',
         logLevel: 'int',
-        component: 'string',
+        component: 'string?',
         message: 'string'
     }
 };

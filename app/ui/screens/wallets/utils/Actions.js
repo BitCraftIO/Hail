@@ -4,24 +4,22 @@ import * as queries from './Queries';
 import * as idhelper from './idhelper';
 import * as networkCodes from './networkcodes';
 
-//TODO: conform to new refactor plan
 //Realm write operations are synchronous
 
-/*
-    See <coin>Wallet.js for needed options
-    @param network: ex, BTC, LTC, ETH, Coinbase, etc...
-    @param name: (optional) name of the wallet given by user, not required for exchanges
-    @param id: (optional) generated using idhelper
-    @param apiKey: (optional) for the use of an exchange using apiKey, not required for localwallets or exchanges that use oauth flow
-*/
+/**
+ *
+ * @param {*} coin
+ * @param {*} network
+ * @param {*} name
+ * @param {*} walletType
+ * @param {*} address
+ * @param {*} privateKey
+ * @param {*} extendedPrivateKey
+ */
 export function createWallet(options) {
-    if (!options.id && options.network) {
-        options.id = idhelper.createId('exchange', options.network);
-    } else {
-        throw new Error('Actions.js :: required Network option null');
-    }
-    Db.insert(options.network + 'Wallet', options);
-    return options.id;
+    options.id = Math.floor(Math.random() * 1000000000);
+    Db.insert('Wallet', options);
+    return { privateKey: options.privateKey, address: options.address.address };
 }
 
 /*
@@ -32,11 +30,19 @@ export function append(one, many: List) {
     Db.doOneToMany(one, many);
 }
 
+export function deleteWallet(wallet) {
+    Db.del(wallet);
+}
+
 //Can be used to delete exchange wallets
 export function deleteWalletById(id) {
-    Db.del(idhelper.getModelForId(id), queries.getWalletbyId(id));
+    Db.del(queries.getWalletbyId(id));
 }
 
 export function updateWalletById(id, options) {
     Db.update(queries.getWalletbyId(id), options);
+}
+
+function idGenerator() {
+    return Math.floor(Math.random() * 1000000000);
 }

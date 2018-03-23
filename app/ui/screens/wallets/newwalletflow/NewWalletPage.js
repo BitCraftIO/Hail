@@ -47,71 +47,10 @@ export default class NewWalletPage extends React.Component {
             });
             return;
         }
-        if (this.state.type == 'exchange') {
-            alert('No exchanges implemented');
-            return;
-        } else {
-            var options = {
-                id: idhelper.createId('local', this.state.coin),
-                name: this.state.name,
-                coin: this.state.coin,
-                network: this.state.testnet ? 'test' : 'main',
-                address: ['receiveAddr 1'],
-                masterKey: 'Masterkey string',
-                publicKey: 'publicKey string',
-                changeAddress: 'changeAddress string'
-            };
 
-            //TODO: Remove hardcoded dummy variables
-            switch (this.state.coin) {
-                case 'BTC':
-                    options.BTCTransaction = [
-                        {
-                            id: Math.floor(Math.random() * 10000000000),
-                            tx: 'tx str',
-                            fee: 2,
-                            input: ['input tx str'],
-                            output: ['output tx str']
-                        },
-                        {
-                            id: Math.floor(Math.random() * 10000000000),
-                            tx: 'tx str',
-                            fee: 2,
-                            input: ['input tx str'],
-                            output: ['output tx str']
-                        }
-                    ];
-                    break;
-                case 'LTC':
-                    options.LTCTransaction = [
-                        {
-                            id: Math.floor(Math.random() * 10000000000),
-                            tx: 'tx str',
-                            fee: 2,
-                            input: ['input tx str'],
-                            output: ['output tx str']
-                        },
-                        {
-                            id: Math.floor(Math.random() * 10000000000),
-                            tx: 'tx str',
-                            fee: 2,
-                            input: ['input tx str'],
-                            output: ['output tx str']
-                        }
-                    ];
-                    break;
-                case 'ETH':
-                    const result = wallet.createPrivateKeyPair(this.state.coin);
-                    options.masterKey = result.masterKey;
-                    options.address = [result.address];
+        //TODO: Redux this
+        wallet.create();
 
-                    break;
-                default:
-                    console.log('Switch broke');
-            }
-
-            actions.createWallet(options);
-        }
         this.setState({
             successInfo: 'Successful'
         });

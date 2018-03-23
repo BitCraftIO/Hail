@@ -1,7 +1,7 @@
 import Realm from 'realm';
 
-export default class HDWalletAddress extends Realm.Object {}
-HDWalletAddress.schema = {
+export default class WalletAddress extends Realm.Object {}
+WalletAddress.schema = {
     name: 'HDWalletAddress',
     primaryKey: 'id',
     properties: {

@@ -3,30 +3,28 @@ import bip44hdkey from 'ethereumjs-wallet/hdkey';
 import Wallet from 'ethereumjs-wallet';
 import EthereumTx from 'ethereumjs-tx';
 import bip39 from 'bip39';
+import { logger } from '../../utils/Logger';
+const filename = 'Ethereum.js';
 
-export function send() {
+//TODO: implement support for testnet
+export function send(params, network) {
     const rawTx = createRawTransaction(params);
-    web3.eth.sendSignedTransaction(`0x${rawTx.toString('hex')}`, (error, result) => {
-        if (error) {
-            console.log(`Error: ${error}`);
-        } else {
-            console.log(`Result: ${result}`);
-            return result;
-        }
+    return web3.eth.sendSignedTransaction(`0x${rawTx.toString('hex')}`, (error, result) => {
+        error ? logger(0, 'sendSignTransaction Failed') : logger(0, 'sendSignTransaction Succeeded');
     });
 }
+
 /**
  * @param masterKey
  * @param address
  */
 export function generateHDWallet() {
-    //TODO: Convert console.log to logger with appropriate log level
     const mnemonic = bip39.generateMnemonic();
-    console.log(`Mnemonic: ${mnemonic}`);
+    logger(3, `Mnemonic: ${mnemonic}`);
     const root = bip44hdkey.fromMasterSeed(bip39.mnemonicToSeed(mnemonic));
     const derivedNode = root.derivePath("m/44'/60'/0'/0");
     const address = this.generateAddressFromNode(derivedNode);
-    console.log(`Private Key: ${root._hdkey.privateKey.toString('hex')}`);
+    logger(3, `Private Key: ${root._hdkey.privateKey.toString('hex')}`);
 
     /*
         for now we must save the extended private key and generate the private key from that
@@ -34,8 +32,22 @@ export function generateHDWallet() {
     */
     return {
         masterKey: root._hdkey.privateKey.toString('hex'),
-        address: "m/44'/60'/0'/0/0 " + address
+        address: { address, derivationPath: "m/44'/60'/0'/0/0 " }
     };
+}
+
+/**
+ *
+ * @param {string} from hex
+ * @param {string} to hex
+ * @param {string} data hex
+ */
+export function estimateFee(from, to, data) {
+    return estimateGas(from, to, data).then(gas => {
+        estimatePrice().then(price => {
+            resolve(price, gas);
+        });
+    });
 }
 
 export function extendedPrivateKeyToNode() {}
@@ -101,4 +113,18 @@ export function createRawTransaction(options) {
     const tx = new EthereumTx(options);
     tx.sign(options.privateKey);
     return tx.serialize();
+}
+
+/**
+ *
+ * @param {string} from hex
+ * @param {string} to hex
+ * @param {string} data hex
+ */
+function estimateGas(from, to, data) {
+    return web3.eth.estimateGas({ from, to, data });
+}
+
+function estimatePrice() {
+    return web3.eth.getGasPrice();
 }
