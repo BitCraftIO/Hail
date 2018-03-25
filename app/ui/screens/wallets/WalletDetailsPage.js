@@ -2,14 +2,11 @@ import React from 'react';
 import { StyleSheet, Text, View, TextInput, Button } from 'react-native';
 import PropTypes from 'prop-types';
 import * as actions from 'hail/app/ui/screens/wallets/utils/Actions';
-import { getModelForId } from 'hail/app/ui/screens/wallets/utils/idhelper.js';
 //import Blockies from 'react-blockies';
 
 export default class WalletDetailsPage extends React.Component {
     constructor(props) {
         super(props);
-        //TODO: After db refactor, get rid of garbage like this
-        props.navigation.state.params.wallet.coin = getModelForId(props.navigation.state.params.wallet.id);
         this.state = {
             wallet: props.navigation.state.params.wallet,
             renderSuccess: false
@@ -22,8 +19,8 @@ export default class WalletDetailsPage extends React.Component {
         });
     }
 
-    deleteThisWallet(id) {
-        actions.deleteWalletById(id);
+    deleteThisWallet() {
+        actions.deleteWallet(this.state.wallet);
         const { navigation } = this.props;
         navigation.state.params.refresh();
         this.goBack();
@@ -34,13 +31,13 @@ export default class WalletDetailsPage extends React.Component {
         navigation.goBack();
     }
 
-    _renderSuccess() {
+    renderSuccess() {
         return <Text>Success</Text>;
     }
 
     addresses() {
-        return this.state.wallet.address.map(addr => {
-            return <Text> {addr} </Text>;
+        return this.state.wallet.addresses.map(walletaddr => {
+            return <Text> {walletaddr.address} </Text>;
         });
     }
 
@@ -62,8 +59,8 @@ export default class WalletDetailsPage extends React.Component {
                 <Text> Private Key: {this.state.wallet.masterKey ? this.state.wallet.masterKey : 'no masterkey'} </Text>
                 {this.addresses()}
                 <Button title="Make a Tx" onPress={() => this.goToTransactionPage()} />
-                <Button title={'Delete Wallet'} onPress={() => this.deleteThisWallet(this.state.wallet.id)} />
-                {this.state.renderSuccess ? this._renderSuccess : null}
+                <Button title={'Delete Wallet'} onPress={() => this.deleteThisWallet()} />
+                {this.state.renderSuccess ? this.renderSuccess : null}
             </View>
         );
     }

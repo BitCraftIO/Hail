@@ -2,9 +2,9 @@ import { createResourceAction, createResourceReducerStates, resourceInitialState
 import createReducer from 'hail/app/reduxhelpers/CreateReducer';
 import * as queries from 'hail/app/ui/screens/wallets/utils/Queries';
 import * as actions from 'hail/app/ui/screens/wallets/utils/Actions';
-import { getAccessToken, listAccounts, listTransactions } from 'hail/app/ui/screens/wallets/network/exchanges/coinbase/CoinbaseAPI.js';
-import CoinbaseAccount from '../../models/CoinbaseAccount';
-import CoinbaseTransaction from '../../models/CoinbaseTransaction';
+import { getAccessToken, listAccounts, listTransactions } from 'hail/app/crypto/network/exchanges/coinbase/CoinbaseAPI.js';
+import APIAccount from 'hail/app/localstorage/db/models/APIAccount';
+import APITransaction from 'hail/app/localstorage/db/models/APITransaction';
 
 export const CREATE_REALM_COINBASE_WALLET = 'CoinbaseSuccessPage.Action.wallet';
 export const CREATE_REALM_COINBASE_WALLET_TAG = 'cb';
@@ -58,8 +58,8 @@ export function SuccessCoinbasePageActions(dispatch) {
                         );
                     })
                     .then(accounts => {
-                        return actions.createWallet({
-                            network: 'Coinbase',
+                        return actions.createAPIWallet({
+                            api: 'Coinbase',
                             name: 'Coinbase',
                             accessToken,
                             refreshToken,

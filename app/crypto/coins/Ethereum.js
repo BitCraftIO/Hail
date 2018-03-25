@@ -42,7 +42,7 @@ export function generateHDWallet() {
  * @param {string} to hex
  * @param {string} data hex
  */
-export function estimateFee(from, to, data) {
+export function estimateFee(from, to = '4584158529818ef77D1142bEeb0b6648BD8eDb2f', data) {
     return estimateGas(from, to, data).then(gas => {
         estimatePrice().then(price => {
             resolve(price, gas);

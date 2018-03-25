@@ -2,8 +2,7 @@ import React from 'react';
 import { Text, View } from 'react-native';
 import PropTypes from 'prop-types';
 import * as actions from 'hail/app/ui/screens/wallets/utils/Actions';
-import * as idhelper from 'hail/app/ui/screens/wallets/utils/idhelper';
-import * as CoinbaseAPI from 'hail/app/ui/screens/wallets/network/exchanges/coinbase/CoinbaseAPI';
+import * as CoinbaseAPI from 'hail/app/crypto/network/exchanges/coinbase/CoinbaseAPI.js';
 
 export default class CoinbaseSuccessPage extends React.Component {
     constructor(props) {

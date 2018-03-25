@@ -1,4 +1,3 @@
-import * as Ethereum from '../crypto/Ethereum.js';
 import * as dbActions from './Actions';
 import { Alert } from 'react-native';
 import * as coins from 'hail/app/crypto/coins';

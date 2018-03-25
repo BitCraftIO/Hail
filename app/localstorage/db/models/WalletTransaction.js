@@ -5,6 +5,7 @@ WalletTransaction.schema = {
     name: 'HDWalletTransaction',
     primaryKey: 'id',
     properties: {
+        id: 'int',
         to: 'string?', //hex
         value: 'double',
 

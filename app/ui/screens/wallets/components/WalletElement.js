@@ -8,10 +8,10 @@ export default class WalletElement extends React.PureComponent {
     }
 
     static propTypes = {
-        symbol: PropTypes.string.isRequired,
-        aggregateCoins: PropTypes.number.isRequired,
+        coin: PropTypes.string.isRequired,
+        value: PropTypes.number.isRequired,
         name: PropTypes.string.isRequired,
-        aggregateValue: PropTypes.number.isRequired,
+        fiatValue: PropTypes.number.isRequired,
         percentageGrowth: PropTypes.number.isRequired
     };
 
@@ -28,8 +28,8 @@ export default class WalletElement extends React.PureComponent {
                     }}
                 >
                     <View>
-                        <Text style={styles.symbol}>{this.props.symbol}</Text>
-                        <Text style={styles.aggregateCoins}>{this.props.aggregateCoins}</Text>
+                        <Text style={styles.coin}>{this.props.coin}</Text>
+                        <Text style={styles.value}>{this.props.value}</Text>
                     </View>
                     <View
                         style={{
@@ -47,7 +47,7 @@ export default class WalletElement extends React.PureComponent {
                         paddingLeft: 8
                     }}
                 >
-                    <Text style={styles.aggregateValue}>{this.props.aggregateValue}</Text>
+                    <Text style={styles.fiatValue}>{this.props.fiatValue}</Text>
                     <Text style={styles.percentageGrowth}>{this.props.percentageGrowth}</Text>
                 </View>
             </TouchableOpacity>
@@ -66,13 +66,13 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center'
     },
-    symbol: {
+    coin: {
         fontFamily: 'Avenir',
         fontSize: 17,
         fontWeight: '900',
         color: '#ffffff'
     },
-    aggregateCoins: {
+    value: {
         fontFamily: 'Avenir',
         fontSize: 12,
         color: '#ffffff'
@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
         fontSize: 13,
         color: '#ffffff'
     },
-    aggregateValue: {
+    fiatValue: {
         fontFamily: 'Avenir',
         fontSize: 24,
         paddingTop: 12,

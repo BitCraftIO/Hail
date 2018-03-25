@@ -1,8 +1,6 @@
 // @flow
 import * as Db from 'hail/app/localstorage/db/Db';
 import * as queries from './Queries';
-import * as idhelper from './idhelper';
-import * as networkCodes from './networkcodes';
 
 //Realm write operations are synchronous
 
@@ -17,13 +15,18 @@ import * as networkCodes from './networkcodes';
  * @param {*} extendedPrivateKey
  */
 export function createWallet(options) {
-    options.id = Math.floor(Math.random() * 1000000000);
+    options.id = Number(`1${Math.floor(Math.random() * 1000000000)}`);
     Db.insert('Wallet', options);
-    return { privateKey: options.privateKey, address: options.address.address };
+    return { privateKey: options.privateKey, address: options.address.string };
+}
+
+export function createAPIWallet(options) {
+    options.id = Number(`2${Math.floor(Math.random() * 1000000000)}`);
+    Db.insert('APIWallet', options);
 }
 
 /*
-	@param one: the thing to be attached to. Ex. const one = wallet.addresses
+	@param one: the thing to be attached to. Ex. const one = wallet.addresseses
 	@param many: the thing to attach. Must be in list
 */
 export function append(one, many: List) {

@@ -47,26 +47,26 @@ export default class WalletsList extends React.Component {
         return <Button title={'New Wallet'} onPress={() => this.newWallet()} />;
     }
 
-    //TODO: Fix network/coin mixup
-    //prettier-ignore
     walletsList() {
         var sections = [
             {
                 data: this.props.wallets.result.local,
                 title: 'Local Wallets',
                 renderItem: wallet => (
-                    <WalletElement symbol={wallet.item.network} aggregateCoins={0} name={wallet.item.name} aggregateValue={0} percentageGrowth={0} onPress={() => this.openWallet(wallet.item)} />
+                    <WalletElement coin={wallet.item.coin} value={wallet.item.value} name={wallet.item.name} fiatValue={0} percentageGrowth={0} onPress={() => this.openWallet(wallet.item)} />
                 )
             },
+
+            //TODO: will probably need a seperate element for api
             {
                 data: this.props.wallets.result.exchange,
                 title: 'Exchange Wallets',
                 renderItem: wallet => (
                     <WalletElement
-                        symbol={wallet.item.symbol}
-                        aggregateCoins={wallet.item.aggregateCoins}
+                        coin={wallet.item.coin}
+                        value={wallet.item.value}
                         name={wallet.item.name}
-                        aggregateValue={wallet.item.aggregateValue}
+                        fiatValue={wallet.item.fiatValue}
                         percentageGrowth={wallet.item.percentageGrowth}
                         onPress={() => this.openWallet(wallet.item)}
                     />
@@ -79,7 +79,6 @@ export default class WalletsList extends React.Component {
 
     loading() {}
 
-    //prettier-ignore
     render() {
         if (this.props.wallets.result && !this.props.wallets.loading) {
             var walletsList = this.walletsList();

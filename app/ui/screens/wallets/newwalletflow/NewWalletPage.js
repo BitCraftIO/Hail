@@ -3,9 +3,8 @@ import { FlatList, StyleSheet, Text, View, TextInput, Button, Platform, NativeMo
 import { CheckBox } from 'react-native-elements';
 import PropTypes from 'prop-types';
 import * as actions from 'hail/app/ui/screens/wallets/utils/Actions';
-import * as idhelper from 'hail/app/ui/screens/wallets/utils/idhelper';
 import * as wallet from 'hail/app/ui/screens/wallets/utils/WalletActions';
-import * as CoinbaseAPI from 'hail/app/ui/screens/wallets/network/exchanges/coinbase/CoinbaseAPI';
+import * as CoinbaseAPI from 'hail/app/crypto/network/exchanges/coinbase/CoinbaseAPI.js';
 
 export default class NewWalletPage extends React.Component {
     constructor(props) {
@@ -48,8 +47,11 @@ export default class NewWalletPage extends React.Component {
             return;
         }
 
-        //TODO: Redux this
-        wallet.create();
+        if (this.state.type == 'LocalWallet') {
+            //TODO: Redux this
+            wallet.create(this.state.coin, this.state.network, this.state.name);
+        } else {
+        }
 
         this.setState({
             successInfo: 'Successful'

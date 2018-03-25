@@ -2,10 +2,10 @@ import Realm from 'realm';
 
 export default class WalletAddress extends Realm.Object {}
 WalletAddress.schema = {
-    name: 'HDWalletAddress',
-    primaryKey: 'id',
+    name: 'WalletAddress',
+    primaryKey: 'string',
     properties: {
-        address: 'string',
+        string: 'string',
         derivationPath: 'string'
     }
 };

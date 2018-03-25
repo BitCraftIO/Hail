@@ -1,13 +1,16 @@
 import Realm from 'realm';
 import config from './config';
-import Wallet from './models/HDWallet';
+import Wallet from './models/Wallet';
 import WalletAddress from './models/WalletAddress';
 import WalletTransaction from './models/WalletTransaction';
 import Log from './models/Log';
 import { logger } from '../../utils/Logger';
+import APITransaction from './models/APITransaction';
+import APIWallet from './models/APIWallet';
+import APIAccount from './models/APIAccount';
 
 export let realm = new Realm({
-    schema: [Wallet, WalletAddress, WalletTransaction, Log],
+    schema: [Wallet, WalletAddress, WalletTransaction, Log, APIWallet, APITransaction, APIAccount],
     path: config.db_path
 });
 

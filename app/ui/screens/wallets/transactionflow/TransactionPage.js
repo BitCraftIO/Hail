@@ -3,6 +3,7 @@ import { FlatList, StyleSheet, Clipboard, Text, View, TextInput, Button } from '
 import { CheckBox } from 'react-native-elements';
 import PropTypes from 'prop-types';
 import * as walletActions from '../utils/WalletActions';
+import { logger } from 'hail/app/utils/Logger';
 
 export default class TransactionPage extends React.Component {
     constructor(props) {
@@ -18,14 +19,18 @@ export default class TransactionPage extends React.Component {
             status: null,
             wallet: this.props.navigation.state.params.wallet
         };
+    }
 
-        walletActions.estimateFee('ETH', this.state.wallet.address[0].split(' ')[1], '4584158529818ef77D1142bEeb0b6648BD8eDb2f').then(fee => {
+    estimateFee() {
+        walletActions.estimateFee(this.state.wallet.coin, this.state.wallet.addresses.string).then(fee => {
+            switch (this.state.wallet.coin) {
+                case 'ETH':
+                    fee = `gasPrice: ${fee.gasPrice}  gasLimit: ${fee.gasLimit}`;
+                    break;
+                default:
+                    break;
+            }
             this.setState({ fee });
-        });
-
-        //TODO: Remove Ethereum hard codes
-        walletActions.getGasPrice().then(gasPrice => {
-            this.setState({ gasPrice });
         });
     }
 
@@ -84,6 +89,7 @@ export default class TransactionPage extends React.Component {
                     <Text style={{ fontWeight: 'bold' }}>Fee</Text>
                     <TextInput onChangeText={text => this.setState({ fee: text })} value={this.state.fee} placeholder={'default for currency'} placeholderTextColor={'grey'} />
                     <Text>Recommended fee: {this.state.fee} </Text>
+                    <Button title={'Estimate Fee'} onPress={() => this.estimateFee()} />
                 </View>
                 <View style={{ paddingTop: 20 }}>
                     <Button title={'Send'} onPress={() => this.sendAction()} />
@@ -93,23 +99,39 @@ export default class TransactionPage extends React.Component {
     };
 
     sendAction() {
-        //TODO: Put this in redux pattern after refactor
-        //TODO: Stop hardcoding everything to Ethereum. Because that's what this is
+        switch (this.state.wallet.coin) {
+            case 'ETH':
+                const buf = new Buffer(this.state.wallet.masterKey, 'hex');
+                var params = {
+                    gasPrice: this.state.gasPrice,
+                    gasLimit: this.state.gasLimit,
+                    from: this.state.wallet.addresses.string,
+                    to: this.state.address,
+                    value: this.state.amount,
+                    nonce: '0x00',
+                    privateKey: buf
+                };
+                switch (this.state.wallet.network) {
+                    case 'MAIN':
+                        params.chainId = 1;
+                    case 'KOVAN':
+                    case 'RINKEBY':
+                        params.chainId = 3;
+                    case 'ROPSTEN':
+                    default:
+                        break;
+                }
 
-        const buf = new Buffer(this.state.wallet.masterKey, 'hex');
-        const params = {
-            gasPrice: (20000000000).toString(16),
-            gasLimit: (100000).toString(16),
-            from: this.state.wallet.address[0].split(' ')[1],
-            to: `0x${this.state.address}`,
-            value: (1000).toString(16),
-            chainId: 3,
-            nonce: '0x00',
-            privateKey: buf
-        };
-        console.log(params);
-        const res = walletActions.send('ETH', params);
-        this.setState({ status: res });
+                break;
+            default:
+                break;
+        }
+        logger(4, params);
+
+        //TODO: Put this in redux pattern after refactor
+        walletActions.send(this.state.wallet.coin, params).then(result => {
+            this.setState({ status: result });
+        });
     }
 
     receiveActionView = () => {
@@ -118,8 +140,8 @@ export default class TransactionPage extends React.Component {
         //TODO: Generate NewAddress based on cointype
         return (
             <View>
-                <Text>{this.state.wallet.address[0]}</Text>
-                <Button title={'Copy to clipboard'} onPress={() => this.copyToClipboard(this.state.wallet.address[0])} />
+                <Text>{this.state.wallet.addresses[0]}</Text>
+                <Button title={'Copy to clipboard'} onPress={() => this.copyToClipboard(this.state.wallet.addresses.string)} />
                 <Button title={'Generate New Address'} onPress={() => this.generateNewAddress()} />
             </View>
         );
@@ -128,7 +150,7 @@ export default class TransactionPage extends React.Component {
     copyToClipboard = addr => {
         Clipboard.setString(addr);
         console.log(`PrivKey: ${this.state.wallet.masterKey}`);
-        console.log(`Address: ${addr.split(' ')[1]}`);
+        console.log(`Address: ${addr}`);
         this.setState({ status: 'Copied to Clipboard' });
     };
 
