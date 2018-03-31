@@ -48,11 +48,11 @@ export function query(model, filter) {
 export function insert(model, options) {
     if (options == undefined && model instanceof Realm.Object) {
         this.write(() => {
-            realm.create(model);
+            realm().create(model);
         });
     } else {
         this.write(() => {
-            realm.create(model, options);
+            realm().create(model, options);
         });
     }
 }
@@ -67,13 +67,13 @@ export function update(obj, options) {
 
 export function del(model, obj) {
     this.write(() => {
-        realm.delete(obj);
+        realm().delete(obj);
     });
 }
 
 export function write(func) {
     try {
-        realm.write(func);
+        realm().write(func);
     } catch (e) {
         logger(0, e);
         throw new Error('Db.js :: Write operation failed ::', e);
