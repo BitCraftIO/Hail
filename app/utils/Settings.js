@@ -1,13 +1,16 @@
-import Db from '../localstorage/db/Db';
+import * as Db from '../localstorage/db/Db';
+//import CoinLineChart from '../ui/CoinLineChart';
+//var Db = require('../localstorage/db/Db');
 
 const MODEL = 'Configuration';
+console.log(Db);
+
 export var configFile = () => {
-    return Db.query(MODEL, 'id = 01001000');
+    return Db.query(MODEL, 'id = "01001000"');
 };
 
 function setupConfig() {
-    const conf = configFile;
-    if (conf == null) {
+    if (configFile() == null) {
         Db.insert(MODEL, { id: '01001000' });
     }
 }

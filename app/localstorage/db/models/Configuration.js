@@ -6,7 +6,7 @@ Configuration.schema = {
     primaryKey: 'id',
     properties: {
         id: 'string',
-        created: { type: 'boolean', default: true },
+        created: { type: 'bool', default: true },
         logLevel: { type: 'int', default: 2 }
     }
 };
