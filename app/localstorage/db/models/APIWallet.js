@@ -1,4 +1,4 @@
-import Db from 'hail/app/localstorage/db/Db';
+import * as Db from 'hail/app/localstorage/db/Db';
 import Realm from 'realm';
 
 export default class APIWallet extends Realm.Object {}

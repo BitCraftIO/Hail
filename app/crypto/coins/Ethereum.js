@@ -31,7 +31,8 @@ export function generateHDWallet() {
         as hdkey has no good way of beginning from a private key. 
     */
     return {
-        masterKey: root._hdkey.privateKey.toString('hex'),
+        privateKey: root._hdkey.privateKey.toString('hex'),
+        extendedPrivateKey: root.privateExtendedKey(),
         address: { address, derivationPath: "m/44'/60'/0'/0/0 " }
     };
 }

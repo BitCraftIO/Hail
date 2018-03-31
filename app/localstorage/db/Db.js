@@ -16,6 +16,7 @@ export function realm() {
             schema: [Wallet, WalletAddress, WalletTransaction, Log, APIWallet, APITransaction, APIAccount, Configuration],
             path: config.db_path
         });
+        console.log(this.r.path);
         //logger(2, this.r.path);
     }
 
@@ -75,7 +76,8 @@ export function write(func) {
     try {
         realm().write(func);
     } catch (e) {
-        logger(0, e);
+        // logger(0, e);
+        console.log(e);
         throw new Error('Db.js :: Write operation failed ::', e);
     }
 }

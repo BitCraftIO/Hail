@@ -1,4 +1,4 @@
-import Db from '../localstorage/db/Db';
+import * as Db from '../localstorage/db/Db';
 import * as settings from './Settings';
 
 export function logger(logLevel, message) {

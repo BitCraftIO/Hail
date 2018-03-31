@@ -17,7 +17,8 @@ export default class NewWalletPage extends React.Component {
             btcchecked: false,
             ltcchecked: false,
             ethchecked: false,
-            testnet: true,
+            istestnet: true,
+            network: 'TEST',
             coin: null,
             type: null,
             id: null
@@ -47,9 +48,10 @@ export default class NewWalletPage extends React.Component {
             return;
         }
 
-        if (this.state.type == 'LocalWallet') {
+        if (this.state.type == 'localwallet') {
             //TODO: Redux this
-            wallet.create(this.state.coin, this.state.network, this.state.name);
+            //TODO: Add option to change wallet type. 'HD' is hardcoded
+            wallet.create(this.state.coin, this.state.network, this.state.name, 'HD');
         } else {
         }
 
@@ -151,9 +153,10 @@ export default class NewWalletPage extends React.Component {
                     </View>
                     <CheckBox
                         title="Testnet"
-                        checked={this.state.testnet}
+                        checked={this.state.istestnet}
                         onPress={() => {
-                            this.setState({ testnet: !this.state.testnet });
+                            network = this.state.istestnet ? 'MAIN' : 'TEST';
+                            this.setState({ istestnet: !this.state.istestnet, network });
                         }}
                         right={true}
                     />
