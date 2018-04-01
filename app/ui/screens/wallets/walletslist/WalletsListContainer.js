@@ -1,7 +1,6 @@
 import { connect } from "react-redux";
 import { mapResourceToProps } from "../../../../reduxhelpers/CreateResource";
 import WalletDashboard from "./WalletDashboard";
-import WalletsList from "./WalletsList";
 import {WALLET_LIST_DATA_RESOURCE, WALLET_LIST_DATA_RESOURCE_TAG, WalletListAction, PAGE} from "./WalletsListState";
 
 

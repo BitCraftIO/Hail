@@ -18,11 +18,7 @@ type Props = {
 type State = {}
 
 export default class WalletDashboard extends Component<Props, State>{
-
-    static navigationOptions = {
-        header: () => {}
-    };
-
+    
     componentDidMount() {
         this.props.getWallets()
     }
@@ -38,9 +34,9 @@ export default class WalletDashboard extends Component<Props, State>{
         navigate("NewWalletPage", {refresh: this.refresh});
     }
 
-    toWalletDetailScreen = (wallet) => {
+    toWalletDetail(wallet) {
         const {navigate} = this.props.navigation;
-        navigate("WalletDetailsPage", {wallet, refresh: this.refresh});
+        navigate("WalletDetailsPage", {"wallet": wallet, refresh: this.refresh});
     }
 
     showWallets = walletsResults => {
@@ -67,9 +63,7 @@ export default class WalletDashboard extends Component<Props, State>{
 
                 <SectionList
                     stickySectionHeadersEnabled={true}
-
                     sections={walletSections}
-                    ItemSeparatorComponent={<View style={styles.sectionSeparator}></View>}
                     renderSectionHeader={section => {
                         const title = section.section.title.toUpperCase()
                         return (
@@ -83,7 +77,6 @@ export default class WalletDashboard extends Component<Props, State>{
                                 <View style={styles.emptySectionTextContainer}>
                                     <Text style={styles.emptySectionText}>No {title} Found.</Text>
                                 </View>
-
                             )
                         }
                     }}
@@ -91,12 +84,12 @@ export default class WalletDashboard extends Component<Props, State>{
                         const wallet = data.item.item
                         return (
                             <WalletElement
-                                symbol={wallet.network}
+                                symbol={wallet.item.network}
                                 aggregateCoins={0}
-                                name={wallet.name}
+                                name={wallet.item.name}
                                 aggregateValue={0}
                                 percentageGrowth={0}
-                                onPress={() => this.toWalletDetailScreen(wallet)}
+                                onPress={() => this.toWalletDetail(wallet.item)}
                             />
                         )
                     }}
@@ -155,10 +148,6 @@ const styles = StyleSheet.create({
         marginTop: 32
     },
 
-    sectionSeparator: {
-        marginTop: 32,
-        height:32
-    },
     emptySectionTextContainer: {
         backgroundColor: Colors.SecondaryBackground,
         paddingLeft: 15,
