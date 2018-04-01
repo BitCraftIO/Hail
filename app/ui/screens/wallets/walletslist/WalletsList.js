@@ -97,6 +97,7 @@ export default class WalletsList extends React.Component {
     }
 
     render() {
+        console.log("hi from wlleleist")
         if (this.props.wallets.result && !this.props.wallets.loading) {
             var walletsList = this.walletsList();
         } 
