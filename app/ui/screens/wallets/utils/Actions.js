@@ -17,7 +17,7 @@ import * as queries from './Queries';
 export function createWallet(options) {
     options.id = Number(`1${Math.floor(Math.random() * 1000000000)}`);
     Db.insert('Wallet', options);
-    return { privateKey: options.privateKey, address: options.address.string };
+    return { privateKey: options.privateKey, address: options.addresses.string };
 }
 
 export function createAPIWallet(options) {

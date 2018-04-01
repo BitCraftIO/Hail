@@ -19,6 +19,8 @@ export default class TransactionPage extends React.Component {
             status: null,
             wallet: this.props.navigation.state.params.wallet
         };
+
+        this.receiveActionView = this.receiveActionView.bind(this);
     }
 
     estimateFee() {
@@ -134,18 +136,18 @@ export default class TransactionPage extends React.Component {
         });
     }
 
-    receiveActionView = () => {
+    receiveActionView() {
         //grab new addr from util if bitcoin
-
+        console.log(this.state);
         //TODO: Generate NewAddress based on cointype
         return (
             <View>
-                <Text>{this.state.wallet.addresses[0]}</Text>
-                <Button title={'Copy to clipboard'} onPress={() => this.copyToClipboard(this.state.wallet.addresses.string)} />
+                <Text>{this.state.wallet.addresses[0].string}</Text>
+                <Button title={'Copy to clipboard'} onPress={() => this.copyToClipboard(this.state.wallet.addresses[0].string)} />
                 <Button title={'Generate New Address'} onPress={() => this.generateNewAddress()} />
             </View>
         );
-    };
+    }
 
     copyToClipboard = addr => {
         Clipboard.setString(addr);

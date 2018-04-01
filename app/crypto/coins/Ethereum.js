@@ -33,7 +33,7 @@ export function generateHDWallet() {
     return {
         privateKey: root._hdkey.privateKey.toString('hex'),
         extendedPrivateKey: root.privateExtendedKey(),
-        address: { address, derivationPath: "m/44'/60'/0'/0/0 " }
+        addresses: [{ string: address, derivationPath: "m/44'/60'/0'/0/0 " }]
     };
 }
 
