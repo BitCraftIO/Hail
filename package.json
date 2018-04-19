@@ -47,6 +47,7 @@
         "react-native-dropdownalert": "^3.1.2",
         "react-native-elements": "^0.18.5",
         "react-native-modalbox": "^1.4.2",
+        "react-native-platform-touchable": "^1.1.1",
         "react-native-randombytes": "^3.0.0",
         "react-native-svg": "^5.5.1",
         "react-native-svg-charts": "^2.0.1",
