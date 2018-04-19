@@ -17,46 +17,7 @@ export function SuccessCoinbasePageActions(dispatch) {
             const { accessToken, refreshToken } = await getAccessToken(code);
             return {
                 id: listAccounts(accessToken)
-                    .then(accounts => {
-                        return Promise.all(
-                            accounts.map(account => {
-                                return listTransactions(account.id, accessToken)
-                                    .then(txs => {
-                                        return txs.map(({ id, type, status, amount, description, to }) => {
-                                            //'to' doesn't appear on buys
-                                            if (type == 'buy') {
-                                                to = {
-                                                    id: 'Account',
-                                                    resource: type
-                                                };
-                                            }
-                                            if (to.address) {
-                                                to.id = to.address;
-                                            }
-                                            //if more version of 'to' appear, add elseifs here to handle
-                                            return {
-                                                id,
-                                                type,
-                                                amount: Number(amount.amount),
-                                                currency: amount.currency,
-                                                //description: description? description.title : "Unavailable",
-                                                to: to.id,
-                                                toType: to.resource
-                                            };
-                                        });
-                                    })
-                                    .then(transactions => {
-                                        return {
-                                            id: account.id,
-                                            name: account.name,
-                                            currency: account.currency,
-                                            balance: Number(account.balance.amount),
-                                            transactions
-                                        };
-                                    });
-                            })
-                        );
-                    })
+                    .then(accounts => reduceAccounts(accounts, accessToken))
                     .then(accounts => {
                         return actions.createAPIWallet({
                             api: 'Coinbase',
@@ -69,6 +30,48 @@ export function SuccessCoinbasePageActions(dispatch) {
             };
         })
     };
+}
+
+function reduceAccounts(accounts, accessToken) {
+    return Promise.all(
+        accounts.map(account => {
+            return listTransactions(account.id, accessToken)
+                .then(txs => reduceTransactions(txs))
+                .then(transactions => {
+                    return {
+                        id: account.id,
+                        name: account.name,
+                        currency: account.currency,
+                        balance: Number(account.balance.amount),
+                        transactions
+                    };
+                });
+        })
+    );
+}
+
+function reduceTransactions(txs) {
+    return txs.map(({ id, type, status, amount, description, to }) => {
+        //'to' doesn't appear on buys
+        if (type == 'buy') {
+            to = {
+                id: 'Account',
+                resource: type
+            };
+        }
+        if (to.address) {
+            to.id = to.address;
+        }
+        //if more version of 'to' appear, add elseifs here to handle
+        return {
+            id,
+            type,
+            amount: Number(amount.amount),
+            currency: amount.currency,
+            to: to.id,
+            toType: to.resource
+        };
+    });
 }
 
 const initialState = {
