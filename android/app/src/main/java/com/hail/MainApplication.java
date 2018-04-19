@@ -8,6 +8,16 @@ import com.oblador.vectoricons.VectorIconsPackage;
 import com.peel.react.TcpSocketsModule;
 import com.horcrux.svg.SvgPackage;
 import com.bitgo.randombytes.RandomBytesPackage;
+import io.realm.react.RealmReactPackage;
+import com.oblador.vectoricons.VectorIconsPackage;
+import com.peel.react.TcpSocketsModule;
+import com.horcrux.svg.SvgPackage;
+import com.bitgo.randombytes.RandomBytesPackage;
+import io.realm.react.RealmReactPackage;
+import com.oblador.vectoricons.VectorIconsPackage;
+import com.peel.react.TcpSocketsModule;
+import com.horcrux.svg.SvgPackage;
+import com.bitgo.randombytes.RandomBytesPackage;
 import com.bitgo.randombytes.RandomBytesPackage;
 import com.peel.react.TcpSocketsModule;
 import io.realm.react.RealmReactPackage;
@@ -33,6 +43,16 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RealmReactPackage(),
+            new VectorIconsPackage(),
+            new TcpSocketsModule(),
+            new SvgPackage(),
+            new RandomBytesPackage(),
+            new RealmReactPackage(),
+            new VectorIconsPackage(),
+            new TcpSocketsModule(),
+            new SvgPackage(),
+            new RandomBytesPackage(),
             new RealmReactPackage(),
             new VectorIconsPackage(),
             new TcpSocketsModule(),

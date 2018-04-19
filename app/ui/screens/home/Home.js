@@ -1,8 +1,11 @@
+// @flow
+
 import React from 'react';
-import { View, StyleSheet, Linking } from 'react-native';
+import { View, StyleSheet, Linking, Text } from 'react-native';
 import { IndicatorViewPager, PagerTitleIndicator } from 'rn-viewpager';
 import WalletsList from '../wallets/walletslist/WalletsListContainer';
 import Watchlist from '../watchlist/state/WatchlistContainer';
+import { Colors } from '../Colors';
 
 export default class Home extends React.Component {
     static navigationOptions = {
@@ -44,11 +47,21 @@ export default class Home extends React.Component {
 
     render() {
         return (
-            <View style={{ flex: 1 }}>
+            <View style={styles.container}>
                 <IndicatorViewPager
+                    style={styles.pagerContainer}
                     indicatorOnTop={true}
-                    style={{ flex: 1, backgroundColor: 'white' }}
-                    indicator={<PagerTitleIndicator itemStyle={styles.tabIndicator} selectedItemStyle={styles.tabIndicator} titles={['Watchlist', 'Wallets']} />}
+                    indicator={
+                        <PagerTitleIndicator
+                            style={styles.indicatorContainer}
+                            itemStyle={styles.pagerTitleContainer}
+                            selectedItemStyle={styles.pagerTitleContainer}
+                            itemTextStyle={styles.pagerTitleText}
+                            selectedItemTextStyle={styles.pagerSelectedTitleText}
+                            selectedBorderStyle={styles.pagerSelectedBorder}
+                            titles={['Watchlist', 'Wallets']}
+                        />
+                    }
                 >
                     <View>
                         <Watchlist navigate={this.props.navigation.navigate} />
@@ -63,7 +76,37 @@ export default class Home extends React.Component {
 }
 
 const styles = StyleSheet.create({
-    tabIndicator: {
+    container: {
+        flex: 1
+    },
+
+    pagerContainer: {
+        flex: 1
+    },
+
+    indicatorContainer: {
+        paddingTop: 30,
+        height: 70,
+        backgroundColor: Colors.SecondaryBackground
+    },
+
+    pagerTitleContainer: {
+        marginLeft: 30
+    },
+
+    pagerTitleText: {
+        fontSize: 20,
+        color: Colors.SecondaryBackgroundFadedText
+    },
+
+    pagerSelectedTitleText: {
+        fontSize: 20,
+        color: Colors.SecondaryBackgroundText
+    },
+
+    pagerSelectedBorder: {
+        backgroundColor: '#fff',
+        height: 1,
         flex: 1
     }
 });
