@@ -10,7 +10,7 @@
         "babel-preset-react-native": "^4.0.0",
         "flow-bin": "^0.56.0",
         "jest": "22.0.4",
-        "prettier-eslint": "^8.7.0",
+        "prettier-eslint": "^8.8.1",
         "react-test-renderer": "16.0.0",
         "redux-devtools": "^3.4.1"
     },
@@ -54,7 +54,7 @@
         "react-native-vector-icons": "^4.4.3",
         "react-navigation": "^1.0.0-beta.22",
         "react-redux": "^5.0.6",
-        "realm": "^2.0.13",
+        "realm": "^2.2.18",
         "redux": "^3.7.2",
         "redux-logger": "^3.0.6",
         "redux-thunk": "^2.2.0",
