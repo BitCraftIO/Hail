@@ -34,7 +34,8 @@ export function append(one, many: List) {
 }
 
 export function deleteWallet(wallet) {
-    Db.del(wallet);
+    const model = wallet.api ? 'APIWallet' : 'Wallet';
+    Db.del(model, wallet);
 }
 
 //Can be used to delete exchange wallets
