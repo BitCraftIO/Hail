@@ -1,18 +1,49 @@
 // @flow
 
 import React from 'react';
-import ReactNative from 'react-native'
-const {View, StyleSheet, Text} = ReactNative
-import {IndicatorViewPager, PagerTitleIndicator} from "rn-viewpager"
-import {Colors} from "../Colors";
-import WalletsList from "../wallets/walletslist/WalletsListContainer";
-import Watchlist from "../watchlist/state/WatchlistContainer";
+import { View, StyleSheet, Linking, Text } from 'react-native';
+import { IndicatorViewPager, PagerTitleIndicator } from 'rn-viewpager';
+import WalletsList from '../wallets/walletslist/WalletsListContainer';
+import Watchlist from '../watchlist/state/WatchlistContainer';
+import { Colors } from '../Colors';
 
 export default class Home extends React.Component {
-
     static navigationOptions = {
-        header: () => { }
+        header: () => {}
     };
+
+    componentDidMount() {
+        Linking.addEventListener('url', this.handleUrl);
+    }
+
+    componentWillUnmount() {
+        //TODO: Find out why this isn't solving the memory leak
+        Linking.removeEventListener('url', this.handleUrl);
+    }
+
+    handleUrl = ({ url }) => {
+        this.navigate(url);
+    };
+
+    navigate(url) {
+        var route = url.split('?')[0].substring(7);
+        var params = url
+            .split('?')[1]
+            .split('&')
+            .reduce((accum, item) => {
+                let [key, value] = item.split('=');
+                accum[key] = value;
+                return accum;
+            }, {});
+
+        if (route === 'wallet/oauth/coinbase/') {
+            this.props.navigation.navigate('CoinbaseSuccessPage', params);
+            console.log(`Redirected with redirect_uri ${params}`);
+        }
+        if (route === 'wallet/oauth/coinbase/redirect/') {
+            console.log(`Redirected with redirect_uri ${params}`);
+        }
+    }
 
     render() {
         return (
@@ -25,18 +56,18 @@ export default class Home extends React.Component {
                             style={styles.indicatorContainer}
                             itemStyle={styles.pagerTitleContainer}
                             selectedItemStyle={styles.pagerTitleContainer}
-
                             itemTextStyle={styles.pagerTitleText}
                             selectedItemTextStyle={styles.pagerSelectedTitleText}
-
                             selectedBorderStyle={styles.pagerSelectedBorder}
-                            titles={["Watchlist", "Wallets"]}/>
-                    }>
+                            titles={['Watchlist', 'Wallets']}
+                        />
+                    }
+                >
                     <View>
-                        <Watchlist navigate={this.props.navigation.navigate}/>
+                        <Watchlist navigate={this.props.navigation.navigate} />
                     </View>
                     <View>
-                        <WalletsList navigation={this.props.navigation}/>
+                        <WalletsList navigation={this.props.navigation} />
                     </View>
                 </IndicatorViewPager>
             </View>
@@ -46,11 +77,11 @@ export default class Home extends React.Component {
 
 const styles = StyleSheet.create({
     container: {
-        flex:1
+        flex: 1
     },
 
-    pagerContainer:{
-        flex:1
+    pagerContainer: {
+        flex: 1
     },
 
     indicatorContainer: {
@@ -74,8 +105,8 @@ const styles = StyleSheet.create({
     },
 
     pagerSelectedBorder: {
-        backgroundColor:"#fff",
-        height:1,
-        flex:1
-    },
+        backgroundColor: '#fff',
+        height: 1,
+        flex: 1
+    }
 });

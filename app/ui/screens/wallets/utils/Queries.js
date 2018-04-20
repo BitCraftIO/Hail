@@ -1,24 +1,16 @@
-import * as Db from "hail/app/localstorage/db/Db.js";
-import * as idhelper from "./idhelper";
-import * as networkCodes from "./networkcodes";
+import * as Db from 'hail/app/localstorage/db/Db.js';
 
 export function getWalletbyId(id) {
-    let results = Db.query(idhelper.getModelForId(id), 'id = ' + id);
+    let results = Db.query('Wallet', 'id = ' + id);
     return results;
 }
 
 export function getExchangeWallets() {
-    results = [];
-    for (var exchange in networkCodes.exchangeToCode) {
-        results = results.concat(Array.from(Db.query(exchange+"Wallet")));
-    }
+    let results = Db.query('APIWallet');
     return results;
 }
 
-export function getLocalWallets(){
-    results = [];
-    for (var coin in networkCodes.coinToCode) {
-        results = results.concat(Array.from(Db.query(coin+"Wallet")));
-    }
+export function getLocalWallets() {
+    let results = Db.query('Wallet');
     return results;
 }

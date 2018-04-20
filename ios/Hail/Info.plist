@@ -51,6 +51,19 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>com.bitcraft.Hail</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>hail</string>
+			</array>
+		</dict>
+	</array>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Entypo.ttf</string>

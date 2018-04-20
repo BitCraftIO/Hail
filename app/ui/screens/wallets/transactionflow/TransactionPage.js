@@ -1,180 +1,188 @@
 import React from 'react';
-import {FlatList, StyleSheet, Clipboard, Text, View, TextInput, Button, Platform, NativeModules, Keyboard} from 'react-native';
-import {CheckBox} from "react-native-elements"
+import { FlatList, StyleSheet, Clipboard, Text, View, TextInput, Button } from 'react-native';
+import { CheckBox } from 'react-native-elements';
 import PropTypes from 'prop-types';
+import * as walletActions from '../utils/WalletActions';
+import { logger } from 'hail/app/utils/Logger';
 
 export default class TransactionPage extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            action: null,
+            address: '',
+            amount: '',
+            fee: '',
+            gasPrice: '',
+            typeleftchecked: false,
+            typerightchecked: false,
+            status: null,
+            wallet: this.props.navigation.state.params.wallet
+        };
 
-	//You should have access to wallet in props
-	constructor(props){
-		super(props)
-		this.state = {
-			"action": null,
-			"address": "",
-			"amount": "",
-			"fee": "",
-			"typeleftchecked": false,
-			"typerightchecked": false,
-			"status": null,
-		}
-	}
+        this.receiveActionView = this.receiveActionView.bind(this);
+    }
 
-	chooseActionView() {
-		if(this.state.action == null ) {
-			return (
-				<View style={{paddingTop: 30}}>
-					<Text>Send or Receive?</Text>
-					<View style={{flexDirection: 'row'}}>
-						<View>
-							<CheckBox 
-								title="Send"
-								checked={this.state.typeleftchecked}
-								right={true}
-								onPress={() => this.chooseAction("send")}
-							/>
-						</View>
-						<View>
-							<CheckBox 
-								title="Receive"
-								checked={this.state.typerightchecked}
-								onPress={() => this.chooseAction("receive")}
-							/>
-						</View>
-					</View>
-				</View>
-			);
-		}
-		else {
-			return null;
-		}
-	}
+    estimateFee() {
+        walletActions.estimateFee(this.state.wallet.coin, this.state.wallet.addresses.string).then(fee => {
+            switch (this.state.wallet.coin) {
+                case 'ETH':
+                    fee = `gasPrice: ${fee.gasPrice}  gasLimit: ${fee.gasLimit}`;
+                    break;
+                default:
+                    break;
+            }
+            this.setState({ fee });
+        });
+    }
 
-	chooseAction(action) {
-		this.setState({
-			action,
-		});
-	}
+    chooseActionView() {
+        if (this.state.action == null) {
+            return (
+                <View style={{ paddingTop: 30 }}>
+                    <Text>Send or Receive?</Text>
+                    <View style={{ flexDirection: 'row' }}>
+                        <View>
+                            <CheckBox title="Send" checked={this.state.typeleftchecked} right={true} onPress={() => this.chooseAction('send')} />
+                        </View>
+                        <View>
+                            <CheckBox title="Receive" checked={this.state.typerightchecked} onPress={() => this.chooseAction('receive')} />
+                        </View>
+                    </View>
+                </View>
+            );
+        } else {
+            return null;
+        }
+    }
 
-	action() {
-		if(this.state.action != null ) {
-			var act = null;
-			if (this.state.action == "send") {
-				act = this.sendActionView;
-			}
-			else {
-				act = this.receiveActionView;
-			}
-			return (
-				<View>
-					{act(this.state)}
-				</View>
-			);
-		} 
-		else {
-			return null;
-		}
+    chooseAction(action) {
+        this.setState({
+            action
+        });
+    }
 
-	}
+    action() {
+        if (this.state.action != null) {
+            var act = null;
+            if (this.state.action == 'send') {
+                act = this.sendActionView;
+            } else {
+                act = this.receiveActionView;
+            }
+            return <View>{act(this.state)}</View>;
+        } else {
+            return null;
+        }
+    }
 
-	sendActionView = () => {
-		return(
-			<View>
-				<View>
-					<Text style={{fontWeight:'bold'}}>Address</Text>
-					<TextInput
-						onChangeText={(text) => this.setState({"address": text})}
-						value={this.state.address}
-						placeholder={'a string'}
-						placeholderTextColor={'grey'}
-					/>
-				</View>
-				<View style={{paddingTop: 20}}>
-					<Text style={{fontWeight:'bold'}}>Amount</Text>
-					<TextInput
-						onChangeText={(text) => this.setState({"amount": text})}
-						value={this.state.amount}
-						placeholder={'a number'}
-						placeholderTextColor={'grey'}
-					/>
-				</View>
-				<View style={{paddingTop: 20}}>
-					<Text style={{fontWeight:'bold'}}>Fee</Text>
-					<TextInput
-						onChangeText={(text) => this.setState({"fee": text})}
-						value={this.state.fee}
-						placeholder={'a number'}
-						placeholderTextColor={'grey'}
-					/>
-					<Text>Recommended fee: {} </Text>
-				</View>
-				<View style={{paddingTop: 20}}>
-					<Button
-						title={'Send'}
-						onPress={() => this.sendAction()}
-					/>
-				</View>
-			</View>
-		)
-	}
+    sendActionView = () => {
+        return (
+            <View>
+                <View>
+                    <Text style={{ fontWeight: 'bold' }}>Address</Text>
+                    <TextInput onChangeText={text => this.setState({ address: text })} value={this.state.address} placeholder={'a string'} placeholderTextColor={'grey'} />
+                </View>
+                <View style={{ paddingTop: 20 }}>
+                    <Text style={{ fontWeight: 'bold' }}>Amount</Text>
+                    <TextInput onChangeText={text => this.setState({ amount: text })} value={this.state.amount} placeholder={'a number'} placeholderTextColor={'grey'} />
+                </View>
+                <View style={{ paddingTop: 20 }}>
+                    <Text style={{ fontWeight: 'bold' }}>Fee</Text>
+                    <TextInput onChangeText={text => this.setState({ fee: text })} value={this.state.fee} placeholder={'default for currency'} placeholderTextColor={'grey'} />
+                    <Text>Recommended fee: {this.state.fee} </Text>
+                    <Button title={'Estimate Fee'} onPress={() => this.estimateFee()} />
+                </View>
+                <View style={{ paddingTop: 20 }}>
+                    <Button title={'Send'} onPress={() => this.sendAction()} />
+                </View>
+            </View>
+        );
+    };
 
-	sendAction() {
-		//TODO
-	}
+    sendAction() {
+        switch (this.state.wallet.coin) {
+            case 'ETH':
+                const buf = new Buffer(this.state.wallet.masterKey, 'hex');
+                var params = {
+                    gasPrice: this.state.gasPrice,
+                    gasLimit: this.state.gasLimit,
+                    from: this.state.wallet.addresses.string,
+                    to: this.state.address,
+                    value: this.state.amount,
+                    nonce: '0x00',
+                    privateKey: buf
+                };
+                switch (this.state.wallet.network) {
+                    case 'MAIN':
+                        params.chainId = 1;
+                    case 'KOVAN':
+                    case 'RINKEBY':
+                        params.chainId = 3;
+                    case 'ROPSTEN':
+                    default:
+                        break;
+                }
 
-	receiveActionView = () => {
-		//grab new addr from util
-		const addr = "Some typical address";
-		return (
-			<View>
-				<Text>{addr}</Text>
-				<Button
-					title={'Copy to clipboard'}
-					onPress={() => this.copyToClipboard(addr)}
-				/>
-				<Button
-					title={'Generate New Address'}
-					onPress={() => this.generateNewAddress()}
-				/>
-			</View>
-		)
-	}
+                break;
+            default:
+                break;
+        }
+        logger(4, params);
 
-	copyToClipboard = (addr) => {
-		Clipboard.setString(addr);
-		this.setState({status: "Copied to Clipboard"});
-	}
+        //TODO: Put this in redux pattern after refactor
+        walletActions.send(this.state.wallet.coin, params).then(result => {
+            this.setState({ status: result });
+        });
+    }
 
-	generateNewAddress() {
-		//TODO
-	}
+    receiveActionView() {
+        //grab new addr from util if bitcoin
+        console.log(this.state);
+        //TODO: Generate NewAddress based on cointype
+        return (
+            <View>
+                <Text>{this.state.wallet.addresses[0].string}</Text>
+                <Button title={'Copy to clipboard'} onPress={() => this.copyToClipboard(this.state.wallet.addresses[0].string)} />
+                <Button title={'Generate New Address'} onPress={() => this.generateNewAddress()} />
+            </View>
+        );
+    }
 
-	status() {
-		if (this.state.status != null) {
-			return (
-				<Text> {this.state.status} </Text>
-			)
-		}
-		else {
-			return null;
-		}
-	}
+    copyToClipboard = addr => {
+        Clipboard.setString(addr);
+        console.log(`PrivKey: ${this.state.wallet.masterKey}`);
+        console.log(`Address: ${addr}`);
+        this.setState({ status: 'Copied to Clipboard' });
+    };
 
-	render() {
-		return (
-			<View>
-				{this.chooseActionView()}
-				{this.action()}
-				{this.status()}
-			</View>			
-		)
-	}
+    generateNewAddress() {
+        //TODO: Do this right after refactor. Only works for ethereum
+    }
 
+    status() {
+        if (this.state.status != null) {
+            return <Text> {this.state.status} </Text>;
+        } else {
+            return null;
+        }
+    }
+
+    render() {
+        return (
+            <View>
+                {this.chooseActionView()}
+                {this.action()}
+                {this.status()}
+            </View>
+        );
+    }
 }
 
 styles = StyleSheet.create({
     background: {
         flex: 1,
         alignItems: 'center',
-        backgroundColor: '#11151c',
-    },
+        backgroundColor: '#11151c'
+    }
 });
