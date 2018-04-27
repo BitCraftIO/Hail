@@ -81,15 +81,15 @@ export default class WalletDashboard extends Component<Props, State>{
                         }
                     }}
                     renderItem={data => {
-                        const wallet = data.item.item
+                        const wallet = data.item
                         return (
                             <WalletElement
-                                symbol={wallet.item.network}
+                                symbol={wallet.coin}
                                 aggregateCoins={0}
-                                name={wallet.item.name}
+                                name={wallet.name}
                                 aggregateValue={0}
                                 percentageGrowth={0}
-                                onPress={() => this.toWalletDetail(wallet.item)}
+                                onPress={() => this.toWalletDetail(wallet)}
                             />
                         )
                     }}
