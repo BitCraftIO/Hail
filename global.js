@@ -1,6 +1,10 @@
 // Inject node globals into React Native global scope.
 // Required for crypto functionality for bitcoinjs-lib, web3, etc.
 
+if (!window.btoa) {
+  window.btoa = require('Base64')
+}
+
 global.Buffer = require('buffer').Buffer;
 //global.Buffer.TYPED_ARRAY_SUPPORT = false;
 

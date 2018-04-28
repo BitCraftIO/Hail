@@ -8,21 +8,6 @@ import com.oblador.vectoricons.VectorIconsPackage;
 import com.peel.react.TcpSocketsModule;
 import com.horcrux.svg.SvgPackage;
 import com.bitgo.randombytes.RandomBytesPackage;
-import io.realm.react.RealmReactPackage;
-import com.oblador.vectoricons.VectorIconsPackage;
-import com.peel.react.TcpSocketsModule;
-import com.horcrux.svg.SvgPackage;
-import com.bitgo.randombytes.RandomBytesPackage;
-import io.realm.react.RealmReactPackage;
-import com.oblador.vectoricons.VectorIconsPackage;
-import com.peel.react.TcpSocketsModule;
-import com.horcrux.svg.SvgPackage;
-import com.bitgo.randombytes.RandomBytesPackage;
-import com.bitgo.randombytes.RandomBytesPackage;
-import com.peel.react.TcpSocketsModule;
-import io.realm.react.RealmReactPackage;
-import com.oblador.vectoricons.VectorIconsPackage;
-import com.horcrux.svg.SvgPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
@@ -47,22 +32,7 @@ public class MainApplication extends Application implements ReactApplication {
             new VectorIconsPackage(),
             new TcpSocketsModule(),
             new SvgPackage(),
-            new RandomBytesPackage(),
-            new RealmReactPackage(),
-            new VectorIconsPackage(),
-            new TcpSocketsModule(),
-            new SvgPackage(),
-            new RandomBytesPackage(),
-            new RealmReactPackage(),
-            new VectorIconsPackage(),
-            new TcpSocketsModule(),
-            new SvgPackage(),
-            new RandomBytesPackage(),
-            new RandomBytesPackage(),
-            new TcpSocketsModule(),
-            new RealmReactPackage(),
-            new VectorIconsPackage(),
-            new SvgPackage()
+            new RandomBytesPackage()
       );
     }
 
