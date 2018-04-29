@@ -58,7 +58,7 @@ export function update(obj, options) {
     });
 }
 
-export function del(model, obj) {
+export function del(obj) {
     this.write(() => {
         realm().delete(obj);
     });
