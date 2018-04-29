@@ -1,7 +1,7 @@
 import { createResourceAction, createResourceReducerStates, resourceInitialState } from 'hail/app/reduxhelpers/CreateResource';
 import createReducer from 'hail/app/reduxhelpers/CreateReducer';
-import * as queries from 'hail/app/ui/screens/wallets/utils/Queries';
-import * as actions from 'hail/app/ui/screens/wallets/utils/Actions';
+import * as queries from 'hail/app/localstorage/db/utils/Queries';
+import * as dbActions from 'hail/app/localstorage/db/utils/Actions';
 import { getAccessToken, listAccounts, listTransactions } from 'hail/app/crypto/network/exchanges/coinbase/CoinbaseAPI.js';
 import APIAccount from 'hail/app/localstorage/db/models/APIAccount';
 import APITransaction from 'hail/app/localstorage/db/models/APITransaction';
@@ -19,7 +19,7 @@ export function SuccessCoinbasePageActions(dispatch) {
                 id: listAccounts(accessToken)
                     .then(accounts => reduceAccounts(accounts, accessToken))
                     .then(accounts => {
-                        return actions.createAPIWallet({
+                        return dbActions.createAPIWallet({
                             api: 'Coinbase',
                             name: 'Coinbase',
                             accessToken,

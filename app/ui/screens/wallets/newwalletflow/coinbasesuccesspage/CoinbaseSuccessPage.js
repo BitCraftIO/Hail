@@ -1,7 +1,6 @@
 import React from 'react';
 import { Text, View } from 'react-native';
 import PropTypes from 'prop-types';
-import * as actions from 'hail/app/ui/screens/wallets/utils/Actions';
 import * as CoinbaseAPI from 'hail/app/crypto/network/exchanges/coinbase/CoinbaseAPI.js';
 
 export default class CoinbaseSuccessPage extends React.Component {
