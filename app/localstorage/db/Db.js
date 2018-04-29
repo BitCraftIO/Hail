@@ -4,7 +4,6 @@ import Wallet from './models/Wallet';
 import WalletAddress from './models/WalletAddress';
 import WalletTransaction from './models/WalletTransaction';
 import Log from './models/Log';
-//import { logger } from '../../utils/Logger';
 import APITransaction from './models/APITransaction';
 import APIWallet from './models/APIWallet';
 import APIAccount from './models/APIAccount';
@@ -17,7 +16,6 @@ export function realm() {
             path: config.db_path
         });
         console.log(this.r.path);
-        //logger(2, this.r.path);
     }
 
     return this.r;
@@ -47,15 +45,9 @@ export function query(model, filter) {
 */
 
 export function insert(model, options) {
-    if (options == undefined && model instanceof Realm.Object) {
-        this.write(() => {
-            realm().create(model);
-        });
-    } else {
-        this.write(() => {
-            realm().create(model, options);
-        });
-    }
+    this.write(() => {
+        realm().create(model, options);
+    });
 }
 
 export function update(obj, options) {
@@ -76,9 +68,8 @@ export function write(func) {
     try {
         realm().write(func);
     } catch (e) {
-        // logger(0, e);
         console.log(e);
-        throw new Error('Db.js :: Write operation failed ::', e);
+        throw new Error(`Db.js :: Write operation failed :: ${e}`);
     }
 }
 
