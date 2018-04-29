@@ -13,7 +13,7 @@ Wallet.schema = {
         network: 'string', //MAIN, TEST, ROPSTEN, RINKEBY, KOVAN
         extendedPrivateKey: 'string',
         privateKey: 'string',
-        transactions: { type: 'HDWalletTransaction[]', default: [] },
+        transactions: { type: 'WalletTransaction[]', default: [] },
         addresses: 'WalletAddress[]'
     }
 };

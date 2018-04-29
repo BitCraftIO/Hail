@@ -3,9 +3,7 @@ import Realm from 'realm';
 export default class Log extends Realm.Object {}
 Log.schema = {
     name: 'Log',
-    primaryKey: 'id',
     properties: {
-        id: { type: 'int', default: 0 },
         date: 'date',
         logLevel: 'int',
         component: 'string?',

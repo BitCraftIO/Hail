@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, TextInput, Button } from 'react-native';
 import PropTypes from 'prop-types';
-import * as actions from 'hail/app/ui/screens/wallets/utils/Actions';
+import * as dbActions from 'hail/app/localstorage/db/utils/Actions';
 //import Blockies from 'react-blockies';
 
 export default class WalletDetailsPage extends React.Component {
@@ -20,7 +20,7 @@ export default class WalletDetailsPage extends React.Component {
     }
 
     deleteThisWallet() {
-        actions.deleteWallet(this.state.wallet);
+        dbActions.deleteWallet(this.state.wallet);
         const { navigation } = this.props;
         navigation.state.params.refresh();
         this.goBack();

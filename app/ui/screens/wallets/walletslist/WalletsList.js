@@ -2,8 +2,8 @@ import React from 'react';
 import { Header, SectionList, FlatList, StyleSheet, Text, View, TextInput, Button, Platform, NativeModules, StatusBar, Keyboard } from 'react-native';
 import * as Db from 'hail/app/localstorage/db/Db';
 import WalletElement from './../components/WalletElement';
-import * as actions from 'hail/app/ui/screens/wallets/utils/Actions';
-import * as queries from 'hail/app/ui/screens/wallets/utils/Queries';
+import * as actions from 'hail/app/localstorage/db/utils/Actions';
+import * as queries from 'hail/app/localstorage/db/utils/Queries';
 
 import PropTypes from 'prop-types';
 export default class WalletsList extends React.Component {

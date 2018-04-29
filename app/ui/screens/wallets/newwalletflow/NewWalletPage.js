@@ -2,7 +2,7 @@ import React from 'react';
 import { FlatList, StyleSheet, Text, View, TextInput, Button, Platform, NativeModules, StatusBar, Keyboard } from 'react-native';
 import { CheckBox } from 'react-native-elements';
 import PropTypes from 'prop-types';
-import * as actions from 'hail/app/ui/screens/wallets/utils/Actions';
+import * as actions from 'hail/app/localstorage/db/utils/Actions';
 import * as wallet from 'hail/app/ui/screens/wallets/utils/WalletActions';
 import * as CoinbaseAPI from 'hail/app/crypto/network/exchanges/coinbase/CoinbaseAPI.js';
 
