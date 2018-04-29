@@ -1,7 +1,7 @@
 import * as dbActions from 'hail/app/localstorage/db/utils/Actions';
 import { Alert } from 'react-native';
 import * as coins from 'hail/app/crypto/coins';
-import { logger } from 'hail/app/utils/Logger.js';
+import Logger from 'hail/app/utils/Logger.js';
 
 /**
  *
@@ -43,7 +43,7 @@ export function createPrivateKeyPair(coin, walletType) {
             return coins[coin].generateWallet();
             break;
         default:
-            logger(0, 'createPrivateKeyPair switch failed because incorrect walletType');
+            Logger.error('createPrivateKeyPair switch failed because incorrect walletType');
     }
 }
 
