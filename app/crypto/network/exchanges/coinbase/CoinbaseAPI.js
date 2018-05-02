@@ -3,6 +3,9 @@ import { clientId, clientSecret, appUri, webUri } from './config';
 import { serializeJSON } from '../utils/utils';
 import Logger from 'hail/app/utils/Logger';
 
+const filename = "CoinbaseAPI.js";
+const logger = new Logger(filename);
+
 export function redirectToOAuth() {
     var success = false;
     Linking.canOpenURL(webUri).then(supported => {
@@ -10,7 +13,7 @@ export function redirectToOAuth() {
             Linking.openURL(webUri);
             success = true;
         } else {
-            Logger.error("Doesn't look like we support that Uri " + webUri);
+            logger.error("Doesn't look like we support that Uri " + webUri);
         }
     });
     return success;
@@ -25,7 +28,7 @@ export function listTransactions(account_id, accessToken) {
     })
         .then(response => {
             if (!response.ok) {
-                Logger.error('CoinbaseAPI.js :: listTransaction api call failed');
+                logger.error('CoinbaseAPI.js :: listTransaction api call failed');
             }
             return response.json();
         })
@@ -33,7 +36,7 @@ export function listTransactions(account_id, accessToken) {
             return responseJson.data;
         })
         .catch(e => {
-            Logger.error('CoinbaseAPI.js :: listTransaction network call failed');
+            logger.error('CoinbaseAPI.js :: listTransaction network call failed');
         });
 }
 

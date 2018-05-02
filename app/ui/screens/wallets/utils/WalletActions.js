@@ -3,6 +3,9 @@ import { Alert } from 'react-native';
 import * as coins from 'hail/app/crypto/coins';
 import Logger from 'hail/app/utils/Logger.js';
 
+const filename = "WalletActions.js";
+const logger = new Logger(filename);
+
 /**
  *
  * @param {*} coin
@@ -43,7 +46,7 @@ export function createPrivateKeyPair(coin, walletType) {
             return coins[coin].generateWallet();
             break;
         default:
-            Logger.error('createPrivateKeyPair switch failed because incorrect walletType');
+            logger.error('createPrivateKeyPair switch failed because incorrect walletType');
     }
 }
 

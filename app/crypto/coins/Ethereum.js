@@ -4,13 +4,15 @@ import Wallet from 'ethereumjs-wallet';
 import EthereumTx from 'ethereumjs-tx';
 import bip39 from 'bip39';
 import Logger from '../../utils/Logger';
+
 const filename = 'Ethereum.js';
+const logger = new Logger(filename);
 
 //TODO: implement support for testnet
 export function send(params, network) {
     const rawTx = createRawTransaction(params);
     return web3.eth.sendSignedTransaction(`0x${rawTx.toString('hex')}`, (error, result) => {
-        error ? Logger.error('sendSignTransaction Failed') : Logger.info('sendSignTransaction Succeeded');
+        error ? logger.error('sendSignTransaction Failed') : logger.info('sendSignTransaction Succeeded');
     });
 }
 

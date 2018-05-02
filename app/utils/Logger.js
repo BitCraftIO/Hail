@@ -3,11 +3,24 @@ import Log from '../localstorage/db/models/Log';
 import * as settings from './Settings';
 import moment from 'moment';
 
-export class Logger {
+export default class Logger {
     levelMap = {
         0: 'Error',
         1: 'Notify',
         2: 'Info'
+    }
+
+    // Name of the calling file should default to warning incase no file name is passed in
+    callingFile = 'Logger warning -- Please pass the name of the calling file into Logger constructor';
+
+    /**
+     * Constructor takes in a file name to display along-side messages for easier tracing
+     * @param {String} filename The name of the file instantiating the Logger class
+     */
+    constructor(filename) {
+        if (filename) {
+            this.callingFile = filename;
+        }
     }
 
     /**
@@ -43,8 +56,9 @@ export class Logger {
      * @param {number} logLevel 
      */
     _storeLog(message, logLevel) {
-        let timestamp = moment().format(),
-            date = timestamp.toDate();
+        let momentInstance = moment(),
+            timestamp = momentInstance.format(),
+            date = momentInstance.toDate();
 
         if (logLevel <= settings.configFile.logLevel) {
             let logObject = {
@@ -55,6 +69,6 @@ export class Logger {
             
             Db.insert(Log, logObject);
         }
-        console.log(`${timestamp} : ${this.levelMap[logLevel]} :: ${message}`)
+        console.log(`${timestamp} : ${this.levelMap[logLevel]} : ${this.callingFile} :: ${message}`)
     }
 }
