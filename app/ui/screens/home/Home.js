@@ -26,7 +26,10 @@ export default class Home extends React.Component {
     };
 
     navigate(url) {
+        // remove 'hail://' from the route by substring
         var route = url.split('?')[0].substring(7);
+
+        // Extract url parameters into object params
         var params = url
             .split('?')[1]
             .split('&')
