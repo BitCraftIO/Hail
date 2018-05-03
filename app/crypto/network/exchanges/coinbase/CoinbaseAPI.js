@@ -28,7 +28,7 @@ export function listTransactions(account_id, accessToken) {
     })
         .then(response => {
             if (!response.ok) {
-                logger.error('CoinbaseAPI.js :: listTransaction api call failed');
+                logger.error('listTransaction api call failed');
             }
             return response.json();
         })
@@ -36,7 +36,7 @@ export function listTransactions(account_id, accessToken) {
             return responseJson.data;
         })
         .catch(e => {
-            logger.error('CoinbaseAPI.js :: listTransaction network call failed');
+            logger.error('listTransaction network call failed');
         });
 }
 
