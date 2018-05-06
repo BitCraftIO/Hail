@@ -1,6 +1,6 @@
 import * as Db from '../localstorage/db/Db';
 import Log from '../localstorage/db/models/Log';
-import * as settings from './Settings';
+import settings from './Settings';
 import moment from 'moment';
 
 export default class Logger {
@@ -60,7 +60,7 @@ export default class Logger {
             timestamp = momentInstance.format(),
             date = momentInstance.toDate();
 
-        if (logLevel <= settings.configFile.logLevel) {
+        if (logLevel <= settings.logLevel) {
             let logObject = {
                 date,
                 logLevel,

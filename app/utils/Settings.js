@@ -1,19 +1,32 @@
 import * as Db from '../localstorage/db/Db';
+import Configuration from '../localstorage/db/models/Configuration';
+import Proxy from 'proxy-polyfill/src/proxy';
 
-const MODEL = 'Configuration';
+let configFile;
 
-export var configFile = () => {
-    return Db.query(MODEL, 'id = "01001000"');
-};
-
-function setupConfig() {
-    if (configFile().length == 0) {
-        Db.insert(MODEL, { id: '01001000' });
+function loadConfigFile() {
+    let configFileQueryResults = Db.query(Configuration);
+    
+    if (configFileQueryResults.length == 0) {
+        Db.insert(Configuration, {});
     }
-}
 
-export function setLogLevel(loglevel) {
-    Db.update(configFile, { loglevel });
+    configFile = configFileQueryResults[0];
 }
+loadConfigFile();
 
-setupConfig();
+/**
+ * Using the Proxy class allows us to have dynamic getters and setters.
+ * Having this 'set:' method means any variable declaration on the 'settings'
+ * object (eg. settings.logLevel = 1) executes the method instead.
+ * This setter stores all changes made to the 'settings' object to realm
+ */
+export default settings = new Proxy(configFile, {
+    set: (configFileObject, propertyName, passedInValue) => {
+        Db.write(() => {
+            configFileObject[propertyName] = passedInValue
+        })
+    }
+})
+// In order for a property to be saved,
+// the Configuration object must have that same property
