@@ -14,3 +14,17 @@ export function getLocalWallets() {
     let results = Db.query('Wallet');
     return results;
 }
+
+/**
+ * Counts Local Wallets
+ * @param {string} param an attribute on the walletType
+ */
+export function countWallets(param) {
+    return getLocalWallets().reduce((walletCount, wallet) => {
+        if (walletCount[wallet[param]] == undefined) {
+            walletCount[wallet[param]] = 1;
+        } else {
+            walletCount[wallet[param]] += 1;
+        }
+    }, {});
+}
