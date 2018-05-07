@@ -8,6 +8,7 @@ import WalletDetailsPage from './ui/screens/wallets/WalletDetailsPage';
 import TransactionPage from './ui/screens/wallets/transactionflow/TransactionPage';
 import NewWalletPage from './ui/screens/wallets/newwalletflow/NewWalletPage';
 import CoinbaseSuccessPage from './ui/screens/wallets/newwalletflow/coinbasesuccesspage/CoinbaseSuccessPageContainer';
+import LogPage from './ui/screens/logger/LogPage';
 
 // https://reactnavigation.org/docs/intro/basic-app
 const Navigator = StackNavigator({
@@ -46,6 +47,10 @@ const Navigator = StackNavigator({
     CoinbaseSuccessPage: {
         screen: CoinbaseSuccessPage,
         path: 'wallet/oauth/coinbase/'
+    },
+
+    LogPage: {
+        screen: LogPage
     }
 });
 
