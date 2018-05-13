@@ -1,5 +1,4 @@
-import * as Db from '../localstorage/db/Db';
-import Log from '../localstorage/db/models/Log';
+import * as loggerActions from '../localstorage/db/utils/LoggerActions'
 import settings from './Settings';
 import moment from 'moment';
 
@@ -67,7 +66,7 @@ export default class Logger {
                 message
             }
             
-            Db.insert(Log, logObject);
+            loggerActions.storeLog(logObject);
         }
         console.log(`${timestamp} : ${this.levelMap[logLevel]} : ${this.callingFile} :: ${message}`)
     }

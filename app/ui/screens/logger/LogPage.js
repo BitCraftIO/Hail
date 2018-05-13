@@ -4,7 +4,7 @@ import React from 'react';
 import { View, Text, StyleSheet, FlatList } from 'react-native';
 import { Colors } from '../Colors';
 import Logger from '../../../utils/Logger'
-import * as dbActions from 'hail/app/localstorage/db/utils/Actions';
+import * as loggerActions from 'hail/app/localstorage/db/utils/LoggerActions';
 import moment from 'moment';
 
 const filename = 'LogPage.js';
@@ -30,74 +30,12 @@ export default class LogPage extends React.Component {
     }
 
     getLogs() {
-        let testList = [
-            {
-                key: '0',
-                date: '2018-05-07T01:56:52.278Z',
-                logLevel: 2,
-                message: "Test Message"
-            },
-            {
-                key: '1',
-                date: '2018-05-07T01:56:52.278Z',
-                logLevel: 1,
-                message: "Test MessageTest MessageTest MessageTest MessageTest MessageTest MessageTest MessageTest MessageTest MessageTest MessageTest MessageTest MessageTest MessageTest Message"
-            },
-            {
-                key: '2',
-                date: '2018-05-07T01:56:52.278Z',
-                logLevel: 0,
-                message: "Test Message"
-            },
-            {
-                key: '0',
-                date: '2018-05-07T01:56:52.278Z',
-                logLevel: 2,
-                message: "Test Message"
-            },
-            {
-                key: '1',
-                date: '2018-05-07T01:56:52.278Z',
-                logLevel: 1,
-                message: "Test MessageTest MessageTest MessageTest MessageTest MessageTest MessageTest MessageTest MessageTest MessageTest MessageTest MessageTest MessageTest MessageTest Message"
-            },
-            {
-                key: '2',
-                date: '2018-05-07T01:56:52.278Z',
-                logLevel: 0,
-                message: "Test Message"
-            },
-            {
-                key: '0',
-                date: '2018-05-07T01:56:52.278Z',
-                logLevel: 2,
-                message: "Test Message"
-            },
-            {
-                key: '1',
-                date: '2018-05-07T01:56:52.278Z',
-                logLevel: 1,
-                message: "Test MessageTest MessageTest MessageTest MessageTest MessageTest MessageTest MessageTest MessageTest MessageTest MessageTest MessageTest MessageTest MessageTest Message"
-            },
-            {
-                key: '2',
-                date: '2018-05-07T01:56:52.278Z',
-                logLevel: 0,
-                message: "Test Message"
-            },
-            
-        ];
+        let queriedLogs = loggerActions.getLogs();
 
-        for (let i = 0; i < testList.length; i++) {
-            this.logsList.push(testList[i]);
+        // Invert to display with most recent first
+        for (let i = queriedLogs.length - 1; i >= 0; i--) {
+            this.logsList.push(queriedLogs[i]);
         }
-
-        // let queriedLogs = dbActions.getLogs();
-        // console.log(queriedLogs[0]);
-
-        // for (let i = 0; i < queriedLogs.length && i < 100; i++) {
-        //     this.logsList.push(queriedLogs[i]);
-        // }
     }
 
     render() {
@@ -107,11 +45,12 @@ export default class LogPage extends React.Component {
                     style={styles.flatList}
                     contentContainerStyle={styles.flatListContentContainer}
                     data={this.logsList}
+                    keyExtractor={(item, index) => index}
                     renderItem={({item, separators}) => (
                         <View style={styles.logItem}>
                             <Text style={{color: this.levelToColorMap[item.logLevel]}}>{logger.levelMap[item.logLevel] + ' - Level ' + item.logLevel}</Text>
                             <Text style={styles.logText}>{item.message}</Text>
-                            <Text style={styles.logText}>{moment(item.date).format('MMM D, h:m:sa')}</Text>
+                            <Text style={styles.logText}>{moment(item.date).format('MMM D, h:m:ssa')}</Text>
                         </View>
                     )}
                 />
@@ -129,7 +68,6 @@ const styles = StyleSheet.create({
 
     flatList: {
         flex: 1,
-        paddingTop: 5
     },
 
     flatListContentContainer: {
@@ -139,7 +77,8 @@ const styles = StyleSheet.create({
     logItem: {
         backgroundColor: Colors.SecondaryBackground,
         borderRadius: 5,
-        margin: 10,
+        marginHorizontal: 10,
+        marginTop: 10,
         minHeight: 75,
         flex: 1,
         justifyContent: 'space-between',
