@@ -3,7 +3,7 @@
 import React from 'react';
 import { View, StyleSheet, Linking, Text } from 'react-native';
 import { IndicatorViewPager, PagerTitleIndicator } from 'rn-viewpager';
-import WalletsList from '../wallets/walletslist/WalletsListContainer';
+import WalletDashboard from '../wallets/dashboard/WalletDashboard';
 import Watchlist from '../watchlist/state/WatchlistContainer';
 import { Colors } from '../Colors';
 
@@ -67,7 +67,7 @@ export default class Home extends React.Component {
                         <Watchlist navigate={this.props.navigation.navigate} />
                     </View>
                     <View>
-                        <WalletsList navigation={this.props.navigation} />
+                        <WalletDashboard navigation={this.props.navigation} />
                     </View>
                 </IndicatorViewPager>
             </View>
