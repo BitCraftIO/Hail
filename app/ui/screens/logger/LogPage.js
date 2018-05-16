@@ -11,12 +11,6 @@ const filename = 'LogPage.js';
 let logger = new Logger(filename);
 
 export default class LogPage extends React.Component {
-    /**
-     * date
-     * logLevel
-     * message
-     */
-
     logsList = [];
 
     levelToColorMap = {
@@ -25,7 +19,8 @@ export default class LogPage extends React.Component {
         2: 'grey'
     }
 
-    componentDidMount() {
+    constructor() {
+        super();
         this.getLogs();
     }
 
@@ -47,12 +42,12 @@ export default class LogPage extends React.Component {
                     style={styles.flatList}
                     contentContainerStyle={styles.flatListContentContainer}
                     data={this.logsList}
-                    keyExtractor={(item, index) => index}
+                    keyExtractor={(item, index) => index.toString()}
                     renderItem={({item, separators}) => (
                         <View style={styles.logItem}>
                             <Text style={{color: this.levelToColorMap[item.logLevel]}}>{logger.levelMap[item.logLevel] + ' - Level ' + item.logLevel}</Text>
                             <Text style={styles.logText}>{item.message}</Text>
-                            <Text style={styles.logText}>{moment(item.date).format('MMM D, h:m:ssa')}</Text>
+                            <Text style={styles.logText}>{moment(item.date).format('MMM D, h:mm:ssa')}</Text>
                         </View>
                     )}
                 />

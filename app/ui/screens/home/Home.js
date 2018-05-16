@@ -6,6 +6,7 @@ import { IndicatorViewPager, PagerTitleIndicator } from 'rn-viewpager';
 import WalletsList from '../wallets/walletslist/WalletsListContainer';
 import Watchlist from '../watchlist/state/WatchlistContainer';
 import LogPage from '../logger/LogPage'
+import SettingsPage from '../settings/SettingsPage'
 import { Colors } from '../Colors';
 
 export default class Home extends React.Component {
@@ -63,7 +64,7 @@ export default class Home extends React.Component {
                             itemTextStyle={styles.pagerTitleText}
                             selectedItemTextStyle={styles.pagerSelectedTitleText}
                             selectedBorderStyle={styles.pagerSelectedBorder}
-                            titles={['Watchlist', 'Wallets', 'Logs']}
+                            titles={['Watchlist', 'Wallets', 'Logs', 'Settings']}
                         />
                     }
                 >
@@ -75,6 +76,9 @@ export default class Home extends React.Component {
                     </View>
                     <View>
                         <LogPage navigation={this.props.navigation} />
+                    </View>
+                    <View>
+                        <SettingsPage navigation={this.props.navigation} />
                     </View>
                 </IndicatorViewPager>
             </View>

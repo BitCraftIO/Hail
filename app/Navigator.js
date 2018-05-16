@@ -9,6 +9,7 @@ import TransactionPage from './ui/screens/wallets/transactionflow/TransactionPag
 import NewWalletPage from './ui/screens/wallets/newwalletflow/NewWalletPage';
 import CoinbaseSuccessPage from './ui/screens/wallets/newwalletflow/coinbasesuccesspage/CoinbaseSuccessPageContainer';
 import LogPage from './ui/screens/logger/LogPage';
+import SettingsPage from './ui/screens/settings/SettingsPage';
 
 // https://reactnavigation.org/docs/intro/basic-app
 const Navigator = StackNavigator({
@@ -51,6 +52,10 @@ const Navigator = StackNavigator({
 
     LogPage: {
         screen: LogPage
+    },
+
+    SettingsPage: {
+        screen: SettingsPage
     }
 });
 
