@@ -45,6 +45,7 @@
         "numeral": "^2.0.6",
         "react": "^16.2.0",
         "react-native": "^0.52.0",
+        "react-native-background-fetch": "^2.0.8",
         "react-native-background-task": "^0.2.1",
         "react-native-dropdownalert": "^3.1.2",
         "react-native-elements": "^0.18.5",
