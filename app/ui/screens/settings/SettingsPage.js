@@ -1,5 +1,10 @@
 // @flow
 import React from 'react';
+<<<<<<< 5d4aaf0051d06899f9f54a5784dd9c9e1237da18
+=======
+import { View, StyleSheet, Picker} from 'react-native';
+import Dropdown from './Dropdown';
+>>>>>>> First run on custom dropdown component
 import { Colors } from '../Colors';
 import { View, Text, StyleSheet, FlatList, Picker } from 'react-native';
 import logger from '../../../utils/Logger';

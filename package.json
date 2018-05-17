@@ -62,8 +62,12 @@
         "redux": "^3.7.2",
         "redux-logger": "^3.0.6",
         "redux-thunk": "^2.2.0",
+<<<<<<< 5d4aaf0051d06899f9f54a5784dd9c9e1237da18
         "rxjs": "^6.1.0",
         "rxjs-compat": "^6.1.0",
+=======
+        "rn-viewpager": "git+https://github.com/calebdre/React-Native-ViewPager.git",
+>>>>>>> First run on custom dropdown component
         "safe-buffer": "^5.1.1",
         "vm": "^0.1.0",
         "web3": "^1.0.0-beta.30"
