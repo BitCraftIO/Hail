@@ -343,26 +343,19 @@
 			remoteGlobalIDString = 5DBEB1501B18CEA900B34395;
 			remoteInfo = RNVectorIcons;
 		};
-		C17C4D7120A40BC500BA617C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2B65A27C4CAC4F12972CB752 /* TcpSockets.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 134814201AA4EA6300B7C361;
-			remoteInfo = TcpSockets;
-		};
-		C17C4D7620A40BC500BA617C /* PBXContainerItemProxy */ = {
+		C17C4F2E20AE433C00BA617C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = A03EC93F1E8B41FDAB44CDA3 /* RNRandomBytes.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 73EEC9391BFE4B1D00D468EB;
 			remoteInfo = RNRandomBytes;
 		};
-		C17C4DB920A7D14900BA617C /* PBXContainerItemProxy */ = {
+		C17C4F3120AE433C00BA617C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = A8934286CEEA4881B8CDE95C /* RNBackgroundFetch.xcodeproj */;
+			containerPortal = 2B65A27C4CAC4F12972CB752 /* TcpSockets.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 835318541D52293F005738CD;
-			remoteInfo = RNBackgroundFetch;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = TcpSockets;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -407,7 +400,6 @@
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		A03EC93F1E8B41FDAB44CDA3 /* RNRandomBytes.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNRandomBytes.xcodeproj; path = "../node_modules/react-native-randombytes/RNRandomBytes.xcodeproj"; sourceTree = "<group>"; };
-		A8934286CEEA4881B8CDE95C /* RNBackgroundFetch.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNBackgroundFetch.xcodeproj; path = "../node_modules/react-native-background-fetch/ios/RNBackgroundFetch.xcodeproj"; sourceTree = "<group>"; };
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
 		B7F8D06014504A5A8E17D73C /* libRealmReact.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRealmReact.a; sourceTree = "<group>"; };
 		BD5A69829418469FA2D4772E /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
@@ -417,7 +409,6 @@
 		D9875C692E6F478F9021B337 /* libc++.tbd */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		DCB32119C910422D95F39C5B /* RNBackgroundFetch+AppDelegate.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = "RNBackgroundFetch+AppDelegate.m"; path = "../node_modules/react-native-background-fetch/ios/RNBackgroundFetch/RNBackgroundFetch+AppDelegate.m"; sourceTree = "<group>"; };
 		E3D41B0D056C492087E66A4E /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
-		E97279AB24DD4E48AA979BDA /* TSBackgroundFetch.framework */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = wrapper.framework; name = TSBackgroundFetch.framework; path = "../node_modules/react-native-background-fetch/ios/RNBackgroundFetch/TSBackgroundFetch.framework"; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -454,7 +445,6 @@
 				F3C3206004CA4F1EBDF68FC3 /* libz.tbd in Frameworks */,
 				A9507C0AC9C24DEBB61D1587 /* libRNRandomBytes.a in Frameworks */,
 				BED82185A5CB43738AA1C2E6 /* libTcpSockets.a in Frameworks */,
-				83C9E9F3775D44F3AE15D2A8 /* TSBackgroundFetch.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -701,7 +691,6 @@
 				B7F8D06014504A5A8E17D73C /* libRealmReact.a */,
 				4EEADDD385A7421087EEE86B /* libRNRandomBytes.a */,
 				1C7FEF2A7F1B47F5918129B6 /* libTcpSockets.a */,
-				59102995DCDD47D39D4B77B8 /* libRNBackgroundFetch.a */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -731,36 +720,20 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		C17C4D6E20A40BC500BA617C /* Products */ = {
+		C17C4F2920AE433C00BA617C /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C17C4D7220A40BC500BA617C /* libTcpSockets.a */,
+				C17C4F3220AE433C00BA617C /* libTcpSockets.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		C17C4D7320A40BC500BA617C /* Products */ = {
+		C17C4F2B20AE433C00BA617C /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C17C4D7720A40BC500BA617C /* libRNRandomBytes.a */,
+				C17C4F2F20AE433C00BA617C /* libRNRandomBytes.a */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		C17C4DB620A7D14900BA617C /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				C17C4DBA20A7D14900BA617C /* libRNBackgroundFetch.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		C17C4DE820AA78E800BA617C /* Plugins */ = {
-			isa = PBXGroup;
-			children = (
-				DCB32119C910422D95F39C5B /* RNBackgroundFetch+AppDelegate.m */,
-			);
-			path = Plugins;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -818,11 +791,6 @@
 					};
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = H92DSG4GWJ;
-						SystemCapabilities = {
-							com.apple.BackgroundModes = {
-								enabled = true;
-							};
-						};
 					};
 				};
 			};
@@ -891,11 +859,7 @@
 					ProjectRef = 76BA596CACF0439BB39E1F1E /* RealmReact.xcodeproj */;
 				},
 				{
-					ProductGroup = C17C4DB620A7D14900BA617C /* Products */;
-					ProjectRef = A8934286CEEA4881B8CDE95C /* RNBackgroundFetch.xcodeproj */;
-				},
-				{
-					ProductGroup = C17C4D7320A40BC500BA617C /* Products */;
+					ProductGroup = C17C4F2B20AE433C00BA617C /* Products */;
 					ProjectRef = A03EC93F1E8B41FDAB44CDA3 /* RNRandomBytes.xcodeproj */;
 				},
 				{
@@ -907,7 +871,7 @@
 					ProjectRef = 5B55DDEEB855480D8BCA7BA7 /* RNVectorIcons.xcodeproj */;
 				},
 				{
-					ProductGroup = C17C4D6E20A40BC500BA617C /* Products */;
+					ProductGroup = C17C4F2920AE433C00BA617C /* Products */;
 					ProjectRef = 2B65A27C4CAC4F12972CB752 /* TcpSockets.xcodeproj */;
 				},
 			);
@@ -1207,25 +1171,18 @@
 			remoteRef = C178D30B201E963200024F84 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		C17C4D7220A40BC500BA617C /* libTcpSockets.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libTcpSockets.a;
-			remoteRef = C17C4D7120A40BC500BA617C /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		C17C4D7720A40BC500BA617C /* libRNRandomBytes.a */ = {
+		C17C4F2F20AE433C00BA617C /* libRNRandomBytes.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = libRNRandomBytes.a;
-			remoteRef = C17C4D7620A40BC500BA617C /* PBXContainerItemProxy */;
+			remoteRef = C17C4F2E20AE433C00BA617C /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		C17C4DBA20A7D14900BA617C /* libRNBackgroundFetch.a */ = {
+		C17C4F3220AE433C00BA617C /* libTcpSockets.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
-			path = libRNBackgroundFetch.a;
-			remoteRef = C17C4DB920A7D14900BA617C /* PBXContainerItemProxy */;
+			path = libTcpSockets.a;
+			remoteRef = C17C4F3120AE433C00BA617C /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -1292,7 +1249,6 @@
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
-				0F9CD390FEF146C8B28AFE5F /* RNBackgroundFetch+AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1324,7 +1280,6 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				DEVELOPMENT_TEAM = H92DSG4GWJ;
-				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../node_modules/react-native-background-fetch/ios/**";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -1365,7 +1320,6 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
 				DEVELOPMENT_TEAM = H92DSG4GWJ;
-				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../node_modules/react-native-background-fetch/ios/**";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-svg/ios/**",
@@ -1404,7 +1358,6 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = H92DSG4GWJ;
-				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../node_modules/react-native-background-fetch/ios/**";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-svg/ios/**",
@@ -1437,7 +1390,6 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-2";
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = H92DSG4GWJ;
-				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/../node_modules/react-native-background-fetch/ios/**";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-svg/ios/**",
@@ -1449,10 +1401,6 @@
 				);
 				INFOPLIST_FILE = Hail/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)",
-				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
