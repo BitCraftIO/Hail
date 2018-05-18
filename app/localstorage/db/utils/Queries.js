@@ -34,10 +34,12 @@ export function countWallets(param) {
  * Exclusively used by SyncManager
  */
 export function collectAddresses() {
-    return getLocalWallets().reduce((addresses, wallet) => {
-        if (addresses[wallet.coin] == undefined) {
-            addresses[wallet.coin] = [wallet]; //store pointer for updates
-        }
-        addresses[wallet.coin] = [...addresses[wallet.coin], ...wallet.addresses.reduce(addr => addr.string, [])];
+    const result = getLocalWallets().reduce((addresses, wallet) => {
+        const results = addresses[wallet.coin] ? addresses[wallet.coin] : [];
+        results.push(wallet.addresses.map(addr => addr.string));
+        addresses[wallet.coin] = results;
+        return addresses;
     }, {});
+
+    return result;
 }
