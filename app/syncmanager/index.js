@@ -1,6 +1,6 @@
 import EthereumSync from './EthereumSync';
 import BitcoinSync from './BitcoinSync';
-import { realm } from '../localstorage/db/Db';
+import * as Db from '../localstorage/db/Db';
 
 const syncModules = {
     BTC: BitcoinSync,
@@ -11,9 +11,9 @@ import { countWallets, collectAddresses } from 'hail/app/localstorage/db/utils/Q
 
 export default class SyncManager {
     constructor() {
+        console.log(collectAddresses());
         this.addresses = collectAddresses();
         this.runningTasks = [];
-        this.realm = realm();
         this.setupDbListeners();
         this.startLiveSyncing();
     }
@@ -46,14 +46,14 @@ export default class SyncManager {
         }
     }
     setupDbListeners() {
-        //Updates this.addresses when new addresses are added
-        this.realm.query('WalletAddress').addListener((addresses, changes) => {
+        //Updates this.addresses when new address`es are added
+        Db.query('WalletAddress').addListener((addresses, changes) => {
             changes.insertions.forEach(index => {
                 this.addresses[addresses[index].coin].push(addresses[index]);
             });
         });
 
-        this.realm.query('Configurations').addListener((config, changes) => {
+        Db.query('Configuration').addListener((config, changes) => {
             changes.modifications.forEach(input => console.log); //TODO: Test what this outputs
         });
     }
