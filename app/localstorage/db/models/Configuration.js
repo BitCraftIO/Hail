@@ -7,6 +7,8 @@ Configuration.schema = {
     properties: {
         id: { type: 'string', default: '01001000' },
         created: { type: 'bool', default: true },
-        logLevel: { type: 'int', default: 2 }
+        logLevel: { type: 'int', default: 2 },
+        stopSyncing: { type: 'bool', default: false },
+        dumpSyncMemory: { type: 'bool', default: false }
     }
 };
