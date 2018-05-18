@@ -1,10 +1,7 @@
 import { Linking } from 'react-native';
 import { clientId, clientSecret, appUri, webUri } from './config';
 import { serializeJSON } from '../utils/utils';
-import Logger from 'hail/app/utils/Logger';
-
-const filename = "CoinbaseAPI.js";
-const logger = new Logger(filename);
+import logger from 'hail/app/utils/Logger';
 
 export function redirectToOAuth() {
     var success = false;

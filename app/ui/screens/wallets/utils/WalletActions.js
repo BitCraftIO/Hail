@@ -1,10 +1,7 @@
 import * as dbActions from 'hail/app/localstorage/db/utils/Actions';
 import { Alert } from 'react-native';
 import * as coins from 'hail/app/crypto/coins';
-import Logger from 'hail/app/utils/Logger.js';
-
-const filename = "WalletActions.js";
-const logger = new Logger(filename);
+import logger from 'hail/app/utils/Logger.js';
 
 /**
  *
