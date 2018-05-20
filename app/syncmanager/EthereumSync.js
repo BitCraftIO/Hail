@@ -7,18 +7,13 @@ export default class EthereumSync {
     }
 
     setup() {
-        BackgroundTask.define([
-            'require',
-            'dependency'
-        ], function(require, factory) {
+        BackgroundTask.define(['require', 'dependency'], function(require, factory) {
             'use strict';
-            
+
         });
     }
 
     start() {}
 
-    job() {
-
-    }
+    job() {}
 }

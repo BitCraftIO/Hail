@@ -11,10 +11,10 @@ import { countWallets, collectAddresses } from 'hail/app/localstorage/db/utils/Q
 
 export default class SyncManager {
     constructor() {
-        console.log(collectAddresses());
         this.addresses = collectAddresses();
         this.runningTasks = [];
         this.setupDbListeners();
+        this.syncPeriod = 900000;
         this.startLiveSyncing();
     }
 
@@ -22,11 +22,12 @@ export default class SyncManager {
      * To run only when app is on
      */
     startLiveSyncing() {
-        const countedWallets = countWallets();
-        for (key in countedWallets) {
-            const task = new syncModules[key](addresses[key]);
-            runningTasks.push(task);
-            task.start();
+        for (coin in this.addresses) {
+            for (network in this.addresses[coin]) {
+                const task = new syncModules[coin](addresses[coin][network]);
+                runningTasks.push(task);
+                task.start();
+            }
         }
     }
     start() {
@@ -47,16 +48,33 @@ export default class SyncManager {
     }
     setupDbListeners() {
         //Updates this.addresses when new address`es are added
-        Db.query('WalletAddress').addListener((addresses, changes) => {
-            changes.insertions.forEach(index => {
-                this.addresses[addresses[index].coin].push(addresses[index]);
-            });
+        Db.query('Wallet').addListener((wallet, changes) => {
+            const insertAddresses = index => {
+                const w = wallet[index];
+                addresses[w.coin][w.network].push(w.addresses);
+            };
+
+            changes.insertions.forEach(insertAddresses);
+
+            changes.modifications.forEach(insertAddresses);
         });
 
         Db.query('Configuration').addListener((config, changes) => {
-            changes.modifications.forEach(input => console.log); //TODO: Test what this outputs
+            changes.modifications.forEach(_ => {
+                if (config.stopSyncing) {
+                    this.stop();
+                }
+
+                if (config.dumpSyncMemory) {
+                    this.dumpSyncMemory();
+                }
+
+                this.syncPeriod = config.syncPeriod;
+            });
         });
     }
+
+    dumpSyncMemory() {}
 
     stop() {}
 }
