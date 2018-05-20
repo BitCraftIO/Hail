@@ -1,11 +1,9 @@
 // @flow
 
 import React from 'react';
-import { View, StyleSheet, Linking, Text } from 'react-native';
-import { IndicatorViewPager, PagerTitleIndicator } from 'rn-viewpager';
-import WalletDashboard from '../wallets/dashboard/WalletDashboard';
-import Watchlist from '../watchlist/state/WatchlistContainer';
-import { Colors } from '../Colors';
+import { View, StyleSheet, Linking } from 'react-native';
+import { Colors } from './Colors';
+import WalletDashboard from "./wallets/dashboard/WalletDashboard";
 
 export default class Home extends React.Component {
     static navigationOptions = {
@@ -13,19 +11,15 @@ export default class Home extends React.Component {
     };
 
     componentDidMount() {
-        Linking.addEventListener('url', this.handleUrl);
+        Linking.addEventListener('url', this.navigate);
     }
 
     componentWillUnmount() {
         //TODO: Find out why this isn't solving the memory leak
-        Linking.removeEventListener('url', this.handleUrl);
+        Linking.removeEventListener('url', this.navigate);
     }
 
-    handleUrl = ({ url }) => {
-        this.navigate(url);
-    };
-
-    navigate(url) {
+    navigate = ({ url }) => {
         var route = url.split('?')[0].substring(7);
         var params = url
             .split('?')[1]
@@ -48,28 +42,7 @@ export default class Home extends React.Component {
     render() {
         return (
             <View style={styles.container}>
-                <IndicatorViewPager
-                    style={styles.pagerContainer}
-                    indicatorOnTop={true}
-                    indicator={
-                        <PagerTitleIndicator
-                            style={styles.indicatorContainer}
-                            itemStyle={styles.pagerTitleContainer}
-                            selectedItemStyle={styles.pagerTitleContainer}
-                            itemTextStyle={styles.pagerTitleText}
-                            selectedItemTextStyle={styles.pagerSelectedTitleText}
-                            selectedBorderStyle={styles.pagerSelectedBorder}
-                            titles={['Watchlist', 'Wallets']}
-                        />
-                    }
-                >
-                    <View>
-                        <Watchlist navigate={this.props.navigation.navigate} />
-                    </View>
-                    <View>
-                        <WalletDashboard navigation={this.props.navigation} />
-                    </View>
-                </IndicatorViewPager>
+                <WalletDashboard navigation={this.props.navigation} />
             </View>
         );
     }
