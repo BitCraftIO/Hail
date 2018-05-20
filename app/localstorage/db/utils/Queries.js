@@ -35,11 +35,25 @@ export function countWallets(param) {
  */
 export function collectAddresses() {
     const result = getLocalWallets().reduce((addresses, wallet) => {
-        const results = addresses[wallet.coin] ? addresses[wallet.coin] : [];
-        results.push(wallet.addresses.map(addr => addr.string));
-        addresses[wallet.coin] = results;
+        addresses[wallet.coin] = addresses[wallet.coin] ? addresses[wallet.coin] : [];
+        addresses[wallet.coin][wallet.network] = addresses[wallet.coin][wallet.network] ? addresses[wallet.coin][wallet.network] : [];
+        addresses[wallet.coin][wallet.network].push(wallet.addresses.map(addr => addr.string));
         return addresses;
     }, {});
 
     return result;
 }
+
+/*
+{
+    BTC: {
+        MAIN: [],
+        TEST: [],
+    },
+    ETH: {
+        MAIN: [],
+        KOVAN: []
+    }
+    
+}
+*/
