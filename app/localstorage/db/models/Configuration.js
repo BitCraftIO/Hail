@@ -9,6 +9,7 @@ Configuration.schema = {
         created: { type: 'bool', default: true },
         logLevel: { type: 'int', default: 2 },
         stopSyncing: { type: 'bool', default: false },
-        dumpSyncMemory: { type: 'bool', default: false }
+        dumpSyncMemory: { type: 'bool', default: false },
+        syncPeriod: { type: 'int', default: 900000 } //minutes
     }
 };
