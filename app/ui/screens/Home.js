@@ -1,9 +1,9 @@
 // @flow
 
 import React from 'react';
-import { View, StyleSheet, Linking, Text } from 'react-native';
-import WalletsList from './wallets/walletslist/WalletsListContainer';
+import { View, StyleSheet, Linking } from 'react-native';
 import { Colors } from './Colors';
+import WalletDashboard from "./wallets/dashboard/WalletDashboard";
 
 export default class Home extends React.Component {
     static navigationOptions = {
@@ -42,7 +42,7 @@ export default class Home extends React.Component {
     render() {
         return (
             <View style={styles.container}>
-                <WalletsList navigation={this.props.navigation} />
+                <WalletDashboard navigation={this.props.navigation} />
             </View>
         );
     }

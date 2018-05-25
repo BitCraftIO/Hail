@@ -1,6 +1,6 @@
 import { StackNavigator } from 'react-navigation';
 import Home from './ui/screens/Home';
-import WalletsList from './ui/screens/wallets/walletslist/WalletsListContainer';
+import WalletDashboard from "./ui/screens/wallets/dashboard/WalletDashboard";
 import WalletDetailsPage from './ui/screens/wallets/WalletDetailsPage';
 import TransactionPage from './ui/screens/wallets/transactionflow/TransactionPage';
 import NewWalletPage from './ui/screens/wallets/newwalletflow/NewWalletPage';
@@ -13,7 +13,7 @@ const Navigator = StackNavigator({
     },
 
     WalletsList: {
-        screen: WalletsList
+        screen: WalletDashboard
     },
 
     WalletDetailsPage: {
