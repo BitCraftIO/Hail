@@ -76,7 +76,12 @@ export default class SyncManager {
 
     dumpSyncMemory() {}
 
-    stop() {}
+    stop() {
+        Db.realm().removeAllListeners();
+        this.runningTasks.forEach(task => {
+            task.stop();
+        });
+    }
 }
 
 /*
