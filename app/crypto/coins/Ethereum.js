@@ -3,14 +3,13 @@ import bip44hdkey from 'ethereumjs-wallet/hdkey';
 import Wallet from 'ethereumjs-wallet';
 import EthereumTx from 'ethereumjs-tx';
 import bip39 from 'bip39';
-import { logger } from '../../utils/Logger';
-const filename = 'Ethereum.js';
+import logger from '../../utils/Logger';
 
 //TODO: implement support for testnet
 export function send(params, network) {
     const rawTx = createRawTransaction(params);
     return web3.eth.sendSignedTransaction(`0x${rawTx.toString('hex')}`, (error, result) => {
-        error ? logger(0, 'sendSignTransaction Failed') : logger(0, 'sendSignTransaction Succeeded');
+        error ? logger.error('sendSignTransaction Failed') : logger.info('sendSignTransaction Succeeded');
     });
 }
 
@@ -20,11 +19,11 @@ export function send(params, network) {
  */
 export function generateHDWallet() {
     const mnemonic = bip39.generateMnemonic();
-    logger(3, `Mnemonic: ${mnemonic}`);
+    console.log(`Mnemonic: ${mnemonic}`);
     const root = bip44hdkey.fromMasterSeed(bip39.mnemonicToSeed(mnemonic));
     const derivedNode = root.derivePath("m/44'/60'/0'/0");
     const address = this.generateAddressFromNode(derivedNode);
-    logger(3, `Private Key: ${root._hdkey.privateKey.toString('hex')}`);
+    console.log(`Private Key: ${root._hdkey.privateKey.toString('hex')}`);
 
     /*
         for now we must save the extended private key and generate the private key from that
