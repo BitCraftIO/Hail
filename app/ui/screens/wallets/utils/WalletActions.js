@@ -3,7 +3,7 @@ import { Alert } from 'react-native';
 import * as coins from 'hail/app/crypto/coins';
 import Logger from 'hail/app/utils/Logger.js';
 
-const filename = "WalletActions.js";
+const filename = 'WalletActions.js';
 const logger = new Logger(filename);
 
 /**
@@ -52,4 +52,6 @@ export function createPrivateKeyPair(coin, walletType) {
 
 export function createPrivateKey() {}
 
-export function createAddress() {}
+export function createAddress(wallet) {
+    return coins[coin].generateAddressForIndex(wallet.addresses.length);
+}
