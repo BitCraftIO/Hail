@@ -1,4 +1,19 @@
+// @flow
+
 import Realm from 'realm';
+
+export type WalletT = {
+    name: string,
+    id: number,
+    value: number,
+    coin: string,
+    walletType: string,
+    network: string,
+    extendedPrivateKey: string,
+    privateKey: string,
+    transactions:  any[],
+    addresses: any[]
+}
 
 export default class Wallet extends Realm.Object {}
 Wallet.schema = {
