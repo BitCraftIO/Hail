@@ -55,7 +55,7 @@ export default class ChoiceInputField extends Component<Props, State> {
         const choiceViews = this.assembleChoiceViews()
 
         return (
-            <View style={[styles.container, style]}>
+            <View style={style}>
                 <Text style={[styles.label, {color: labelColor}]}>
                     {label}
                 </Text>
@@ -68,8 +68,6 @@ export default class ChoiceInputField extends Component<Props, State> {
 }
 
 const styles = StyleSheet.create({
-    container: {},
-
     choiceContainer: {
         flexDirection: "row",
         justifyContent: "space-between"
