@@ -56,10 +56,6 @@ export default class TextInputField extends Component<Props, State>{
 }
 
 const styles = StyleSheet.create({
-    container: {
-
-    },
-
     label:{
         fontSize: 11,
         marginBottom: 8,
@@ -76,9 +72,5 @@ const styles = StyleSheet.create({
         fontSize: 15,
         color: Colors.White,
         borderWidth: .5
-    },
-
-    error: {
-
     }
 })
