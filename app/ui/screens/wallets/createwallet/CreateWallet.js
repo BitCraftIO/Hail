@@ -8,7 +8,7 @@ import {Colors} from "../../Colors"
 import Button from "./formelements/Button";
 import ChoiceInputField from "./formelements/ChoiceInputField"
 import TextInputField from "./formelements/TextInputField"
-const {View, Text, StyleSheet, StatusBar} = ReactNative
+const {View, Text, StyleSheet} = ReactNative
 import {Select, Option} from "react-native-chooser"
 import * as wallet from '../utils/WalletActions';
 
