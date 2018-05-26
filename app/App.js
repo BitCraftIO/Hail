@@ -15,7 +15,7 @@ export default class App extends React.Component {
 	render() {
 		return (
 			<Provider store={store}>
-				<Navigator uriPrefix={this.prefix()}/>
+                    <Navigator uriPrefix={this.prefix()}/>
 			</Provider>
 		)
 	}

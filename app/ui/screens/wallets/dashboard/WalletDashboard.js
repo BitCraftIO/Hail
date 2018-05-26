@@ -21,6 +21,7 @@ export type State = {
 }
 
 export default class WalletDashboard extends Component<Props, State>{
+
     vm: WalletDashboardViewModel = new WalletDashboardViewModel()
 
     constructor(props) {
