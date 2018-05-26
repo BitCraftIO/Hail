@@ -4,7 +4,7 @@ import Wallet from 'ethereumjs-wallet';
 import EthereumTx from 'ethereumjs-tx';
 import bip39 from 'bip39';
 import Logger from '../../utils/Logger';
-
+import * as hdutil from './util/hd';
 const filename = 'Ethereum.js';
 const logger = new Logger(filename);
 
@@ -21,20 +21,16 @@ export function send(params, network) {
  * @param address
  */
 export function generateHDWallet() {
-    const mnemonic = bip39.generateMnemonic();
-    console.log(`Mnemonic: ${mnemonic}`);
-    const root = bip44hdkey.fromMasterSeed(bip39.mnemonicToSeed(mnemonic));
-    const derivedNode = root.derivePath("m/44'/60'/0'/0");
-    const address = this.generateAddressFromNode(derivedNode);
-    console.log(`Private Key: ${root._hdkey.privateKey.toString('hex')}`);
+    const wallet = hdutil.generateHDWallet(60);
+    const address = this.generateAddressFromNode(wallet.addressNode);
 
     /*
         for now we must save the extended private key and generate the private key from that
         as hdkey has no good way of beginning from a private key. 
     */
     return {
-        privateKey: root._hdkey.privateKey.toString('hex'),
-        extendedPrivateKey: root.privateExtendedKey(),
+        privateKey: wallet.root._hdkey.privateKey.toString('hex'),
+        extendedPrivateKey: wallet.root.privateExtendedKey(),
         addresses: [{ string: address, derivationPath: "m/44'/60'/0'/0/0 " }]
     };
 }
@@ -53,24 +49,9 @@ export function estimateFee(from, to = '4584158529818ef77D1142bEeb0b6648BD8eDb2f
     });
 }
 
-export function extendedPrivateKeyToNode() {}
-
-/**
- *
- * @param {string} privateKey
- */
-export function privateKeyToNode(privateKey) {
-    const node = new bip44hdkey();
-    node.privateKey = privateKey;
-    return node;
-}
-
-/**
- *
- * @param {string} privateKey
- */
-export function privateKeyToAddrNode(privateKey) {
-    return privateKeyToNode(privateKey).deriveChild("m/44'/60'/0'/0");
+export function generateAddressForIndex(wallet, index) {
+    const node = hdutil.privateKeyToAddrNode(wallet.privateKey);
+    return this.generateAddressFromNode(node, index);
 }
 
 /**
