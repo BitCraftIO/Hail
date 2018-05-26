@@ -2,24 +2,11 @@ import * as loggerActions from '../localstorage/db/utils/LoggerActions'
 import settings from './Settings';
 import moment from 'moment';
 
-export default class Logger {
+class Logger {
     levelMap = {
         0: 'Error',
         1: 'Notify',
         2: 'Info'
-    }
-
-    // Name of the calling file should default to warning incase no file name is passed in
-    callingFile = 'Logger warning -- Please pass the name of the calling file into Logger constructor';
-
-    /**
-     * Constructor takes in a file name to display along-side messages for easier tracing
-     * @param {String} filename The name of the file instantiating the Logger class
-     */
-    constructor(filename) {
-        if (filename) {
-            this.callingFile = filename;
-        }
     }
 
     /**
@@ -68,6 +55,8 @@ export default class Logger {
             
             loggerActions.storeLog(logObject);
         }
-        console.log(`${timestamp} : ${this.levelMap[logLevel]} : ${this.callingFile} :: ${message}`)
+        console.log(`${this.levelMap[logLevel]} : ${timestamp} :: ${message}`)
     }
 }
+
+export default logger = new Logger();

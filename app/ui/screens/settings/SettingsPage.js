@@ -2,11 +2,8 @@
 import React from 'react';
 import { Colors } from '../Colors';
 import { View, Text, StyleSheet, FlatList, Picker } from 'react-native';
-import Logger from '../../../utils/Logger';
+import logger from '../../../utils/Logger';
 import settings from '../../../utils/Settings';
-
-const filename = 'SettingsPage.js';
-let logger = new Logger(filename);
 
 export default class SettingsPage extends React.Component {
 

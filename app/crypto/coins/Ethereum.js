@@ -3,10 +3,7 @@ import bip44hdkey from 'ethereumjs-wallet/hdkey';
 import Wallet from 'ethereumjs-wallet';
 import EthereumTx from 'ethereumjs-tx';
 import bip39 from 'bip39';
-import Logger from '../../utils/Logger';
-
-const filename = 'Ethereum.js';
-const logger = new Logger(filename);
+import logger from '../../utils/Logger';
 
 //TODO: implement support for testnet
 export function send(params, network) {

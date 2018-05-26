@@ -1,10 +1,7 @@
 // @flow
 import * as Db from 'hail/app/localstorage/db/Db';
 import * as queries from './Queries';
-import Logger from 'hail/app/utils/Logger';
-
-const filename = 'Actions.js';
-const logger = new Logger(filename);
+import logger from 'hail/app/utils/Logger';
 
 //Realm write operations are synchronous
 
