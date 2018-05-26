@@ -26,3 +26,39 @@ Here are some fixes to current problems in the build process. *Warning*: make su
 `npm run eject`                  Delete ios/android folders and regenerate native files. Be sure to commit changes before and pull afterwards to get native file changes.
 
 `npm run fresh-start`            Delete all generated folders and recreates them. Follow the same advice as above.
+
+# Functionality Documentation
+
+## Logger
+
+The Logger is meant to give users an oppurtunity to take a look inside of Hail, so that processes can be audited and frustration can be taken out on errors instead of developers.
+
+Debug logs should be handled by `console.log()`, which is overwritten in `global.js` to output nothing when in a production environment.
+
+The Logger class follows a singleton model, so you should be able to execute Logger methods immediately upon import.
+
+There are currently 3 log levels. The logger will only log logs at a lower level than the one set in the settings menu. From more important to least the order goes:
+
+### 0 Error
+
+`Logger.error(message)`
+
+Log for errors that the user cares about
+
+Eg. "Transaction Failed"
+
+### 1 Notify
+
+`Logger.notify(message)`
+
+Log for updates the user would want to know about
+
+Eg. "Transaction Confirmed" or "Transaction Received"
+
+### 2 Info
+
+`Logger.info(message)`
+
+Log for important status updates that the user might not care about
+
+Eg. "Sync Manager Started" or "BTC Sync Complete"

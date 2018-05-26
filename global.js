@@ -11,6 +11,13 @@ global.Buffer = require('buffer').Buffer;
 global.process = require('process');
 global.process.env.NODE_ENV = __DEV__ ? 'development' : 'production';
 
+// When not in development mode, nullify 'console.log()' so it
+// won't produce an output. Stops debug logs from persisting into
+// production and helps prevent display of sensitive data
+if (!__DEV__) {
+    global.console.log = () => {}
+}
+
 var getRandomValues = function(byteArray) {
   var bytes = crypto.rng.randomBytes(byteArray.length);
   for (let i = 0; i < byteArray.length; i++) {

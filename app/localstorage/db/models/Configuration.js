@@ -5,7 +5,7 @@ Configuration.schema = {
     name: 'Configuration',
     primaryKey: 'id',
     properties: {
-        id: 'string',
+        id: { type: 'string', default: '01001000' },
         created: { type: 'bool', default: true },
         logLevel: { type: 'int', default: 2 }
     }

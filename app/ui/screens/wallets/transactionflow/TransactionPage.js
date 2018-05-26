@@ -3,7 +3,6 @@ import { FlatList, StyleSheet, Clipboard, Text, View, TextInput, Button } from '
 import { CheckBox } from 'react-native-elements';
 import PropTypes from 'prop-types';
 import * as walletActions from '../utils/WalletActions';
-import { logger } from 'hail/app/utils/Logger';
 
 export default class TransactionPage extends React.Component {
     constructor(props) {
@@ -128,7 +127,7 @@ export default class TransactionPage extends React.Component {
             default:
                 break;
         }
-        logger(4, params);
+        console.log(params);
 
         //TODO: Put this in redux pattern after refactor
         walletActions.send(this.state.wallet.coin, params).then(result => {

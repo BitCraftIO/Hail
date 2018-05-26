@@ -1,7 +1,7 @@
 import { Linking } from 'react-native';
 import { clientId, clientSecret, appUri, webUri } from './config';
 import { serializeJSON } from '../utils/utils';
-import { logger } from 'hail/app/utils/Logger';
+import logger from 'hail/app/utils/Logger';
 
 export function redirectToOAuth() {
     var success = false;
@@ -10,7 +10,7 @@ export function redirectToOAuth() {
             Linking.openURL(webUri);
             success = true;
         } else {
-            logger(0, "Doesn't look like we support that Uri " + webUri);
+            logger.error("Doesn't look like we support that Uri " + webUri);
         }
     });
     return success;
@@ -25,7 +25,7 @@ export function listTransactions(account_id, accessToken) {
     })
         .then(response => {
             if (!response.ok) {
-                logger(0, 'CoinbaseAPI.js :: listTransaction api call failed');
+                logger.error('listTransaction api call failed');
             }
             return response.json();
         })
@@ -33,7 +33,7 @@ export function listTransactions(account_id, accessToken) {
             return responseJson.data;
         })
         .catch(e => {
-            logger(0, 'CoinbaseAPI.js :: listTransaction network call failed');
+            logger.error('listTransaction network call failed');
         });
 }
 
