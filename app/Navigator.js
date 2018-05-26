@@ -1,5 +1,6 @@
 import { StackNavigator } from 'react-navigation';
 import Home from './ui/screens/Home';
+import CreateWallet from "./ui/screens/wallets/createwallet/CreateWallet";
 import WalletDashboard from "./ui/screens/wallets/dashboard/WalletDashboard";
 import WalletDetailsPage from './ui/screens/wallets/WalletDetailsPage';
 import WalletPager from './ui/screens/wallets/dashboard/WalletPager';
@@ -33,7 +34,7 @@ const Navigator = StackNavigator({
     },
 
     NewWalletPage: {
-        screen: NewWalletPage
+        screen: CreateWallet,
     },
 
     CoinbaseSuccessPage: {
@@ -52,6 +53,8 @@ const Navigator = StackNavigator({
     ModifySettingsScreen: {
         screen: ModifySettingsScreen
     }
+}, {
+    headerMode: "none"
 });
 
 export default Navigator;
