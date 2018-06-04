@@ -1,8 +1,9 @@
-import TransactionBuilder from 'bitcoinjs-lib/transaction_builder';
+import { TransactionBuilder } from 'bitcoinjs-lib/';
 const bip39 = require('bip39');
 import createHash from 'create-hash';
 import bs58check from 'bs58check';
 import * as hdutil from './util/hd';
+//TODO: logger
 
 export function send(params, network) {}
 
@@ -80,13 +81,32 @@ export function generateWalletFromKey() {
 }
 
 /**
- * https://github.com/ethereumjs/ethereumjs-tx#usage
- * @param {string} nonce must have 0x preceeding
+ *
+ * @param {string} txType
  * @param {string} privateKey
- * @param {string} to destination address
- * @param {string} gasLimit must have 0x preceeding
+ * @param {Array} to Array of objects with two keys: address, value
+ * @param {Array} from Array of objects with two keys: txhash, index, signingKey
  * @param {string} gasPrice must have 0x preceeding
- * @param {string} value must have 0x preceeding
- * @param {int} chainId EIP 155 chainId - mainnet: 1, ropsten: 3
+ * @param {int} network
  */
-export function createRawTransaction(options) {}
+export function createRawTransaction(options) {
+    const txbuilder = TransactionBuilder();
+    switch (txType) {
+        case 'P2PKH': //normal tx
+            txbuilder.setVersion(1);
+            options.from.forEach(utxo => {
+                txbuilder.addInput(utxo.txhash, utxo.index);
+            });
+            options.to.forEach(destination => {
+                txbuilder.addOutput(destination.address, destination.value); //for sending multiple outputs bc I'm cool but don't support this yet.
+            });
+            for (var i = 0; i < from.length; i++) {
+                txbuilder.sign(from[i].signingKey, i);
+            }
+        case 'P2SH': //multi sig
+        case 'P2WSH': //segwit
+        default:
+    }
+
+    return txbuilder.build().toHex();
+}

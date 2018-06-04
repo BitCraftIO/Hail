@@ -53,5 +53,5 @@ export function createPrivateKeyPair(coin, walletType) {
 export function createPrivateKey() {}
 
 export function createAddress(wallet) {
-    return coins[coin].generateAddressForIndex(wallet.addresses.length);
+    return coins[coin].generateAddressForIndex(wallet, wallet.addresses.length);
 }
