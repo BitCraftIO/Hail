@@ -1,50 +1,61 @@
 // @flow
 import PropTypes from 'prop-types';
 import React from 'react';
-import { View, Text, StyleSheet, TouchableHighlight, TouchableWithoutFeedback, Image, Modal } from 'react-native';
-import { Select, Option } from 'react-native-chooser';
+import { View, StyleSheet, Image, Picker } from 'react-native';
+
+type Props = {
+    style?: any,
+    selectedValue?: mixed,
+    pickerOptions: array, // Should be array of objects { label: <>, value: <> }
+    onValueChange: (itemValue?: mixed, itemIndex?: number) => void
+}
+
+type State = {
+    selectedValue: mixed
+}
 
 export default class Dropdown extends React.Component {
 
-    /**
-     * Flatlist will take in options
-     * Text will take in current selection
-     * on tap flatlist change current selection
-     * configurable width, height
-     */
-
-    static propTypes = {
-        containerStyle: PropTypes.oneOfType([
-            PropTypes.array,
-            PropTypes.number,
-            PropTypes.shape({}),
-        ]).isRequired
+    constructor(props) {
+        super(props);
+        this.state = {
+            selectedValue: this.props.selectedValue
+        }
     }
     
     render() {
-        const { containerStyle } = this.props;
+        const { style, pickerOptions, onValueChange } = this.props;
+        let pickerItemList = pickerOptions.map(item => (
+            <Picker.Item 
+                key={item.label}
+                label={item.label}
+                value={item.value}
+            />
+        ));
 
         return(
-            <View style={containerStyle}>
-                <Select 
-                    style={styles.content}
-                    defaultText={''}
-                    optionListStyle={styles.optionListStyle}
-                    textStyle={styles.text}
-                    transparent={true}
-                >
-                    <Option value={'text'}>Test</Option>
-                    <Option value={'text2'}>Test2</Option>
-                    <Option value={'text'}>Test</Option>
-                    <Option value={'text2'}>Test2</Option>
-                </Select>
-
-                <View style={styles.imageContainer}>
-                    <Image
-                        style={styles.chevron}
-                        resizeMode='contain'
-                        source={require('../../../images/chevron_down.png')}
-                    />
+            <View style={style}>
+                <View>
+                    <Picker
+                        mode='dropdown'
+                        style={styles.picker}
+                        selectedValue={this.state.selectedValue}
+                        onValueChange={(itemValue, itemIndex) => {
+                            onValueChange(itemValue, itemIndex);
+                            this.setState({
+                                selectedValue: itemValue
+                            });
+                        }}
+                    >
+                        {pickerItemList}
+                    </Picker>
+                    <View style={styles.imageContainer}>
+                        <Image
+                            style={styles.chevron}
+                            resizeMode='contain'
+                            source={require('../../../images/chevron_down.png')}
+                        />
+                    </View>
                 </View>
                 <View style={styles.underline} />
             </View>
@@ -54,37 +65,26 @@ export default class Dropdown extends React.Component {
 
 const styles = StyleSheet.create({
     chevron: {
-        width: 24,
+        alignSelf: 'flex-end',
         height: '50%',
         margin: 5,
-        alignSelf: 'flex-end'
-    },
-    content: {
-        height: '95%',
-        borderWidth: 0,
-        justifyContent: 'center',
-        alignItems: 'center'
+        width: 24,
     },
     imageContainer: {
+        padding: '5%',
+        alignItems: 'center',
+        justifyContent: 'center',
         position: 'absolute',
         right: 0,
         top: 0,
         bottom: 0,
-        alignItems: 'center',
-        justifyContent: 'center'
     },
-    text: {
+    picker: {
         color: 'white',
-        fontSize: 18,
-        paddingTop: 5,
-        alignSelf: 'center',
+        backgroundColor: '#0000'
     },
     underline: {
         height: '5%',
         backgroundColor: 'white'
     },
-    optionListStyle: {
-        position: 'absolute',
-        backgroundColor: 'white',
-    }
 })

@@ -49,54 +49,6 @@ export default class SettingsPage extends React.Component {
                 { label: "Info - Level 2", value: 2 }
             ]
         },
-        logLed2d: {
-            label: "Log Level",
-            options: [
-                { label: "Error - Level 0", value: 0 },
-                { label: "Notify - Level 1", value: 1 },
-                { label: "Info - Level 2", value: 2 }
-            ]
-        },
-        logLe3dd: {
-            label: "Log Level",
-            options: [
-                { label: "Error - Level 0", value: 0 },
-                { label: "Notify - Level 1", value: 1 },
-                { label: "Info - Level 2", value: 2 }
-            ]
-        },
-        logL4edd: {
-            label: "Log Level",
-            options: [
-                { label: "Error - Level 0", value: 0 },
-                { label: "Notify - Level 1", value: 1 },
-                { label: "Info - Level 2", value: 2 }
-            ]
-        },
-        logLe5dd: {
-            label: "Log Level",
-            options: [
-                { label: "Error - Level 0", value: 0 },
-                { label: "Notify - Level 1", value: 1 },
-                { label: "Info - Level 2", value: 2 }
-            ]
-        },
-        logLe25dd: {
-            label: "Log Level",
-            options: [
-                { label: "Error - Level 0", value: 0 },
-                { label: "Notify - Level 1", value: 1 },
-                { label: "Info - Level 2", value: 2 }
-            ]
-        },
-        log2Le5dd: {
-            label: "Log Level",
-            options: [
-                { label: "Error - Level 0", value: 0 },
-                { label: "Notify - Level 1", value: 1 },
-                { label: "Info - Level 2", value: 2 }
-            ]
-        },
     }
 
     _validateSettingsMap() {
@@ -126,13 +78,6 @@ export default class SettingsPage extends React.Component {
 
     _renderSettingsItem(optionsKey) {
         let viewObject = this.settingsOptionsMap[optionsKey];
-        let pickerItemList = viewObject.options.map(item => (
-            <Picker.Item 
-                key={item.label}
-                label={item.label}
-                value={item.value}
-            />
-        ));
 
         return (
             <View style={styles.settingsItem}>
@@ -141,30 +86,14 @@ export default class SettingsPage extends React.Component {
                     <Text style={styles.text}>
                         {viewObject.label || optionsKey}
                     </Text>
-                    <View style={styles.pickerWrapper}>
-                        <View>
-                            <Picker
-                                mode='dropdown'
-                                style={styles.picker}
-                                selectedValue={settings[optionsKey]}
-                                onValueChange={(itemValue, itemIndex) => {
-                                    this.setState({});
-                                    console.log("FIRE");
-                                    settings[optionsKey] = itemValue
-                                }}
-                            >
-                                {pickerItemList}
-                            </Picker>
-                            <View style={styles.imageContainer}>
-                                <Image
-                                    style={styles.chevron}
-                                    resizeMode='contain'
-                                    source={require('../../../images/chevron_down.png')}
-                                />
-                            </View>
-                        </View>
-                        <View style={styles.underline} />
-                    </View>
+                    <Dropdown
+                        style={styles.pickerWrapper}
+                        pickerOptions={this.settingsOptionsMap[optionsKey].options}
+                        selectedValue={settings[optionsKey]}
+                        onValueChange={(itemValue, itemIndex) => {
+                            console.log(itemValue, itemIndex);
+                        }}
+                    />
                 </View>
             </View>
         );
@@ -213,35 +142,8 @@ const styles = StyleSheet.create({
         fontSize: 16,
         color: 'white',
     },
-    picker: {
-        color: 'white',
-        backgroundColor: '#0000'
-    },
-    pickerWrapper: {
-        width: '75%',
-        alignSelf: 'center',
-        marginBottom: 5,
-        overflow: "visible"
-    },
-    underline: {
-        backgroundColor: 'white',
-        height: 2,
-        width: '95%',
-    },
 
-    imageContainer: {
-        position: 'absolute',
-        right: 0,
-        top: 0,
-        bottom: 0,
-        padding: '5%',
-        alignItems: 'center',
-        justifyContent: 'center'
-    },
-    chevron: {
-        width: 24,
-        height: '50%',
-        margin: 5,
-        alignSelf: 'flex-end'
+    pickerWrapper: {
+        width: '50%',
     },
 })
