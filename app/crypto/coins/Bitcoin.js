@@ -49,13 +49,21 @@ export function generateAddressForIndex(wallet, index) {
  * with the same priv key as another
  * @param {hdkey} node
  * @param {int} index
+ * @param {string} type Standard or Segwit
+ * @param {wallet} wallet used purely to determine network
  */
-export function generateAddressFromNode(node, index = 0, wallet) {
+export function generateAddressFromNode(node, index = 0, wallet, type) {
     const addrNode = node.derive(index);
-    return createBitcoinAddressI(addrNode._publicKey);
+    switch (type) {
+        case 'Standard':
+            return createBitcoinAddress(addrNode._publicKey, wallet);
+            break;
+        case 'Segwit':
+        default:
+    }
 }
 
-function createBitcoinAddress(privateKey) {
+function createBitcoinAddress(privateKey, wallet) {
     const step1 = privateKey;
     const step2 = createHash('sha256')
         .update(step0)
