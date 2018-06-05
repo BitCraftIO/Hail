@@ -1,9 +1,10 @@
 // @flow
 import React from 'react';
 import { Colors } from '../Colors';
-import { View, Text, StyleSheet, FlatList, Picker } from 'react-native';
+import { View, Text, StyleSheet, FlatList, Picker, Image } from 'react-native';
 import logger from '../../../utils/Logger';
 import settings from '../../../utils/Settings';
+import Dropdown from '../settings/Dropdown'
 
 export default class SettingsPage extends React.Component {
 
@@ -31,7 +32,71 @@ export default class SettingsPage extends React.Component {
                 { label: "Notify - Level 1", value: 1 },
                 { label: "Info - Level 2", value: 2 }
             ]
-        }
+        },
+        logLedd: {
+            label: "Log Level",
+            options: [
+                { label: "Error - Level 0", value: 0 },
+                { label: "Notify - Level 1", value: 1 },
+                { label: "Info - Level 2", value: 2 }
+            ]
+        },
+        lodddel: {
+            label: "Log Level",
+            options: [
+                { label: "Error - Level 0", value: 0 },
+                { label: "Notify - Level 1", value: 1 },
+                { label: "Info - Level 2", value: 2 }
+            ]
+        },
+        logLed2d: {
+            label: "Log Level",
+            options: [
+                { label: "Error - Level 0", value: 0 },
+                { label: "Notify - Level 1", value: 1 },
+                { label: "Info - Level 2", value: 2 }
+            ]
+        },
+        logLe3dd: {
+            label: "Log Level",
+            options: [
+                { label: "Error - Level 0", value: 0 },
+                { label: "Notify - Level 1", value: 1 },
+                { label: "Info - Level 2", value: 2 }
+            ]
+        },
+        logL4edd: {
+            label: "Log Level",
+            options: [
+                { label: "Error - Level 0", value: 0 },
+                { label: "Notify - Level 1", value: 1 },
+                { label: "Info - Level 2", value: 2 }
+            ]
+        },
+        logLe5dd: {
+            label: "Log Level",
+            options: [
+                { label: "Error - Level 0", value: 0 },
+                { label: "Notify - Level 1", value: 1 },
+                { label: "Info - Level 2", value: 2 }
+            ]
+        },
+        logLe25dd: {
+            label: "Log Level",
+            options: [
+                { label: "Error - Level 0", value: 0 },
+                { label: "Notify - Level 1", value: 1 },
+                { label: "Info - Level 2", value: 2 }
+            ]
+        },
+        log2Le5dd: {
+            label: "Log Level",
+            options: [
+                { label: "Error - Level 0", value: 0 },
+                { label: "Notify - Level 1", value: 1 },
+                { label: "Info - Level 2", value: 2 }
+            ]
+        },
     }
 
     _validateSettingsMap() {
@@ -77,14 +142,27 @@ export default class SettingsPage extends React.Component {
                         {viewObject.label || optionsKey}
                     </Text>
                     <View style={styles.pickerWrapper}>
-                        <Picker
-                            mode='dropdown'
-                            style={styles.picker}
-                            selectedValue={settings[optionsKey]}
-                            onValueChange={(itemValue, itemIndex) => settings[optionsKey] = itemValue}
-                        >
-                            {pickerItemList}
-                        </Picker>
+                        <View>
+                            <Picker
+                                mode='dropdown'
+                                style={styles.picker}
+                                selectedValue={settings[optionsKey]}
+                                onValueChange={(itemValue, itemIndex) => {
+                                    this.setState({});
+                                    console.log("FIRE");
+                                    settings[optionsKey] = itemValue
+                                }}
+                            >
+                                {pickerItemList}
+                            </Picker>
+                            <View style={styles.imageContainer}>
+                                <Image
+                                    style={styles.chevron}
+                                    resizeMode='contain'
+                                    source={require('../../../images/chevron_down.png')}
+                                />
+                            </View>
+                        </View>
                         <View style={styles.underline} />
                     </View>
                 </View>
@@ -108,16 +186,15 @@ export default class SettingsPage extends React.Component {
 const styles = StyleSheet.create({
     container: {
         backgroundColor: Colors.PrimaryBackground,
+        // backgroundColor: 'lightgrey',
         alignItems: 'center',
-        flex: 1
+        flex: 1,
     },
     settingsItem: {
         backgroundColor: Colors.SecondaryBackground,
-        borderRadius: 5,
-        marginHorizontal: 10,
-        marginTop: 10,
+        marginVertical: 3,
         minHeight: 75,
-        flex: 1,
+        width: '100%',
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
@@ -126,7 +203,6 @@ const styles = StyleSheet.create({
     },
     dataView: {
         width: '90%',
-        margin: 5
     },
     colorBar: {
         width: 5,
@@ -139,15 +215,33 @@ const styles = StyleSheet.create({
     },
     picker: {
         color: 'white',
+        backgroundColor: '#0000'
     },
     pickerWrapper: {
         width: '75%',
         alignSelf: 'center',
         marginBottom: 5,
+        overflow: "visible"
     },
     underline: {
         backgroundColor: 'white',
         height: 2,
         width: '95%',
-    }
+    },
+
+    imageContainer: {
+        position: 'absolute',
+        right: 0,
+        top: 0,
+        bottom: 0,
+        padding: '5%',
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    chevron: {
+        width: 24,
+        height: '50%',
+        margin: 5,
+        alignSelf: 'flex-end'
+    },
 })
