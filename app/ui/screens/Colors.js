@@ -9,5 +9,6 @@ export const Colors = {
     SecondaryBackgroundText:"#fff",
     SecondaryBackgroundFadedText:"#72819B",
 
+    Green: "#30cd9a",
     White: "#fff"
 }

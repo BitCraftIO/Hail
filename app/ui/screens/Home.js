@@ -6,10 +6,6 @@ import { Colors } from './Colors';
 import WalletDashboard from "./wallets/dashboard/WalletDashboard";
 
 export default class Home extends React.Component {
-    static navigationOptions = {
-        header: () => {}
-    };
-
     componentDidMount() {
         Linking.addEventListener('url', this.navigate);
     }

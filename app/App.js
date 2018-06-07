@@ -13,6 +13,7 @@ export default class App extends React.Component {
         return Platform.OS == 'android' ? 'hail://hail/' : 'hail://';
     }
 
+<<<<<<< HEAD
     render() {
         return (
             <Provider store={store}>
@@ -20,4 +21,17 @@ export default class App extends React.Component {
             </Provider>
         );
     }
+=======
+	prefix() {
+		return Platform.OS == 'android' ? 'mychat://mychat/' : 'mychat://';
+	}
+
+	render() {
+		return (
+			<Provider store={store}>
+                    <Navigator uriPrefix={this.prefix()}/>
+			</Provider>
+		)
+	}
+>>>>>>> cl/create-wallet
 }
