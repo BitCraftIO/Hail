@@ -55,15 +55,16 @@ export function generateAddressForIndex(wallet, index) {
 export function generateAddressFromNode(node, index = 0, wallet, type) {
     const addrNode = node.derive(index);
     switch (type) {
-        case 'Standard':
+        case 'P2PKH':
             return createBitcoinAddress(addrNode._publicKey, wallet);
             break;
-        case 'Segwit':
+        case 'P2WPKH':
+            return createSegwitAddress();
         default:
     }
 }
 
-function createSegwitAddress() {}
+function createP2WPKHAddress() {}
 
 function createBitcoinAddress(privateKey, wallet) {
     const step1 = privateKey;

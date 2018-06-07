@@ -35,7 +35,7 @@ The Logger is meant to give users an oppurtunity to take a look inside of Hail, 
 
 Debug logs should be handled by `console.log()`, which is overwritten in `global.js` to output nothing when in a production environment.
 
-The Logger class should be instantiated with a string containing the name of the calling file passed into the constructor: `loggerName = new Logger(fileNameString)`. This is used to provide easier log tracing during development.
+The Logger class follows a singleton model, so you should be able to execute Logger methods immediately upon import.
 
 There are currently 3 log levels. The logger will only log logs at a lower level than the one set in the settings menu. From more important to least the order goes:
 

@@ -1,6 +1,5 @@
 // @flow
 import * as Db from 'hail/app/localstorage/db/Db';
-import Logger from 'hail/app/utils/Logger';
 
 const LOG_MODEL = 'Log'
 const LOG_LIST = getLogs();

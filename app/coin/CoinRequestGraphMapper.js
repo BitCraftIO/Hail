@@ -1,14 +1,14 @@
 // @flow
 
-import {getNewsItems} from "../../../coin/CoinNews";
-import type {CoinNewsItem} from "../../../coin/CoinNews";
-import type { CoinPrice } from "../../../coin/CoinPrice";
-import aggregate from "../../../coin/PriceDataAggregator";
-import { pricesByTheMinute, pricesByTheDay, pricesByTheHour } from "../../../network/HistoricalPricesApi"
+import {getNewsItems} from "./CoinNews";
+import type {CoinNewsItem} from "./CoinNews";
+import type { CoinPrice } from "./CoinPrice";
+import aggregate from "./PriceDataAggregator";
+import { pricesByTheMinute, pricesByTheDay, pricesByTheHour } from "../network/HistoricalPricesApi"
 import {
     DAY, calculateFromTime, MINUTE, ONE_DAY_IN_MINUTES, ONE_HOUR_IN_MINUTES, HOUR, ONE_WEEK_IN_DAYS,
     ONE_MONTH_IN_DAYS, ONE_YEAR_IN_DAYS
-} from "../../../utils/TimeUtils";
+} from "../utils/TimeUtils";
 
 export type CoinGraphData = {
     hour: Array<CoinPrice>,

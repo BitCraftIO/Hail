@@ -3,12 +3,9 @@
 import React from 'react';
 import { View, Text, StyleSheet, FlatList } from 'react-native';
 import { Colors } from '../Colors';
-import Logger from '../../../utils/Logger'
+import logger from '../../../utils/Logger'
 import * as loggerActions from 'hail/app/localstorage/db/utils/LoggerActions';
 import moment from 'moment';
-
-const filename = 'LogPage.js';
-let logger = new Logger(filename);
 
 export default class LogPage extends React.Component {
     /**
