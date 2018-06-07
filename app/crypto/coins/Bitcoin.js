@@ -63,6 +63,8 @@ export function generateAddressFromNode(node, index = 0, wallet, type) {
     }
 }
 
+function createSegwitAddress() {}
+
 function createBitcoinAddress(privateKey, wallet) {
     const step1 = privateKey;
     const step2 = createHash('sha256')
