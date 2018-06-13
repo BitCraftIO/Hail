@@ -24,8 +24,6 @@ export default class LogPage extends React.Component {
     getLogs() {
         let queriedLogs = loggerActions.getLogs();
 
-        logger.info("TEST LOG")
-
         // Invert to display with most recent first
         for (let i = queriedLogs.length - 1; i >= 0; i--) {
             this.logsList.push(queriedLogs[i]);

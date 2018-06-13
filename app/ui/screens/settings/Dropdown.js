@@ -2,6 +2,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { View, StyleSheet, Image, Picker } from 'react-native';
+import Images from '../../../utils/ImageLoader';
 
 type Props = {
     style?: any,
@@ -53,7 +54,7 @@ export default class Dropdown extends React.Component {
                         <Image
                             style={styles.chevron}
                             resizeMode='contain'
-                            source={require('../../../images/chevron_down.png')}
+                            source={Images.chevron}
                         />
                     </View>
                 </View>
