@@ -1,78 +1,76 @@
 // @flow
 
-import React, {Component} from 'react'
-import ReactNative from "react-native"
-import {Icon} from "react-native-elements"
-import {STATUSBAR_HEIGHT} from "../../../../utils/Constants";
-import {Colors} from "../../Colors"
-import Button from "./formelements/Button";
-import ChoiceInputField from "./formelements/ChoiceInputField"
-import TextInputField from "./formelements/TextInputField"
-const {View, Text, StyleSheet} = ReactNative
-import {Select, Option} from "react-native-chooser"
+import React, { Component } from 'react';
+import ReactNative from 'react-native';
+import { Icon } from 'react-native-elements';
+import { STATUSBAR_HEIGHT } from '../../../../utils/Constants';
+import { Colors } from '../../Colors';
+import Button from './formelements/Button';
+import ChoiceInputField from './formelements/ChoiceInputField';
+import TextInputField from './formelements/TextInputField';
+const { View, Text, StyleSheet } = ReactNative;
+import { Select, Option } from 'react-native-chooser';
 import * as wallet from '../utils/WalletActions';
 
-type Props = {}
+type Props = {};
 
 type State = {
     walletName: string,
     walletType: string,
     coin: string,
     creationType: string
-}
+};
 
 const selectableCoins = {
-    // "Bitcoin": "BTC",
-    "Ethereum": "ETH"
-}
+    Bitcoin: 'BTC',
+    Ethereum: 'ETH'
+};
 
 const options = {
-    "New HD Wallet": "new",
+    'New HD Wallet': 'new'
     // "Import Wallet": "import"
-}
+};
 
-export default class CreateWallet extends Component<Props, State>{
+export default class CreateWallet extends Component<Props, State> {
     constructor() {
-        super()
+        super();
         this.state = {
-            walletName: "",
-            walletType: "local",
-            coin: "ETH",
-            creationType: "new"
-        }
+            walletName: '',
+            walletType: 'local',
+            coin: 'ETH',
+            creationType: 'new'
+        };
     }
 
     selectedCoinLabel() {
-        const {coin} = this.state
-        return Object.keys(selectableCoins)[Object.values(selectableCoins).indexOf(coin)]
+        const { coin } = this.state;
+        return Object.keys(selectableCoins)[Object.values(selectableCoins).indexOf(coin)];
     }
 
     selectedCreationTypeLabel() {
-        const {creationType} = this.state
-        return Object.keys(options)[Object.values(options).indexOf(creationType)]
+        const { creationType } = this.state;
+        return Object.keys(options)[Object.values(options).indexOf(creationType)];
     }
 
     assembleCoinOptions() {
-        return Object.keys(selectableCoins)
-            .map(label =>
-                <Option key={Math.random()} value={selectableCoins[label]}>
+        return Object.keys(selectableCoins).map(label => (
+            <Option key={Math.random()} value={selectableCoins[label]}>
                 {label}
-                </Option>
-            )
+            </Option>
+        ));
     }
 
     assembleCreationTypeOptions() {
-        return Object.keys(options)
-            .map(label =>
-                <Option key={Math.random()} value={options[label]}>
-                    {label}
-                </Option>
-            )
+        return Object.keys(options).map(label => (
+            <Option key={Math.random()} value={options[label]}>
+                {label}
+            </Option>
+        ));
     }
 
     createWallet() {
-        const {walletName, walletType, coin, creationType} = this.state
-        wallet.create(coin, "TEST", walletName, 'HD');
+        const { walletName, walletType, coin, creationType } = this.state;
+        wallet.create(coin, 'TEST', walletName, 'HD');
 
         const { navigation } = this.props;
         navigation.goBack();
@@ -87,18 +85,19 @@ export default class CreateWallet extends Component<Props, State>{
 
                     <TextInputField
                         style={styles.walletNameInput}
-                        label={"WALLET NAME"}
+                        label={'WALLET NAME'}
                         textColor={Colors.White}
-                        placeHolder={"My Wallet"}
-                        onTextChange={walletName => this.setState({walletName})}
+                        placeHolder={'My Wallet'}
+                        onTextChange={walletName => this.setState({ walletName })}
                     />
 
                     <ChoiceInputField
                         labelColor={Colors.White}
-                        onSelect={selected => this.setState({walletType: selected})}
-                        choices={{"Local": "local", "Exchange": "exchange"}}
+                        onSelect={selected => this.setState({ walletType: selected })}
+                        choices={{ Local: 'local', Exchange: 'exchange' }}
                         style={styles.walletTypeInput}
-                        label={"TYPE"}/>
+                        label={'TYPE'}
+                    />
 
                     <View style={styles.coinInputContainer}>
                         <Text style={styles.label}>COIN</Text>
@@ -107,53 +106,46 @@ export default class CreateWallet extends Component<Props, State>{
                             defaultText={this.selectedCoinLabel()}
                             indicatorColor={Colors.White}
                             transparent={false}
-                            animationType={"none"}
+                            animationType={'none'}
                             transparent={true}
-                            optionListStyle={{backgroundColor: Colors.White}}
+                            optionListStyle={{ backgroundColor: Colors.White }}
                             textStyle={styles.selectText}
-                            onSelect={value => this.setState({coin: value})}>
+                            onSelect={value => this.setState({ coin: value })}
+                        >
                             {this.assembleCoinOptions()}
                         </Select>
                     </View>
 
-                    <View
-                        style={styles.createTypeInputContainer}>
+                    <View style={styles.createTypeInputContainer}>
                         <Text style={styles.label}>CREATION TYPE</Text>
                         <Select
                             style={styles.select}
                             defaultText={this.selectedCreationTypeLabel()}
                             indicatorColor={Colors.White}
                             transparent={false}
-                            animationType={"none"}
+                            animationType={'none'}
                             transparent={true}
-                            optionListStyle={{backgroundColor: Colors.White}}
+                            optionListStyle={{ backgroundColor: Colors.White }}
                             textStyle={styles.selectText}
-                            onSelect={value => this.setState({creationType: value})}>
+                            onSelect={value => this.setState({ creationType: value })}
+                        >
                             {this.assembleCreationTypeOptions()}
                         </Select>
                     </View>
 
-                    <Button
-                        style={styles.buttonContainer}
-                        onPress={() => this.createWallet()}
-                        text={"Add"}/>
+                    <Button style={styles.buttonContainer} onPress={() => this.createWallet()} text={'Add'} />
                 </View>
 
-                <Icon
-                    type={"entypo"}
-                    name={"wallet"}
-                    containerStyle={styles.iconContainer}
-                    size={30}
-                    color={Colors.PrimaryBackgroundText}/>
+                <Icon type={'entypo'} name={'wallet'} containerStyle={styles.iconContainer} size={30} color={Colors.PrimaryBackgroundText} />
             </View>
-        )
+        );
     }
 }
 
 const styles = StyleSheet.create({
     rootContainer: {
         backgroundColor: Colors.PrimaryBackground,
-        flex:1,
+        flex: 1,
         marginTop: STATUSBAR_HEIGHT
     },
 
@@ -166,15 +158,14 @@ const styles = StyleSheet.create({
     header: {
         color: Colors.White,
         fontSize: 32,
-        fontWeight: "600",
+        fontWeight: '600',
         marginBottom: 16,
-        textAlign: "center"
+        textAlign: 'center'
     },
 
     iconContainer: {
-        marginTop: "auto",
+        marginTop: 'auto',
         marginBottom: 16
-
     },
 
     walletNameInput: {
@@ -184,13 +175,13 @@ const styles = StyleSheet.create({
     label: {
         fontSize: 11,
         marginBottom: 8,
-        fontWeight: "600",
+        fontWeight: '600',
         color: Colors.White
     },
 
     select: {
         borderColor: Colors.White,
-        width: "auto"
+        width: 'auto'
     },
 
     selectText: {
@@ -210,6 +201,6 @@ const styles = StyleSheet.create({
     },
 
     buttonContainer: {
-        marginTop: 32,
+        marginTop: 32
     }
-})
+});

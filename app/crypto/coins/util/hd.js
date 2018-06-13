@@ -1,5 +1,6 @@
 //Utils file for hd wallets
 import bip39 from 'bip39';
+import bip44hdkey from 'ethereumjs-wallet/hdkey';
 
 export function generateHDWallet(cointype) {
     const mnemonic = bip39.generateMnemonic();

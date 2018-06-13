@@ -11,9 +11,9 @@ export function send(params, network) {}
  * @param masterKey
  * @param address
  */
-export function generateHDWallet() {
+export function generateHDWallet(network, addrType = 'P2PKH') {
     const wallet = hdutil.generateHDWallet(0);
-    const address = this.generateAddressFromNode(wallet.addressNode);
+    const address = this.generateAddressFromNode(wallet, addrType);
 
     /*
         for now we must save the extended private key and generate the private key from that
@@ -22,7 +22,7 @@ export function generateHDWallet() {
     return {
         privateKey: wallet.root._hdkey.privateKey.toString('hex'),
         extendedPrivateKey: wallet.root.privateExtendedKey(),
-        addresses: [{ string: address, derivationPath: "m/44'/0'/0'/0/0 " }]
+        addresses: [{ string: address, derivationPath: "m/44'/0'/0'/0/0 ", type: 'P2PKH' }]
     };
 }
 
@@ -34,14 +34,10 @@ export function generateHDWallet() {
  */
 export function estimateFee(from, to = '4584158529818ef77D1142bEeb0b6648BD8eDb2f', data) {}
 
-/**
- *
- * @param {string} privateKey
- */
-export function generateAddressForIndex(wallet, index) {
-    const node = hdutil.privateKeyToAddrNode(wallet.privateKey);
-    return this.generateAddressFromNode(node, index, wallet);
-}
+// export function generateAddressForIndex(wallet, index) {
+//     const node = hdutil.privateKeyToAddrNode(wallet.privateKey);
+//     return this.generateAddressFromNode(node, index, wallet);
+// }
 
 /**
  * Ensure that the node passed through has a path similar to m/purpose/cointype/0'/0
@@ -52,11 +48,11 @@ export function generateAddressForIndex(wallet, index) {
  * @param {string} type Standard or Segwit
  * @param {wallet} wallet used purely to determine network
  */
-export function generateAddressFromNode(node, index = 0, wallet, type) {
-    const addrNode = node.derive(index);
+export function generateAddressFromNode({ addressNode, network }, type, index = 0) {
+    const addrNode = addressNode.deriveChild(index);
     switch (type) {
         case 'P2PKH':
-            return createBitcoinAddress(addrNode._publicKey, wallet);
+            return createBitcoinAddress(addrNode._hdkey._publicKey, network);
             break;
         case 'P2WPKH':
             return createSegwitAddress();
@@ -66,18 +62,18 @@ export function generateAddressFromNode(node, index = 0, wallet, type) {
 
 function createP2WPKHAddress() {}
 
-function createBitcoinAddress(privateKey, wallet) {
-    const step1 = privateKey;
+function createBitcoinAddress(publicKey, network) {
+    const step1 = publicKey;
     const step2 = createHash('sha256')
-        .update(step0)
-        .digest();
-    const step3 = createHash('rmd160')
         .update(step1)
         .digest();
+    const step3 = createHash('rmd160')
+        .update(step2)
+        .digest();
     var step4 = Buffer.allocUnsafe(21);
-    step4.writeUInt8(wallet.network == 'MAIN' ? 0x00 : 0x6f, 0);
+    step4.writeUInt8(network == 'MAIN' ? 0x00 : 0x6f, 0);
     step3.copy(step4, 1); //step3 now holds the extended RIPMD-160 result
-    var step9 = bs58check.encode(step4);
+    return bs58check.encode(step4);
 }
 
 /**

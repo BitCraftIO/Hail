@@ -22,7 +22,7 @@ export function send(coin, params, network = 'main') {
 
 export function create(coin, network, name, walletType) {
     return dbActions.createWallet({
-        ...createPrivateKeyPair(coin, walletType),
+        ...createPrivateKeyPair(coin, walletType, network),
         coin,
         network,
         name,
@@ -34,10 +34,10 @@ export function estimateFee(coin, from, to, value) {
     return coins[coin].estimateFee(from, to, value);
 }
 
-export function createPrivateKeyPair(coin, walletType) {
+export function createPrivateKeyPair(coin, walletType, network) {
     switch (walletType) {
         case 'HD':
-            return coins[coin].generateHDWallet();
+            return coins[coin].generateHDWallet(network);
             break;
         case 'PAIR':
             return coins[coin].generateWallet();

@@ -3,8 +3,8 @@ import Navigator from './Navigator';
 import { Provider } from 'react-redux';
 import createStore from './reduxhelpers/CreateStore';
 import { Linking, Platform } from 'react-native';
-import SyncManager from './syncmanager';
-const sm = new SyncManager();
+// import SyncManager from './syncmanager';
+// const sm = new SyncManager();
 
 let store = createStore();
 
