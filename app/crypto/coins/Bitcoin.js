@@ -12,7 +12,7 @@ export function send(params, network) {}
  * @param address
  */
 export function generateHDWallet(network, addrType = 'P2PKH') {
-    const wallet = hdutil.generateHDWallet(0);
+    const wallet = hdutil.generateHDWallet(network == 'MAIN' ? 0 : 1);
     const address = this.generateAddressFromNode(wallet, addrType);
 
     /*
@@ -22,7 +22,7 @@ export function generateHDWallet(network, addrType = 'P2PKH') {
     return {
         privateKey: wallet.root._hdkey.privateKey.toString('hex'),
         extendedPrivateKey: wallet.root.privateExtendedKey(),
-        addresses: [{ string: address, derivationPath: "m/44'/0'/0'/0/0 ", type: 'P2PKH' }]
+        addresses: [{ string: address, derivationPath: `m/44'/${network == 'MAIN' ? 0 : 1}'/0'/0/0`, type: 'P2PKH' }]
     };
 }
 
@@ -73,7 +73,9 @@ function createBitcoinAddress(publicKey, network) {
     var step4 = Buffer.allocUnsafe(21);
     step4.writeUInt8(network == 'MAIN' ? 0x00 : 0x6f, 0);
     step3.copy(step4, 1); //step3 now holds the extended RIPMD-160 result
-    return bs58check.encode(step4);
+    const step9 = bs58check.encode(step4);
+    console.log('Base58Check: ' + step9);
+    return step9;
 }
 
 /**
