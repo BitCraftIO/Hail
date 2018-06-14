@@ -1,18 +1,20 @@
 //Utils file for hd wallets
 import bip39 from 'bip39';
-import bip44hdkey from 'ethereumjs-wallet/hdkey';
+import bip44hdkey from 'hdkey';
 
 export function generateHDWallet(cointype) {
     const mnemonic = bip39.generateMnemonic();
-    console.log(`Mnemonic: ${mnemonic}`);
     const root = bip44hdkey.fromMasterSeed(bip39.mnemonicToSeed(mnemonic));
-    console.log(`Private Key: ${root._hdkey.privateKey.toString('hex')}`);
-    const addressNode = root.derivePath(`m/44'/${cointype}'/0'/0`);
+    const externalNode = root.derive(`m/44'/${cointype}'/0'/0`);
+
+    console.log(`Mnemonic: ${mnemonic}`);
+    console.log(`Private Key: ${root.privateKey.toString('hex')}`);
+    console.log(`Private Key Not hex: ${root.privateKey}`);
 
     return {
         mnemonic,
         root,
-        addressNode
+        externalNode
     };
 }
 
@@ -27,11 +29,11 @@ function privateKeyToNode(privateKey) {
     node.privateKey = privateKey;
     return node;
 }
-
 /**
  *
- * @param {string} privateKey
+ * @param {*} mnemonic string
+ * @param {*} cointype int
  */
-export function privateKeyToAddrNode(privateKey, cointype) {
-    return privateKeyToNode(privateKey).deriveChild(`m/44'/${cointype}'/0'/0`);
+export function mnemonicToExternalNode(mnemonic, cointype) {
+    return bip44hdkey.fromMasterSeed(bip39.mnemonicToSeed(mnemonic)).derive(`m/44'/${cointype}'/0'/0`);
 }

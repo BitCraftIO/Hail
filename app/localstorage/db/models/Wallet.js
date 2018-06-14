@@ -9,11 +9,11 @@ export type WalletT = {
     coin: string,
     walletType: string,
     network: string,
-    extendedPrivateKey: string,
+    mnemonic: string,
     privateKey: string,
-    transactions:  any[],
+    transactions: any[],
     addresses: any[]
-}
+};
 
 export default class Wallet extends Realm.Object {}
 Wallet.schema = {
@@ -26,7 +26,7 @@ Wallet.schema = {
         walletType: 'string', //HD, PAIR,
         coin: 'string', //BTC, ETH, BCH, LTC, XMR
         network: 'string', //MAIN, TEST, ROPSTEN, RINKEBY, KOVAN
-        extendedPrivateKey: 'string',
+        mnemonic: 'string',
         privateKey: 'string',
         transactions: { type: 'WalletTransaction[]', default: [] },
         addresses: 'WalletAddress[]'

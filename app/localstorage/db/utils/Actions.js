@@ -34,6 +34,7 @@ export function createAPIWallet(options) {
 */
 export function append(one, many: List) {
     Db.doOneToMany(one, many);
+    return many;
 }
 
 export function deleteWallet(wallet) {

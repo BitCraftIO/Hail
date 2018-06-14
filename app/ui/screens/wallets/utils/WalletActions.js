@@ -47,6 +47,6 @@ export function createPrivateKeyPair(coin, walletType, network) {
     }
 }
 
-export function createAddress(wallet) {
-    return coins[coin].generateAddressForIndex(wallet, wallet.addresses.length);
+export function generateNewAddress(coin, wallet, addrType) {
+    return dbActions.append(wallet.addresses, coins[coin].generateNewAddress(wallet, addrType));
 }

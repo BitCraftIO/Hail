@@ -56,7 +56,7 @@ export default class WalletDetailsPage extends React.Component {
                 <Text> Name: {this.state.wallet.name} </Text>
                 <Text> Coin: {this.state.wallet.coin} </Text>
                 <Text> Network: {this.state.wallet.network} </Text>
-                <Text> Private Key: {this.state.wallet.privateKey ? this.state.wallet.privateKey : 'no masterkey'} </Text>
+                <Text> Mnemonic {this.state.wallet.mnemonic ? this.state.wallet.mnemonic : 'no Mnemonic'} </Text>
                 <Button title="Make a Tx" onPress={() => this.goToTransactionPage()} />
                 <Button title={'Delete Wallet'} onPress={() => this.deleteThisWallet()} />
                 {this.state.renderSuccess ? this.renderSuccess : null}
