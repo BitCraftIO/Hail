@@ -3,13 +3,13 @@ const bip39 = require('bip39');
 import createHash from 'create-hash';
 import bs58check from 'bs58check';
 import * as hdutil from './util/hd';
-//TODO: logger
 
 export function send(params, network) {}
 
 /**
- * @param masterKey
- * @param address
+ *
+ * @param {string} network MAIN or TEST
+ * @param {string} addressType P2PKH or P2WPKH
  */
 export function generateHDWallet(network, addressType = 'P2PKH') {
     var wallet = hdutil.generateHDWallet(network == 'MAIN' ? 0 : 1); //wallet not to be confused with Realm Wallet Object
@@ -22,8 +22,13 @@ export function generateHDWallet(network, addressType = 'P2PKH') {
     };
 }
 
-export function estimateFee() {}
-
+/**
+ *
+ * @param {*} wallet
+ * @param {string} addressType P2PKH or P2WPKH
+ * @param {boolean} external false if internal
+ * @param {int} index
+ */
 export function generateAddress(wallet, addressType = 'P2PKH', external = true, index = 0) {
     var changeNode = external ? wallet.externalNode : wallet.internalNode;
     if (!changeNode && external) changeNode = hdutil.mnemonicToExternalNode(wallet.mnemonic, wallet.network == 'MAIN' ? 0 : 1);
@@ -49,8 +54,6 @@ export function generateAddress(wallet, addressType = 'P2PKH', external = true, 
     }
 }
 
-function createP2WPKHAddress() {}
-
 function createBitcoinAddress(publicKey, network) {
     const step1 = publicKey;
     const step2 = createHash('sha256')
@@ -65,17 +68,6 @@ function createBitcoinAddress(publicKey, network) {
     const step9 = bs58check.encode(step4);
     console.log('Base58Check: ' + step9);
     return step9;
-}
-
-/**
- *
- * @param {string} privateKey
- * @param {string} password the password to encrypt the keystore to
- */
-export function generateKeyStore(privateKey, password) {}
-
-export function generateWalletFromKey() {
-    //TODO:
 }
 
 /**
@@ -108,3 +100,9 @@ export function createRawTransaction(options) {
 
     return txbuilder.build().toHex();
 }
+
+export function generateKeyStore() {}
+
+export function estimateFee() {}
+
+function createP2WPKHAddress() {}

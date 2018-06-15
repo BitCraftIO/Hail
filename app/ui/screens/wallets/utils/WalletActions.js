@@ -21,13 +21,14 @@ export function send(coin, params, network = 'main') {
 }
 
 export function create(coin, network, name, walletType) {
-    return dbActions.createWallet({
+    dbActions.createWallet({
         ...createPrivateKeyPair(coin, walletType, network),
         coin,
         network,
         name,
         walletType
     });
+    logger.info(`${coin} ${network} wallet created`);
 }
 
 export function estimateFee(coin, from, to, value) {
