@@ -8,12 +8,6 @@ import * as loggerActions from 'hail/app/localstorage/db/utils/LoggerActions';
 import moment from 'moment';
 
 export default class LogPage extends React.Component {
-    /**
-     * date
-     * logLevel
-     * message
-     */
-
     logsList = [];
 
     levelToColorMap = {
@@ -22,14 +16,13 @@ export default class LogPage extends React.Component {
         2: 'grey'
     }
 
-    componentDidMount() {
+    constructor() {
+        super();
         this.getLogs();
     }
 
     getLogs() {
         let queriedLogs = loggerActions.getLogs();
-
-        logger.info("TEST LOG")
 
         // Invert to display with most recent first
         for (let i = queriedLogs.length - 1; i >= 0; i--) {
@@ -44,12 +37,12 @@ export default class LogPage extends React.Component {
                     style={styles.flatList}
                     contentContainerStyle={styles.flatListContentContainer}
                     data={this.logsList}
-                    keyExtractor={(item, index) => index}
+                    keyExtractor={(item, index) => index.toString()}
                     renderItem={({item, separators}) => (
                         <View style={styles.logItem}>
                             <Text style={{color: this.levelToColorMap[item.logLevel]}}>{logger.levelMap[item.logLevel] + ' - Level ' + item.logLevel}</Text>
                             <Text style={styles.logText}>{item.message}</Text>
-                            <Text style={styles.logText}>{moment(item.date).format('MMM D, h:m:ssa')}</Text>
+                            <Text style={styles.logText}>{moment(item.date).format('MMM D, h:mm:ssa')}</Text>
                         </View>
                     )}
                 />

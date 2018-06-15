@@ -62,6 +62,11 @@ export default class WalletDashboard extends Component<Props, State>{
         navigate("LogPage");
     }
 
+    toSettingsPage() {
+        const {navigate} = this.props.navigation;
+        navigate("SettingsPage");
+    }
+
     render() {
         const { wallets } = this.state
 
@@ -80,6 +85,9 @@ export default class WalletDashboard extends Component<Props, State>{
                 <View style={styles.tempButtonContainer}>
                     <Touchable onPress={this.toLogPage.bind(this)}>
                         <Text style={styles.tempText}>Logs</Text>
+                    </Touchable>
+                    <Touchable onPress={this.toSettingsPage.bind(this)}>
+                        <Text style={styles.tempText}>Settings</Text>
                     </Touchable>
                 </View>
 
@@ -109,17 +117,18 @@ const styles = StyleSheet.create({
     },
 
     tempButtonContainer: {
-        borderRadius: 5,
         position: "absolute",
-        paddingHorizontal: 10,
-        paddingVertical: 5,
         bottom: 25,
         left: 20,
         zIndex: 3,
-        backgroundColor: Colors.PrimaryBackgroundText
     },
     tempText: {
         color: 'white',
-        fontSize: 18
+        fontSize: 18,
+        borderRadius: 5,
+        paddingHorizontal: 10,
+        paddingVertical: 5,
+        margin: 5,
+        backgroundColor: Colors.PrimaryBackgroundText
     }
 })
