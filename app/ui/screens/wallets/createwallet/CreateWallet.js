@@ -1,5 +1,4 @@
 // @flow
-
 import React, { Component } from 'react';
 import ReactNative from 'react-native';
 import { Icon } from 'react-native-elements';

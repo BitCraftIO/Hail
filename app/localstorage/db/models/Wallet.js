@@ -12,7 +12,8 @@ export type WalletT = {
     mnemonic: string,
     privateKey: string,
     transactions: any[],
-    addresses: any[]
+    internalAddresses: any[]
+    externalAddresses: any[]
 };
 
 export default class Wallet extends Realm.Object {}
