@@ -8,7 +8,7 @@ export default class WalletDetailsPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            wallet: props.navigation.state.params.wallet,
+            wallet: props.wallet,
             renderSuccess: false
         };
     }
