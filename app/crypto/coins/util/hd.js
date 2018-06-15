@@ -2,6 +2,10 @@
 import bip39 from 'bip39';
 import bip44hdkey from 'hdkey';
 
+/**
+ *
+ * @param {int} cointype
+ */
 export function generateHDWallet(cointype) {
     const mnemonic = bip39.generateMnemonic();
     const root = bip44hdkey.fromMasterSeed(bip39.mnemonicToSeed(mnemonic));

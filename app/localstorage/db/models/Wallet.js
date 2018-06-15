@@ -12,7 +12,7 @@ export type WalletT = {
     mnemonic: string,
     privateKey: string,
     transactions: any[],
-    internalAddresses: any[]
+    internalAddresses: any[],
     externalAddresses: any[]
 };
 
