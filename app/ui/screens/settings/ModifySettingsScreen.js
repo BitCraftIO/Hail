@@ -48,13 +48,14 @@ const styles = StyleSheet.create({
     labelText: {
         fontSize: 20,
         marginTop: 20,
+        marginBottom: 20,
         marginLeft: 15,
         color: 'white',
         alignSelf: 'flex-start'
     },
     dropdown: {
         alignSelf: 'center',
-        width: 200,
+        width: 300,
         height: 50,
     },
     descriptionText: {

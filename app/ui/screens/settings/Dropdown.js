@@ -2,6 +2,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { View, StyleSheet, Image, Picker } from 'react-native';
+import { Dropdown as MaterialDropdown } from 'react-native-material-dropdown';
 import Images from '../../../utils/ImageLoader';
 
 type Props = {
@@ -23,9 +24,17 @@ export default class Dropdown extends React.Component {
             selectedValue: this.props.selectedValue
         }
     }
+
+    _onValueChange(itemValue, itemIndex) {
+        this.props.onValueChange(itemValue, itemIndex);
+        this.setState({
+            selectedValue: itemValue
+        });
+    }
     
     render() {
         const { style, pickerOptions, onValueChange } = this.props;
+
         let pickerItemList = pickerOptions.map(item => (
             <Picker.Item 
                 key={item.label}
@@ -36,56 +45,18 @@ export default class Dropdown extends React.Component {
 
         return(
             <View style={style}>
-                <View>
-                    <Picker
-                        mode='dropdown'
-                        style={styles.picker}
-                        selectedValue={this.state.selectedValue}
-                        onValueChange={(itemValue, itemIndex) => {
-                            onValueChange(itemValue, itemIndex);
-                            this.setState({
-                                selectedValue: itemValue
-                            });
-                        }}
-                    >
-                        {pickerItemList}
-                    </Picker>
-                    <View style={styles.imageContainer}>
-                        <Image
-                            style={styles.chevron}
-                            resizeMode='contain'
-                            source={Images.chevron}
-                        />
-                    </View>
-                </View>
-                <View style={styles.underline} />
+                <MaterialDropdown
+                    baseColor={'white'}
+                    textColor={'white'}
+                    itemColor={'black'}
+                    selectedItemColor={'black'}
+                    onChangeText={this._onValueChange.bind(this)}
+                    value={this.state.selectedValue}
+                    data={pickerOptions}
+                />
             </View>
         );
     }
 }
 
-const styles = StyleSheet.create({
-    chevron: {
-        alignSelf: 'flex-end',
-        height: '50%',
-        margin: 5,
-        width: 24,
-    },
-    imageContainer: {
-        padding: '5%',
-        alignItems: 'center',
-        justifyContent: 'center',
-        position: 'absolute',
-        right: 0,
-        top: 0,
-        bottom: 0,
-    },
-    picker: {
-        color: 'white',
-        backgroundColor: '#0000'
-    },
-    underline: {
-        height: '5%',
-        backgroundColor: 'white'
-    },
-})
+const styles = StyleSheet.create({})
