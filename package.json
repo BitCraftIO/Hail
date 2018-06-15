@@ -76,5 +76,10 @@
         "singleQuote": true,
         "proseWrap": "never",
         "printWidth": 200
+    },
+    "rnpm": {
+        "assets": [
+            "./assets/fonts/"
+        ]
     }
 }

@@ -11,6 +11,7 @@ import type {WalletT} from "../../../../localstorage/db/models/Wallet";
 import WalletList from "./WalletList";
 import WalletDashboardViewModel from "./WalletDashboardViewModel"
 import {Colors} from "../../Colors";
+import DashboardHeader from './DashboardHeader';
 
 type Props = {
     navigation: any
@@ -72,29 +73,32 @@ export default class WalletDashboard extends Component<Props, State>{
 
         return (
             <View style={styles.container}>
-                <Icon
-                    name={"plus"}
-                    type={"material-community"}
-                    color={Colors.White}
-                    containerStyle={styles.fab}
-                    raised={true}
-                    component={Touchable}
-                    onPress={this.toCreateWalletScreen.bind(this)}
-                />
+                <DashboardHeader />
+                <View style={styles.padding}>
+                    <Icon
+                        name={"plus"}
+                        type={"material-community"}
+                        color={Colors.White}
+                        containerStyle={styles.fab}
+                        raised={true}
+                        component={Touchable}
+                        onPress={this.toCreateWalletScreen.bind(this)}
+                    />
 
-                <View style={styles.tempButtonContainer}>
-                    <Touchable onPress={this.toLogPage.bind(this)}>
-                        <Text style={styles.tempText}>Logs</Text>
-                    </Touchable>
-                    <Touchable onPress={this.toSettingsPage.bind(this)}>
-                        <Text style={styles.tempText}>Settings</Text>
-                    </Touchable>
+                    <View style={styles.tempButtonContainer}>
+                        <Touchable onPress={this.toLogPage.bind(this)}>
+                            <Text style={styles.tempText}>Logs</Text>
+                        </Touchable>
+                        <Touchable onPress={this.toSettingsPage.bind(this)}>
+                            <Text style={styles.tempText}>Settings</Text>
+                        </Touchable>
+                    </View>
+
+                    <WalletList
+                        onEmptyButtonClick={this.toCreateWalletScreen.bind(this)}
+                        onWalletItemClick={this.toWalletDetail(wallets).bind(this)}
+                        wallets={wallets}/>
                 </View>
-
-                <WalletList
-                    onEmptyButtonClick={this.toCreateWalletScreen.bind(this)}
-                    onWalletItemClick={this.toWalletDetail(wallets).bind(this)}
-                    wallets={wallets}/>
             </View>
         )
     }
@@ -104,8 +108,11 @@ const styles = StyleSheet.create({
     container: {
         flex:1,
         backgroundColor: Colors.PrimaryBackground,
-        paddingLeft: 30,
-        paddingRight: 24,
+    },
+
+    padding: {
+        flex: 1,
+        paddingHorizontal: 30
     },
 
     fab: {
