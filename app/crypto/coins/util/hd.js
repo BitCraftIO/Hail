@@ -6,6 +6,7 @@ export function generateHDWallet(cointype) {
     const mnemonic = bip39.generateMnemonic();
     const root = bip44hdkey.fromMasterSeed(bip39.mnemonicToSeed(mnemonic));
     const externalNode = root.derive(`m/44'/${cointype}'/0'/0`);
+    const internalNode = root.derive(`m/44'/${cointype}'/0'/1`);
 
     console.log(`Mnemonic: ${mnemonic}`);
     console.log(`Private Key: ${root.privateKey.toString('hex')}`);
@@ -14,7 +15,8 @@ export function generateHDWallet(cointype) {
     return {
         mnemonic,
         root,
-        externalNode
+        externalNode,
+        internalNode
     };
 }
 

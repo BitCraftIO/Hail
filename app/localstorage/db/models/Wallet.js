@@ -29,6 +29,7 @@ Wallet.schema = {
         mnemonic: 'string',
         privateKey: 'string',
         transactions: { type: 'WalletTransaction[]', default: [] },
-        addresses: 'WalletAddress[]'
+        internalAddresses: 'WalletAddress[]',
+        externalAddresses: 'WalletAddress[]'
     }
 };

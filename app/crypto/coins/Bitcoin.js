@@ -11,60 +11,37 @@ export function send(params, network) {}
  * @param masterKey
  * @param address
  */
-export function generateHDWallet(network, addrType = 'P2PKH') {
-    const wallet = hdutil.generateHDWallet(network == 'MAIN' ? 0 : 1); //wallet not to be confused with Realm Wallet Object
-
+export function generateHDWallet(network, addressType = 'P2PKH') {
+    var wallet = hdutil.generateHDWallet(network == 'MAIN' ? 0 : 1); //wallet not to be confused with Realm Wallet Object
+    wallet.network = network;
     return {
         privateKey: wallet.root.privateKey.toString('hex'),
         mnemonic: wallet.mnemonic,
-        addresses: [
-            {
-                ...this.generateAddressFromExternalNode(wallet, addrType),
-                derivationPath: `m/44'/${network == 'MAIN' ? 0 : 1}'/0'/0/0`,
-                type: 'P2PKH'
-            }
-        ]
+        externalAddresses: generateAddress(wallet, addressType, true),
+        internalAddresses: generateAddress(wallet, addressType, false)
     };
 }
 
-/**
- *
- * @param {string} from hex
- * @param {string} to hex
- * @param {string} data hex
- */
-export function estimateFee(from, to = '4584158529818ef77D1142bEeb0b6648BD8eDb2f', data) {}
+export function estimateFee() {}
 
-export function generateNewAddress(wallet, addrType = 'P2PKH') {
-    wallet.externalNode = hdutil.mnemonicToExternalNode(wallet.mnemonic, wallet.network == 'MAIN' ? 0 : 1);
-    return [
-        {
-            ...this.generateAddressFromExternalNode(wallet, addrType, wallet.addresses.length),
-            derivationPath: `m/44'/${wallet.network == 'MAIN' ? 0 : 1}'/0'/0/${wallet.addresses.length}`,
-            type: addrType
-        }
-    ];
-}
+export function generateAddress(wallet, addressType = 'P2PKH', external = true, index = 0) {
+    var changeNode = external ? wallet.externalNode : wallet.internalNode;
+    if (!changeNode && external) changeNode = hdutil.mnemonicToExternalNode(wallet.mnemonic, wallet.network == 'MAIN' ? 0 : 1);
+    //If no, then we are in wallet creation
+    if (wallet.externalAddresses) index = external ? wallet.externalAddresses.length : wallet.internalAddresses.length;
 
-//TODO: Documentation
-/**
- * Ensure that the node passed through has a path similar to m/purpose/cointype/0'/0
- * Make sure user knows that address = account so this should only be used to create a new wallet
- * with the same priv key as another
- * @param {hdkey} node
- * @param {int} index
- * @param {string} type Standard or Segwit
- * @param {wallet} wallet used purely to determine network
- */
-export function generateAddressFromExternalNode(wallet, type, index = 0) {
-    const { externalNode, network } = wallet;
-    const addrNode = externalNode.deriveChild(index);
-    switch (type) {
+    const addrNode = changeNode.deriveChild(index);
+
+    switch (addressType) {
         case 'P2PKH':
-            return {
-                string: createBitcoinAddress(addrNode.publicKey, network),
-                signingKey: addrNode.privateKey
-            };
+            return [
+                {
+                    string: createBitcoinAddress(addrNode.publicKey, wallet.network),
+                    signingKey: addrNode.privateKey,
+                    derivationPath: `m/44'/${wallet.network == 'MAIN' ? 0 : 1}'/0'/0/${index}`,
+                    type: addressType
+                }
+            ];
             break;
         case 'P2WPKH':
             return createSegwitAddress();

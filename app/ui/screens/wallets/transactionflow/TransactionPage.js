@@ -138,7 +138,7 @@ export default class TransactionPage extends React.Component {
     receiveActionView() {
         return (
             <View>
-                <Text>{this.state.wallet.addresses[this.state.wallet.addresses.length - 1].string}</Text>
+                <Text>{this.state.wallet.externalAddresses[this.state.wallet.externalAddresses.length - 1].string}</Text>
                 <Button title={'Copy to clipboard'} onPress={() => this.copyToClipboard(this.state.wallet.addresses[0].string)} />
                 <Button title={'Generate New Address'} onPress={() => this.generateNewAddress()} />
             </View>
