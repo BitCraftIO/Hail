@@ -11,6 +11,7 @@ import TextInputField from "./formelements/TextInputField"
 const {View, Text, StyleSheet} = ReactNative
 import {Select, Option} from "react-native-chooser"
 import * as wallet from '../utils/WalletActions';
+import Touchable from "react-native-platform-touchable"
 
 type Props = {}
 
@@ -95,23 +96,41 @@ export default class CreateWallet extends Component<Props, State>{
     }
 
     createWallet() {
-        this.setState({isLoading: true})
-
         const {walletName, network, walletType, coin, creationType} = this.state
-        wallet.create(coin, network, walletName, 'HD');
-
-        const { navigation } = this.props;
-        navigation.goBack();
-        navigation.state.params.refresh();
+        new Promise((resolve, reject) => {
+            wallet.create(coin, network, walletName, creationType);
+            resolve()
+        }).then(() => {
+            const { navigation } = this.props;
+            navigation.goBack();
+            navigation.state.params.refresh();
+        })
     }
 
     render() {
         const {isLoading, network, walletType} = this.state
-        const submitText = walletType === "local" ? "Add" : "Import"
+        let submitText = (() => {
+            const base = walletType === "local" ? "Add" : "Import"
+            const suffix = isLoading ? "ing..." : ""
+            return base + suffix
+        })()
+
+        if (isLoading) {
+            this.createWallet()
+        }
 
         return (
             <View style={styles.rootContainer}>
                 <View style={styles.contentContainer}>
+                    <Icon
+                        component={Touchable}
+                        onPress={() => this.props.navigation.goBack()}
+                        containerStyle={styles.backIcon}
+                        size={20}
+                        color={"#fff"}
+                        name={"ios-arrow-back"}
+                        type={"ionicon"}/>
+
                     <Text style={styles.header}>Add Wallet</Text>
 
                     <TextInputField
@@ -180,7 +199,7 @@ export default class CreateWallet extends Component<Props, State>{
 
                     <Button
                         containerStyle={styles.buttonContainer}
-                        onPress={() => this.createWallet()}
+                        onPress={() => this.setState({isLoading: true})}
                         isLoading={isLoading}
                         text={submitText}/>
                 </View>
@@ -204,9 +223,16 @@ const styles = StyleSheet.create({
     },
 
     contentContainer: {
-        paddingTop: 20,
+        paddingTop: 30,
         paddingLeft: 40,
         paddingRight: 40
+    },
+
+    backIcon: {
+        alignSelf: "flex-start",
+        padding: 20,
+        position: "absolute",
+        left: 10
     },
 
     header: {
