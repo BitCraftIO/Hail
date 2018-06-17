@@ -56,6 +56,7 @@
         "react-native-chooser": "^1.7.0",
         "react-native-dropdownalert": "^3.1.2",
         "react-native-elements": "^0.18.5",
+        "react-native-material-dropdown": "^0.11.1",
         "react-native-modalbox": "^1.4.2",
         "react-native-platform-touchable": "^1.1.1",
         "react-native-queue": "^1.2.1",
