@@ -11,6 +11,7 @@ type Props = {
     onTextChange: string => void,
     errorMessage?: string,
     textColor?: string,
+    autoFocus?: boolean,
     style?: any
 }
 
@@ -32,7 +33,7 @@ export default class TextInputField extends Component<Props, State>{
     }
 
     render() {
-        const {label, errorMessage, style, textColor, placeholder} = this.props
+        const {label, errorMessage, autoFocus, style, textColor, placeholder} = this.props
 
         return (
             <View style={[styles.container, style]}>
@@ -41,6 +42,7 @@ export default class TextInputField extends Component<Props, State>{
                 </Text>
                 <TextInput
                     style={styles.textInput}
+                    autoFocus={autoFocus || false}
                     onChangeText={this.onTextChange.bind(this)}
                     underlineColorAndroid={Colors.White}
                     autoCapitalize={"words"}
