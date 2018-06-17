@@ -12,7 +12,8 @@
  */
 const images = {
     chevron: require('../images/chevron_down.png'),
-    searchIcon: require('../images/ic_search_white.png')
+    searchIcon: require('../images/ic_search_white.png'),
+    optionsHollow: require('../images/optionsHollow.png')
 }
 
 export default images;
