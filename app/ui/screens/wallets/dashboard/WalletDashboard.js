@@ -46,9 +46,16 @@ export default class WalletDashboard extends Component<Props, State>{
         navigate("NewWalletPage", {refresh: this.refresh});
     }
 
-    toWalletDetail(wallet) {
-        const {navigate} = this.props.navigation;
-        navigate("WalletDetailsPage", {"wallet": wallet, refresh: this.refresh});
+    toWalletDetail(wallets) {
+        return function(tappedIndex) {
+            const {navigate} = this.props.navigation;
+
+            navigate("WalletPager", {
+                wallets: wallets,
+                initialIndex: tappedIndex,
+                refresh: this.refresh
+            });
+        }
     }
 
     toLogPage() {
@@ -58,7 +65,7 @@ export default class WalletDashboard extends Component<Props, State>{
 
     render() {
         const { wallets } = this.state
-        console.log(wallets)
+
         return (
             <View style={styles.container}>
                 <Icon
@@ -79,7 +86,7 @@ export default class WalletDashboard extends Component<Props, State>{
 
                 <WalletList
                     onEmptyButtonClick={this.toCreateWalletScreen.bind(this)}
-                    onWalletItemClick={this.toWalletDetail.bind(this)}
+                    onWalletItemClick={this.toWalletDetail(wallets).bind(this)}
                     wallets={wallets}/>
             </View>
         )

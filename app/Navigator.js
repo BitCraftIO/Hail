@@ -3,6 +3,7 @@ import Home from './ui/screens/Home';
 import CreateWallet from "./ui/screens/wallets/createwallet/CreateWallet";
 import WalletDashboard from "./ui/screens/wallets/dashboard/WalletDashboard";
 import WalletDetailsPage from './ui/screens/wallets/WalletDetailsPage';
+import WalletPager from './ui/screens/wallets/dashboard/WalletPager';
 import TransactionPage from './ui/screens/wallets/transactionflow/TransactionPage';
 import CoinbaseSuccessPage from './ui/screens/wallets/coinbase/CoinbaseSuccessPageContainer';
 import LogPage from './ui/screens/logger/LogPage';
@@ -19,6 +20,10 @@ const Navigator = StackNavigator({
 
     WalletDetailsPage: {
         screen: WalletDetailsPage
+    },
+
+    WalletPager: {
+        screen: WalletPager
     },
 
     TransactionPage: {
