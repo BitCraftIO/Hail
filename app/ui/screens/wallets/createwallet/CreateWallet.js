@@ -18,7 +18,9 @@ type State = {
     walletName: string,
     walletType: string,
     coin: string,
-    creationType: string
+    creationType: string,
+    network: string,
+    isLoading: boolean
 }
 
 const selectableCoins = {
@@ -27,18 +29,31 @@ const selectableCoins = {
 }
 
 const options = {
-    "New HD Wallet": "new",
+    "New HD Wallet": "HD",
+    "New BIP 32 Wallet": "BIP32",
+    "New MultiSig Wallet": "MultiSig"
     // "Import Wallet": "import"
+}
+
+const networks = {
+    ETH: ["mainnet", "Kovan", "Ropsten"],
+    BTC: ["TestNet"]
 }
 
 export default class CreateWallet extends Component<Props, State>{
     constructor() {
         super()
+        const defaultCoin = Object.values(selectableCoins)[0]
+        const defaultNetwork = networks[defaultCoin][0]
+        const defaultCreationType =  Object.values(options)[0]
+
         this.state = {
+            isLoading: false,
             walletName: "",
             walletType: "local",
-            coin: "ETH",
-            creationType: "new"
+            creationType: defaultCreationType,
+            coin: defaultCoin,
+            network: defaultNetwork,
         }
     }
 
@@ -70,9 +85,20 @@ export default class CreateWallet extends Component<Props, State>{
             )
     }
 
+    assembleNetworkOptions() {
+        const { coin } = this.state
+        return networks[coin].map(label =>
+                <Option key={Math.random()} value={label}>
+                    {label}
+                </Option>
+            )
+    }
+
     createWallet() {
-        const {walletName, walletType, coin, creationType} = this.state
-        wallet.create(coin, "TEST", walletName, 'HD');
+        this.setState({isLoading: true})
+
+        const {walletName, network, walletType, coin, creationType} = this.state
+        wallet.create(coin, network, walletName, 'HD');
 
         const { navigation } = this.props;
         navigation.goBack();
@@ -80,6 +106,9 @@ export default class CreateWallet extends Component<Props, State>{
     }
 
     render() {
+        const {isLoading, network, walletType} = this.state
+        const submitText = walletType === "local" ? "Add" : "Import"
+
         return (
             <View style={styles.rootContainer}>
                 <View style={styles.contentContainer}>
@@ -88,6 +117,7 @@ export default class CreateWallet extends Component<Props, State>{
                     <TextInputField
                         style={styles.walletNameInput}
                         label={"WALLET NAME"}
+                        autoFocus={true}
                         textColor={Colors.White}
                         placeHolder={"My Wallet"}
                         onTextChange={walletName => this.setState({walletName})}
@@ -100,20 +130,36 @@ export default class CreateWallet extends Component<Props, State>{
                         style={styles.walletTypeInput}
                         label={"TYPE"}/>
 
-                    <View style={styles.coinInputContainer}>
-                        <Text style={styles.label}>COIN</Text>
-                        <Select
-                            style={styles.select}
-                            defaultText={this.selectedCoinLabel()}
-                            indicatorColor={Colors.White}
-                            transparent={false}
-                            animationType={"none"}
-                            transparent={true}
-                            optionListStyle={{backgroundColor: Colors.White}}
-                            textStyle={styles.selectText}
-                            onSelect={value => this.setState({coin: value})}>
-                            {this.assembleCoinOptions()}
-                        </Select>
+                    <View style={styles.horizontalInputContainer}>
+                        <View style={[styles.horizontalInput, {marginRight: 16}]}>
+                            <Text style={styles.label}>COIN</Text>
+                            <Select
+                                style={styles.select}
+                                defaultText={this.selectedCoinLabel()}
+                                indicatorColor={Colors.White}
+                                transparent={true}
+                                animationType={"fade"}
+                                optionListStyle={styles.leftOptionListStyle}
+                                textStyle={styles.selectText}
+                                onSelect={value => this.setState({coin: value})}>
+                                {this.assembleCoinOptions()}
+                            </Select>
+                        </View>
+
+                        <View style={[styles.horizontalInput, {marginLeft: 16}]}>
+                            <Text style={styles.label}>NETWORK</Text>
+                            <Select
+                                style={styles.select}
+                                defaultText={network}
+                                animationType={"fade"}
+                                indicatorColor={Colors.White}
+                                transparent={true}
+                                optionListStyle={styles.rightOptionListStyle}
+                                textStyle={styles.selectText}
+                                onSelect={value => this.setState({network: value})}>
+                                {this.assembleNetworkOptions()}
+                            </Select>
+                        </View>
                     </View>
 
                     <View
@@ -123,10 +169,9 @@ export default class CreateWallet extends Component<Props, State>{
                             style={styles.select}
                             defaultText={this.selectedCreationTypeLabel()}
                             indicatorColor={Colors.White}
-                            transparent={false}
-                            animationType={"none"}
                             transparent={true}
-                            optionListStyle={{backgroundColor: Colors.White}}
+                            animationType={"fade"}
+                            optionListStyle={styles.optionListStyle}
                             textStyle={styles.selectText}
                             onSelect={value => this.setState({creationType: value})}>
                             {this.assembleCreationTypeOptions()}
@@ -134,9 +179,10 @@ export default class CreateWallet extends Component<Props, State>{
                     </View>
 
                     <Button
-                        style={styles.buttonContainer}
+                        containerStyle={styles.buttonContainer}
                         onPress={() => this.createWallet()}
-                        text={"Add"}/>
+                        isLoading={isLoading}
+                        text={submitText}/>
                 </View>
 
                 <Icon
@@ -173,8 +219,7 @@ const styles = StyleSheet.create({
 
     iconContainer: {
         marginTop: "auto",
-        marginBottom: 16
-
+        marginBottom: 16,
     },
 
     walletNameInput: {
@@ -193,6 +238,29 @@ const styles = StyleSheet.create({
         width: "auto"
     },
 
+    leftOptionListStyle: {
+        backgroundColor: Colors.White,
+        width: 150,
+        height: 100,
+        position: "relative",
+        right: 80
+    },
+
+    rightOptionListStyle: {
+        backgroundColor: Colors.White,
+        width: 150,
+        height: 100,
+        position: "relative",
+        left: 80
+    },
+
+    optionListStyle: {
+        backgroundColor: Colors.White,
+        position: "relative",
+        top: 85
+
+    },
+
     selectText: {
         color: Colors.White
     },
@@ -201,8 +269,22 @@ const styles = StyleSheet.create({
         marginTop: 24
     },
 
+    horizontalInputContainer: {
+        marginTop: 24,
+        flexDirection: "row",
+        justifyContent: "space-between"
+    },
+
+    horizontalInput: {
+        flex: 1
+    },
+
     coinInputContainer: {
         marginTop: 24
+    },
+
+    networkInputContainer: {
+        marginTop: 16
     },
 
     createTypeInputContainer: {
@@ -211,5 +293,6 @@ const styles = StyleSheet.create({
 
     buttonContainer: {
         marginTop: 32,
+        alignSelf: "flex-end"
     }
 })

@@ -2,25 +2,33 @@
 
 import React, {Component} from 'react';
 import ReactNative from "react-native"
-const {View, Text, StyleSheet} = ReactNative
+const {View, Text, StyleSheet, ActivityIndicator} = ReactNative
 import Touchable from "react-native-platform-touchable"
 import {Colors} from "../../../Colors";
+import NullableView from "../../../../NullableView";
 
 type Props = {
     text: string,
+    isLoading: boolean,
     onPress: void => void,
-    style?: any
+    containerStyle?: any
 }
 
 type State = {}
 
 export default class Button extends Component<Props, State>{
     render() {
-        const { text, onPress, style } = this.props
+        const { text, onPress, containerStyle, isLoading } = this.props
         return (
-            <Touchable style={styles.rootContainer} onPress={onPress}>
-                <View style={[styles.container, style]}>
+            <Touchable
+                style={[styles.rootContainer, containerStyle]}
+                disabled={isLoading}
+                onPress={onPress}>
+                <View style={styles.container}>
                     <Text style={styles.text}>{text}</Text>
+                    <NullableView isShowing={isLoading}>
+                        <ActivityIndicator style={styles.indicator} />
+                    </NullableView>
                 </View>
             </Touchable>
         )
@@ -34,9 +42,11 @@ const styles = StyleSheet.create({
 
     container: {
         backgroundColor: Colors.Green,
+        flexDirection: "row",
         borderRadius: 4,
         paddingTop: 8,
-        paddingBottom: 8
+        paddingBottom: 8,
+        justifyContent: "center"
     },
 
     text: {
@@ -44,5 +54,9 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: "500",
         textAlign: "center"
+    },
+
+    indicator: {
+        marginLeft: 4
     }
 })
