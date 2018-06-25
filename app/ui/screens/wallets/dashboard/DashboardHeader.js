@@ -3,12 +3,8 @@
 import React from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 import { Colors } from "../../Colors";
-import ImageButton from '../../../../components/ImageButton'
-import Images from '../../../../utils/ImageLoader';
 
 export default class DashboardHeader extends React.Component {
-
-
 
     render() {
         return(
@@ -19,10 +15,7 @@ export default class DashboardHeader extends React.Component {
                 <View
                     style={styles.floatingButtonContainer}
                 >
-                    <ImageButton
-                        onPress={() => console.log("Tapp")}
-                        source={Images.optionsHollow}
-                    />
+                    {this.props.children}
                 </View>
             </View>
         );
@@ -42,12 +35,14 @@ const styles = StyleSheet.create({
         fontFamily: 'Ubuntu-MediumItalic',
     },
     floatingButtonContainer: {
+        flexDirection: 'row',
         position: 'absolute',
-        alignItems: 'flex-end',
-        justifyContent: 'center',
+        alignItems: 'center',
+        justifyContent: 'flex-end',
         right: 0,
         top: 0,
         bottom: 0,
         left: 0,
+        paddingRight: 15,
     }
 })

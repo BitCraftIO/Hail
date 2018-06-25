@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View, TextInput, Button } from 'react-native';
 import PropTypes from 'prop-types';
 import * as dbActions from 'hail/app/localstorage/db/utils/Actions';
-import { getCoinGraphData } from '../../../coin/CoinRequestGraphMapper';
+import { getCoinGraphData, getPriceFromGraphData } from '../../../coin/CoinRequestGraphMapper';
 
 export default class WalletDetailsPage extends React.Component {
     constructor(props) {
@@ -31,11 +31,7 @@ export default class WalletDetailsPage extends React.Component {
             return;
         }
 
-        let { hour } = this.state.graphData;
-        let mostRecentPrices = hour[hour.length - 1];
-        let highLowAverage = (mostRecentPrices.high + mostRecentPrices.low) / 2;
-
-        return Math.round(highLowAverage * 100) / 100;
+        return getPriceFromGraphData(this.state.graphData);
     }
 
     getTransactions() {

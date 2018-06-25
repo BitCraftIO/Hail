@@ -12,13 +12,16 @@ import WalletList from "./WalletList";
 import WalletDashboardViewModel from "./WalletDashboardViewModel"
 import {Colors} from "../../Colors";
 import DashboardHeader from './DashboardHeader';
+import ImageButton from '../../../../components/ImageButton';
+import Images from '../../../../utils/ImageLoader';
 
 type Props = {
     navigation: any
 }
 
 export type State = {
-    wallets?: WalletT[]
+    wallets?: WalletT[],
+    priceData?: any
 }
 
 export default class WalletDashboard extends Component<Props, State>{
@@ -69,11 +72,17 @@ export default class WalletDashboard extends Component<Props, State>{
     }
 
     render() {
-        const { wallets } = this.state
+        const { wallets, priceData } = this.state;
 
         return (
             <View style={styles.container}>
-                <DashboardHeader />
+                <DashboardHeader>
+                    <ImageButton
+                        onPress={this.toSettingsPage.bind(this)}
+                        source={Images.optionsHollow}
+                    />
+                </DashboardHeader>
+
                 <View style={styles.padding}>
                     <Icon
                         name={"plus"}
@@ -89,15 +98,13 @@ export default class WalletDashboard extends Component<Props, State>{
                         <Touchable onPress={this.toLogPage.bind(this)}>
                             <Text style={styles.tempText}>Logs</Text>
                         </Touchable>
-                        <Touchable onPress={this.toSettingsPage.bind(this)}>
-                            <Text style={styles.tempText}>Settings</Text>
-                        </Touchable>
                     </View>
 
                     <WalletList
                         onEmptyButtonClick={this.toCreateWalletScreen.bind(this)}
                         onWalletItemClick={this.toWalletDetail(wallets).bind(this)}
-                        wallets={wallets}/>
+                        wallets={wallets}
+                        priceData={priceData}/>
                 </View>
             </View>
         )
@@ -118,8 +125,8 @@ const styles = StyleSheet.create({
     fab: {
         position: "absolute",
         bottom: 20,
-        right:20,
-        zIndex:2,
+        right: 20,
+        zIndex: 2,
         backgroundColor: Colors.PrimaryBackgroundText
     },
 

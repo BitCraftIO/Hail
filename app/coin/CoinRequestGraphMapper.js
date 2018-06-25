@@ -58,3 +58,28 @@ export async function getCoinGraphData(coinName: string): Promise<CoinGraphData>
 export async function getNews(coinName: string): Promise<Array<CoinNewsItem>> {
     return getNewsItems(coinName);
 }
+
+export function getCurrentPrice(coinName: string): Promise<number> {
+    return new Promise(async (resolve, reject) => {
+        let graphData = await getCoinGraphData(coinName);
+        let price = getPriceFromGraphData(graphData);
+
+        resolve(price);
+    })
+}
+
+export function getPriceFromGraphData(graphData: CoinGraphData): number {
+    let { hour } = graphData;
+    let mostRecentPrices = hour[hour.length - 1];
+    let highLowAverage = (mostRecentPrices.high + mostRecentPrices.low) / 2;
+
+    return Math.round(highLowAverage * 100) / 100;
+}
+
+export function getPercentageGrowthFromGraphData(graphData: CoinGraphData, period?: string) {
+    let periodData = graphData[period];
+    let currentPrice = getPriceFromGraphData(graphData);
+    let beginningPrice = (periodData[0].high + periodData[0].low) / 2;
+    
+    return Math.round(((currentPrice / beginningPrice) - 1) * 100);
+}

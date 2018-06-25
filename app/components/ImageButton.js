@@ -3,8 +3,8 @@ import React from 'react';
 import { TouchableHighlight, Image, View, StyleSheet } from 'react-native';
 
 type Props = {
-    pngSource?: any,
-    svgSource?: any,
+    source?: any,
+    style?: any, // To override width and height
     onPress?: () => void
 }
 
@@ -16,7 +16,7 @@ export default class ImageButton extends React.Component {
         return (
             <TouchableHighlight
                 onPress={this.props.onPress}
-                style={this.style}
+                style={[styles.imageContainer, this.props.style]}
             >
                 <Image
                     style={styles.image}
@@ -30,11 +30,14 @@ export default class ImageButton extends React.Component {
 
 const styles = StyleSheet.create({
     imageContainer: {
-        flex: 1,
+        width: 23,
+        height: 23,
+        alignItems: 'center',
+        justifyContent: 'center',
     },
     image: {
-        // flex: 1,
-        // width: 100,
-        resizeMode: 'center'
+        width: '100%',
+        height: '100%',
+        resizeMode: 'contain',
     }
 })
