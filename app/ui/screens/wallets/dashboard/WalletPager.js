@@ -20,6 +20,9 @@ export default class WalletPager extends React.Component {
     }
 
     _mapWalletToDetailPage(wallet) {
+        const priceData = this.props.navigation.getParam('priceData');
+        const { graphData, price } = priceData ? priceData[wallet.coin] : {};
+
         return (
             <View
                 key={this.keyCounter++}
@@ -28,6 +31,8 @@ export default class WalletPager extends React.Component {
                     wallet={wallet}
                     navigation={this.props.navigation}
                     refresh={this.props.refresh}
+                    graphData={graphData}
+                    price={price}
                 />
             </View>
         );

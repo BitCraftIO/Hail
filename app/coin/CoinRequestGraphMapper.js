@@ -71,6 +71,11 @@ export function getCurrentPrice(coinName: string): Promise<number> {
 export function getPriceFromGraphData(graphData: CoinGraphData): number {
     let { hour } = graphData;
     let mostRecentPrices = hour[hour.length - 1];
+
+    if (!mostRecentPrices) {
+        return;
+    }
+
     let highLowAverage = (mostRecentPrices.high + mostRecentPrices.low) / 2;
 
     return Math.round(highLowAverage * 100) / 100;
@@ -80,6 +85,6 @@ export function getPercentageGrowthFromGraphData(graphData: CoinGraphData, perio
     let periodData = graphData[period];
     let currentPrice = getPriceFromGraphData(graphData);
     let beginningPrice = (periodData[0].high + periodData[0].low) / 2;
-    
+
     return Math.round(((currentPrice / beginningPrice) - 1) * 100);
 }

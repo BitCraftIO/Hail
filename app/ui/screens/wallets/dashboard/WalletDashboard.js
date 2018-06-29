@@ -52,11 +52,13 @@ export default class WalletDashboard extends Component<Props, State>{
     toWalletDetail(wallets) {
         return function(tappedIndex) {
             const {navigate} = this.props.navigation;
+            const {priceData} = this.state;
 
             navigate("WalletPager", {
                 wallets: wallets,
                 initialIndex: tappedIndex,
-                refresh: this.refresh
+                refresh: this.refresh,
+                priceData : priceData
             });
         }
     }

@@ -13,8 +13,6 @@ export default class WalletDetailsPage extends React.Component {
             renderPrice: false,
             graphData: {}
         };
-
-        this.populateGraphData();
     }
 
     async populateGraphData() {
@@ -26,16 +24,23 @@ export default class WalletDetailsPage extends React.Component {
     }
 
     getCurrentPrice() {
+        if (this.props.price) {
+            return this.props.price;
+        }
+
+        const graphData = this.props.graphData || this.state.graphData;
         // If graphData empty, return and wait for state to update
-        if (Object.keys(this.state.graphData).length === 0) {
+        if (Object.keys(graphData).length === 0) {
+            this.populateGraphData();
             return;
         }
 
-        return getPriceFromGraphData(this.state.graphData);
+        return getPriceFromGraphData(graphData);
     }
 
     getTransactions() {
         console.log(this.state.wallet.transactions);
+        return this.state.wallet.transactions;
     }
 
     goToTransactionPage(walletID) {
@@ -64,8 +69,9 @@ export default class WalletDetailsPage extends React.Component {
         const price = this.getCurrentPrice();
 
         if (price) {
-            return <Text>{'$' + price}</Text>
+            return <Text>Fiat: {'$' + price}</Text>
         } else {
+            this.populateGraphData();
             return null;
         }
     }
