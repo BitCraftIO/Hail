@@ -38,9 +38,14 @@ export default class Home extends React.Component {
     }
 
     render() {
+        const {shouldRefresh, toCreateWallet} = this.props.screenProps
         return (
             <View style={styles.container}>
-                <WalletDashboard navigation={this.props.navigation} />
+                <WalletDashboard
+                    navigation={this.props.navigation}
+                    shouldRefresh={shouldRefresh}
+                    toCreateWallet={toCreateWallet}
+                />
             </View>
         );
     }

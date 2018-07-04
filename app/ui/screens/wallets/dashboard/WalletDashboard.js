@@ -13,7 +13,8 @@ import WalletDashboardViewModel from "./WalletDashboardViewModel"
 import {Colors} from "../../Colors";
 
 type Props = {
-    navigation: any
+    toCreateWallet: void => void,
+    shouldRefresh: boolean
 }
 
 export type State = {
@@ -23,11 +24,7 @@ export type State = {
 export default class WalletDashboard extends Component<Props, State>{
 
     vm: WalletDashboardViewModel = new WalletDashboardViewModel()
-
-    constructor(props) {
-        super(props)
-        this.state = {}
-    }
+    state = {}
 
     componentDidMount() {
         this.vm.loadWallets()
@@ -35,15 +32,8 @@ export default class WalletDashboard extends Component<Props, State>{
             .subscribe(newState => this.setState(newState))
     }
 
-    //TODO: Possible memory leak
-    refresh = () => {
-        console.log(this);
-        this.vm.loadWallets()
-    }
-
     toCreateWalletScreen() {
-        const {navigate} = this.props.navigation;
-        navigate("NewWalletPage", {refresh: this.refresh});
+        this.props.toCreateWallet()
     }
 
     toWalletDetail(wallets) {
@@ -66,6 +56,13 @@ export default class WalletDashboard extends Component<Props, State>{
     toSettingsPage() {
         const {navigate} = this.props.navigation;
         navigate("SettingsPage");
+    }
+
+    componentDidUpdate(prevProps: Props, prevState: State, context: any) {
+        const {shouldRefresh} = this.props
+        if (prevProps.shouldRefresh !== shouldRefresh) {
+            this.vm.loadWallets()
+        }
     }
 
     render() {
