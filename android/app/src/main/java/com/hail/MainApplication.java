@@ -8,6 +8,12 @@ import com.oblador.vectoricons.VectorIconsPackage;
 import com.peel.react.TcpSocketsModule;
 import com.horcrux.svg.SvgPackage;
 import com.bitgo.randombytes.RandomBytesPackage;
+import com.jamesisaac.rnbackgroundtask.BackgroundTaskPackage;
+import io.realm.react.RealmReactPackage;
+import com.oblador.vectoricons.VectorIconsPackage;
+import com.peel.react.TcpSocketsModule;
+import com.horcrux.svg.SvgPackage;
+import com.bitgo.randombytes.RandomBytesPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
@@ -28,6 +34,12 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RealmReactPackage(),
+            new VectorIconsPackage(),
+            new TcpSocketsModule(),
+            new SvgPackage(),
+            new RandomBytesPackage(),
+            new BackgroundTaskPackage(),
             new RealmReactPackage(),
             new VectorIconsPackage(),
             new TcpSocketsModule(),

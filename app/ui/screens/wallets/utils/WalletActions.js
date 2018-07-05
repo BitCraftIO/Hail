@@ -20,26 +20,47 @@ export function send(coin, params, network = 'main') {
     return coins[coin].send(params, network);
 }
 
+/**
+ *
+ * @param {string} coin BTC or ETH etc..
+ * @param {string} network
+ * @param {string} name
+ * @param {string} walletType HD only for now
+ */
 export function create(coin, network, name, walletType) {
-    return dbActions.createWallet({
-        ...createPrivateKeyPair(coin, walletType),
+    dbActions.createWallet({
+        ...createPrivateKeyPair(coin, walletType, network),
         coin,
         network,
         name,
         walletType
     });
+    logger.info(`${coin} ${network} wallet created`);
 }
 
+/**
+ *
+ * @param {*} coin
+ * @param {*} from
+ * @param {*} to
+ * @param {*} value
+ */
 export function estimateFee(coin, from, to, value) {
     return coins[coin].estimateFee(from, to, value);
 }
 
-export function createPrivateKeyPair(coin, walletType) {
+/**
+ *
+ * @param {string} coin
+ * @param {string} walletType
+ * @param {string} network
+ */
+function createPrivateKeyPair(coin, walletType, network) {
     switch (walletType) {
         case 'HD':
-            return coins[coin].generateHDWallet();
+            return coins[coin].generateHDWallet(network);
             break;
-        case 'PAIR':
+        case 'BIP32':
             return coins[coin].generateWallet();
             break;
         default:
@@ -47,6 +68,14 @@ export function createPrivateKeyPair(coin, walletType) {
     }
 }
 
-export function createPrivateKey() {}
-
-export function createAddress() {}
+/**
+ *
+ * @param {string} coin BTC or ETH etc..
+ * @param {*} wallet
+ * @param {string} addressType P2PKH or P2WPKH
+ * @param {bool} external false if internal
+ */
+export function generateNewAddress(coin, wallet, addressType, external) {
+    const addressPayload = coins[coin].generateAddress(wallet, addressType, external);
+    return dbActions.append(external ? wallet.externalAddresses : wallet.internalAddresses, addressPayload);
+}

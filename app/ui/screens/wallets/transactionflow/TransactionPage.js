@@ -135,12 +135,9 @@ export default class TransactionPage extends React.Component {
     }
 
     receiveActionView() {
-        //grab new addr from util if bitcoin
-        console.log(this.state);
-        //TODO: Generate NewAddress based on cointype
         return (
             <View>
-                <Text>{this.state.wallet.addresses[0].string}</Text>
+                <Text>{this.state.wallet.externalAddresses[this.state.wallet.externalAddresses.length - 1].string}</Text>
                 <Button title={'Copy to clipboard'} onPress={() => this.copyToClipboard(this.state.wallet.addresses[0].string)} />
                 <Button title={'Generate New Address'} onPress={() => this.generateNewAddress()} />
             </View>
@@ -155,7 +152,8 @@ export default class TransactionPage extends React.Component {
     };
 
     generateNewAddress() {
-        //TODO: Do this right after refactor. Only works for ethereum
+        walletActions.generateNewAddress(this.state.wallet.coin, this.state.wallet);
+        this.setState();
     }
 
     status() {

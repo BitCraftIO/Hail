@@ -24,7 +24,7 @@ type State = {
 };
 
 const selectableCoins = {
-    // "Bitcoin": "BTC",
+    Bitcoin: 'BTC',
     Ethereum: 'ETH'
 };
 
