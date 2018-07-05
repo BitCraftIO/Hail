@@ -2,15 +2,44 @@ import React from 'react';
 import { StyleSheet, Text, View, TextInput, Button } from 'react-native';
 import PropTypes from 'prop-types';
 import * as dbActions from 'hail/app/localstorage/db/utils/Actions';
-//import Blockies from 'react-blockies';
+import { getCoinGraphData } from '../../../coin/CoinRequestGraphMapper';
 
 export default class WalletDetailsPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            wallet: props.navigation.state.params.wallet,
-            renderSuccess: false
+            wallet: props.wallet,
+            renderSuccess: false,
+            renderPrice: false,
+            graphData: {}
         };
+
+        this.populateGraphData();
+    }
+
+    async populateGraphData() {
+        let graphData = await getCoinGraphData(this.state.wallet.coin);
+        this.setState({
+            graphData: graphData,
+            renderPrice: true
+        })
+    }
+
+    getCurrentPrice() {
+        // If graphData empty, return and wait for state to update
+        if (Object.keys(this.state.graphData).length === 0) {
+            return;
+        }
+
+        let { hour } = this.state.graphData;
+        let mostRecentPrices = hour[hour.length - 1];
+        let highLowAverage = (mostRecentPrices.high + mostRecentPrices.low) / 2;
+
+        return Math.round(highLowAverage * 100) / 100;
+    }
+
+    getTransactions() {
+        console.log(this.state.wallet.transactions);
     }
 
     goToTransactionPage(walletID) {
@@ -35,6 +64,16 @@ export default class WalletDetailsPage extends React.Component {
         return <Text>Success</Text>;
     }
 
+    renderCurrentPrice() {
+        const price = this.getCurrentPrice();
+
+        if (price) {
+            return <Text>{'$' + price}</Text>
+        } else {
+            return null;
+        }
+    }
+
     addresses() {
         return this.state.wallet.addresses.map(walletaddr => {
             return <Text> {walletaddr.address} </Text>;
@@ -49,6 +88,7 @@ export default class WalletDetailsPage extends React.Component {
     }
 
     render() {
+        if (this.state.wallet === undefined) return null
         return (
             <View>
                 {this.identicon()}
@@ -59,6 +99,7 @@ export default class WalletDetailsPage extends React.Component {
                 <Text> Private Key: {this.state.wallet.privateKey ? this.state.wallet.privateKey : 'no masterkey'} </Text>
                 <Button title="Make a Tx" onPress={() => this.goToTransactionPage()} />
                 <Button title={'Delete Wallet'} onPress={() => this.deleteThisWallet()} />
+                {this.renderCurrentPrice()}
                 {this.state.renderSuccess ? this.renderSuccess : null}
             </View>
         );

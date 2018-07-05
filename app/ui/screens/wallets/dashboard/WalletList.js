@@ -67,7 +67,7 @@ export default class WalletList extends Component<Props, State>{
                     return (
                         <WalletListItem
                             wallet={wallet}
-                            onPress={() => onWalletItemClick(wallet)}
+                            onPress={() => onWalletItemClick(data.index)}
                         />
                     )
                 }}
