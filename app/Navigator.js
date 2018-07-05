@@ -1,57 +1,107 @@
+import React from 'react';
 import { StackNavigator } from 'react-navigation';
 import Home from './ui/screens/Home';
-import WalletDashboard from "./ui/screens/wallets/dashboard/WalletDashboard";
-import WalletDetailsPage from './ui/screens/wallets/WalletDetailsPage';
+import CoinbaseSuccessPage from './ui/screens/wallets/coinbase/CoinbaseSuccessPageContainer';
+import CreateWallet from './ui/screens/wallets/createwallet/CreateWallet';
 import WalletPager from './ui/screens/wallets/dashboard/WalletPager';
 import TransactionPage from './ui/screens/wallets/transactionflow/TransactionPage';
-import NewWalletPage from './ui/screens/wallets/newwalletflow/NewWalletPage';
-import CoinbaseSuccessPage from './ui/screens/wallets/newwalletflow/coinbasesuccesspage/CoinbaseSuccessPageContainer';
 import LogPage from './ui/screens/logger/LogPage';
 import SettingsPage from './ui/screens/settings/SettingsPage';
 import ModifySettingsScreen from './ui/screens/settings/ModifySettingsScreen';
 
-// https://reactnavigation.org/docs/intro/basic-app
-const Navigator = StackNavigator({
-    Home: {
-        screen: Home
-    },
+const DashboardStack = StackNavigator(
+    {
+        Home: {
+            screen: Home
+        },
 
-    WalletsList: {
-        screen: WalletDashboard
-    },
+        LogPage: {
+            screen: LogPage
+        },
 
-    WalletDetailsPage: {
-        screen: WalletDetailsPage
-    },
+        WalletPager: {
+            screen: WalletPager
+        },
 
-    WalletPager: {
-        screen: WalletPager
-    },
+        TransactionPage: {
+            screen: TransactionPage
+        },
 
-    TransactionPage: {
-        screen: TransactionPage
-    },
+        CoinbaseSuccessPage: {
+            screen: CoinbaseSuccessPage,
+            path: 'wallet/oauth/coinbase/'
+        },
 
-    NewWalletPage: {
-        screen: NewWalletPage
+        SettingsPage: {
+            screen: SettingsPage
+        }
     },
-
-    CoinbaseSuccessPage: {
-        screen: CoinbaseSuccessPage,
-        path: 'wallet/oauth/coinbase/'
-    },
-
-    LogPage: {
-        screen: LogPage
-    },
-
-    SettingsPage: {
-        screen: SettingsPage
-    },
-
-    ModifySettingsScreen: {
-        screen: ModifySettingsScreen
+    {
+        headerMode: 'none'
     }
-});
+);
+
+const CreateWalletStack = StackNavigator(
+    {
+        CreateWallet: {
+            screen: CreateWallet
+        }
+    },
+    {
+        headerMode: 'none'
+    }
+);
+
+const ModifySettingsStack = StackNavigator(
+    {
+        ModifySettingsScreen: {
+            screen: ModifySettingsScreen
+        }
+    },
+    {
+        headerMode: 'none'
+    }
+);
+
+const Stacks = {
+    CreateWallet: 'CreateWallet',
+    Dashboard: 'Dashboard',
+    ModifySettings: 'ModifySettings'
+};
+
+class Navigator extends React.Component {
+    state = {
+        currentStack: Stacks.Dashboard,
+        shouldRefresh: false
+    };
+
+    render() {
+        const { currentStack, shouldRefresh } = this.state;
+        const screenProps = {
+            toCreateWallet: () => {
+                this.setState({ currentStack: Stacks.CreateWallet });
+            },
+
+            toDashboard: (shouldRefresh = false) => {
+                this.setState({ currentStack: Stacks.Dashboard, shouldRefresh });
+            },
+
+            toModifySettings: () => {
+                this.setState({ currentStack: Stacks.ModifySettings });
+            }
+        };
+
+        switch (currentStack) {
+            case Stacks.Dashboard:
+                return <DashboardStack screenProps={{ ...screenProps, shouldRefresh }} />;
+            case Stacks.CreateWallet:
+                return <CreateWalletStack screenProps={screenProps} />;
+            case Stacks.ModifySettings:
+                return <ModifySettingsStack screenProps={screenProps} />;
+            default:
+                throw `Invalid stack name: ${currentStack}`;
+        }
+    }
+}
 
 export default Navigator;
