@@ -94,13 +94,12 @@ export default class CreateWallet extends Component<Props, State> {
 
     createWallet() {
         const { walletName, network, walletType, coin, creationType } = this.state;
+        const self = this;
         new Promise((resolve, reject) => {
             wallet.create(coin, network, walletName, creationType);
             resolve();
         }).then(() => {
-            const { navigation } = this.props;
-            navigation.goBack();
-            navigation.state.params.refresh();
+            self.props.screenProps.toDashboard();
         });
     }
 
@@ -119,7 +118,15 @@ export default class CreateWallet extends Component<Props, State> {
         return (
             <View style={styles.rootContainer}>
                 <View style={styles.contentContainer}>
-                    <Icon component={Touchable} onPress={() => this.props.navigation.goBack()} containerStyle={styles.backIcon} size={20} color={'#fff'} name={'ios-arrow-back'} type={'ionicon'} />
+                    <Icon
+                        component={Touchable}
+                        onPress={() => this.props.screenProps.toDashboard()}
+                        containerStyle={styles.backIcon}
+                        size={20}
+                        color={'#fff'}
+                        name={'ios-arrow-back'}
+                        type={'ionicon'}
+                    />
 
                     <Text style={styles.header}>Add Wallet</Text>
 

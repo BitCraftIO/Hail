@@ -88,6 +88,7 @@ export default class WalletDetailsPage extends React.Component {
     }
 
     render() {
+        if (this.state.wallet === undefined) return null
         return (
             <View>
                 {this.identicon()}

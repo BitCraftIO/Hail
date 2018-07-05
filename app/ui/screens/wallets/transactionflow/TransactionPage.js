@@ -1,7 +1,6 @@
 import React from 'react';
 import { FlatList, StyleSheet, Clipboard, Text, View, TextInput, Button } from 'react-native';
 import { CheckBox } from 'react-native-elements';
-import PropTypes from 'prop-types';
 import * as walletActions from '../utils/WalletActions';
 
 export default class TransactionPage extends React.Component {
