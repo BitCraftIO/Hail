@@ -55,10 +55,13 @@ export default class WalletDashboard extends Component<Props, State>{
             const {priceData} = this.state;
 
             navigate("WalletPager", {
+                header: {
+                    visible: false
+                },
                 wallets: wallets,
                 initialIndex: tappedIndex,
                 refresh: this.refresh,
-                priceData : priceData
+                priceData: priceData
             });
         }
     }

@@ -52,6 +52,12 @@ const Navigator = StackNavigator({
     ModifySettingsScreen: {
         screen: ModifySettingsScreen
     }
+},
+{ 
+    navigationOptions: {
+        headerMode: 'screen',
+        header: null
+    }
 });
 
 export default Navigator;

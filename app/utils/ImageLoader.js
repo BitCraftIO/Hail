@@ -13,7 +13,10 @@
 const images = {
     chevron: require('../images/chevron_down.png'),
     searchIcon: require('../images/ic_search_white.png'),
-    optionsHollow: require('../images/optionsHollow.png')
+    optionsHollow: require('../images/optionsHollow.png'),
+    arrowLeft: require('../images/arrow_left.png'),
+    sentTransaction: require('../images/sentTransaction.png'),
+    receivedTransaction: require('../images/receivedTransaction.png')
 }
 
 export default images;

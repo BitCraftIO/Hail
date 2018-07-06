@@ -10,6 +10,7 @@ export const Colors = {
     SecondaryBackgroundFadedText:"#72819B",
     PositiveGreen: '#4ce0b3',
     NegativeRed: '#db324d',
+    ActionGreen: '#50e3c2',
 
     White: "#fff"
 }
