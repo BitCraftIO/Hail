@@ -104,8 +104,8 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center',
 
-        borderRadius: 5,
-        margin: 1,
+        // borderRadius: 5,
+        // margin: 1,
     },
 
     infoContainer: {

@@ -143,7 +143,7 @@ export default class WalletDetailsPage extends React.Component {
                     <TouchableHighlight onPress={this.goToTransactionPage.bind(this)}>
                         <View style={styles.transactionButton}>
                             <Image 
-                                source={Images.arrowLeft}
+                                source={Images.movingCoin}
                                 style={styles.transactionButtonImage}
                                 resizeMode={'contain'}
                             />
@@ -257,7 +257,7 @@ const styles = StyleSheet.create({
     },
 
     transactionButtonImage: {
-        width: 20,
-        marginRight: 10
+        width: 30,
+        marginRight: 8
     }
 });

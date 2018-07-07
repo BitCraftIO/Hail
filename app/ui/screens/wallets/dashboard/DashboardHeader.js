@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import { View, Platform, StyleSheet, Text } from 'react-native';
 import { Colors } from "../../Colors";
 
 export default class DashboardHeader extends React.Component {
@@ -26,8 +26,9 @@ const styles = StyleSheet.create({
     bar: {
         flex: 1,
         backgroundColor: Colors.SecondaryBackground,
-        maxHeight: 45,
-        alignItems: 'center'
+        maxHeight: Platform.OS === 'ios' ? 60 : 45,
+        justifyContent: Platform.OS === 'ios' ? 'center' : 'flex-start',
+        alignItems: 'center',
     },
     hail: {
         color: 'white',
