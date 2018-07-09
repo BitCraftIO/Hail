@@ -104,11 +104,4 @@ class Navigator extends React.Component {
     }
 };
 
-// ,{ 
-//     navigationOptions: {
-//         headerMode: 'screen',
-//         header: null
-//     }
-// })
-
 export default Navigator;
