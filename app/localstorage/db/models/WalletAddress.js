@@ -6,6 +6,8 @@ WalletAddress.schema = {
     primaryKey: 'string',
     properties: {
         string: 'string',
-        derivationPath: 'string'
+        signingKey: 'data',
+        derivationPath: 'string',
+        type: 'string'
     }
 };

@@ -8,10 +8,9 @@ import { View, Linking, Platform, StatusBar } from 'react-native';
 let store = createStore();
 
 export default class App extends React.Component {
-
-	prefix() {
-		return Platform.OS == 'android' ? 'mychat://mychat/' : 'mychat://';
-	}
+    prefix() {
+        return Platform.OS == 'android' ? 'hail://hail/' : 'hail://';
+    }
 
 	render() {
 		return (

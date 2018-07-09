@@ -1,12 +1,12 @@
 // @flow
 
-import React, {Component} from 'react'
-import ReactNative from "react-native"
-const {View, StyleSheet, Text} = ReactNative
+import React, { Component } from 'react';
+import ReactNative from 'react-native';
+const { View, StyleSheet, Text } = ReactNative;
 
-import Touchable from 'react-native-platform-touchable'
-import {Icon} from "react-native-elements";
-import type {WalletT} from "../../../../localstorage/db/models/Wallet";
+import Touchable from 'react-native-platform-touchable';
+import { Icon } from 'react-native-elements';
+import type { WalletT } from '../../../../localstorage/db/models/Wallet';
 
 import WalletList from "./WalletList";
 import WalletDashboardViewModel from "./WalletDashboardViewModel"
@@ -16,37 +16,26 @@ import ImageButton from '../../../../components/ImageButton';
 import Images from '../../../../utils/ImageLoader';
 
 type Props = {
-    navigation: any
-}
+    toCreateWallet: void => void,
+    shouldRefresh: boolean
+};
 
 export type State = {
     wallets?: WalletT[],
     priceData?: any
 }
 
-export default class WalletDashboard extends Component<Props, State>{
-    vm: WalletDashboardViewModel = new WalletDashboardViewModel()
-
-    constructor(props) {
-        super(props)
-        this.state = {}
-    }
+export default class WalletDashboard extends Component<Props, State> {
+    vm: WalletDashboardViewModel = new WalletDashboardViewModel();
+    state = {};
 
     componentDidMount() {
-        this.vm.loadWallets()
-        this.vm.states()
-            .subscribe(newState => this.setState(newState))
-    }
-
-    //TODO: Possible memory leak
-    refresh = () => {
-        console.log(this);
-        this.vm.loadWallets()
+        this.vm.loadWallets();
+        this.vm.states().subscribe(newState => this.setState(newState));
     }
 
     toCreateWalletScreen() {
-        const {navigate} = this.props.navigation;
-        navigate("NewWalletPage", {refresh: this.refresh});
+        this.props.toCreateWallet();
     }
 
     toWalletDetail(wallets) {
@@ -63,17 +52,24 @@ export default class WalletDashboard extends Component<Props, State>{
                 refresh: this.refresh,
                 priceData: priceData
             });
-        }
+        };
     }
 
     toLogPage() {
-        const {navigate} = this.props.navigation;
-        navigate("LogPage");
+        const { navigate } = this.props.navigation;
+        navigate('LogPage');
     }
 
     toSettingsPage() {
-        const {navigate} = this.props.navigation;
-        navigate("SettingsPage");
+        const { navigate } = this.props.navigation;
+        navigate('SettingsPage');
+    }
+
+    componentDidUpdate(prevProps: Props, prevState: State, context: any) {
+        const { shouldRefresh } = this.props;
+        if (prevProps.shouldRefresh !== shouldRefresh) {
+            this.vm.loadWallets();
+        }
     }
 
     render() {
@@ -112,13 +108,13 @@ export default class WalletDashboard extends Component<Props, State>{
                         priceData={priceData}/>
                 </View>
             </View>
-        )
+        );
     }
 }
 
 const styles = StyleSheet.create({
     container: {
-        flex:1,
+        flex: 1,
         backgroundColor: Colors.PrimaryBackground,
     },
 
@@ -128,7 +124,7 @@ const styles = StyleSheet.create({
     },
 
     fab: {
-        position: "absolute",
+        position: 'absolute',
         bottom: 20,
         right: 20,
         zIndex: 2,
@@ -136,10 +132,10 @@ const styles = StyleSheet.create({
     },
 
     tempButtonContainer: {
-        position: "absolute",
+        position: 'absolute',
         bottom: 25,
         left: 20,
-        zIndex: 3,
+        zIndex: 3
     },
     tempText: {
         color: 'white',
@@ -150,4 +146,4 @@ const styles = StyleSheet.create({
         margin: 5,
         backgroundColor: Colors.PrimaryBackgroundText
     }
-})
+});
