@@ -25,7 +25,8 @@ export default class SettingsPage extends React.Component {
      * {
      *      imgSource: <Optional image source displayed on left side of button>,
      *      label: <String displayed on the button>,
-     *      onPress: <Function called when button is tapped>
+     *      onPress: <Function called when button is tapped>,
+     *      secondaryText: <Optional string on the right side of button>
      * }
      */
     layoutMap = [
@@ -33,12 +34,12 @@ export default class SettingsPage extends React.Component {
             groupTitle: "General",
             selections: [
                 {
-                    imgSource: Images.searchIcon,
-                    label: "Logs",
+                    imgSource: Images.settings.style,
+                    label: "Fiat Currency",
                     onPress: this._navigateToModifySettingsPage('logLevel').bind(this)
                 },
                 {
-                    imgSource: Images.searchIcon,
+                    imgSource: Images.settings.bugReport,
                     label: "Logs",
                     onPress: this._navigateToModifySettingsPage('logLevel').bind(this)
                 },
@@ -48,18 +49,34 @@ export default class SettingsPage extends React.Component {
             groupTitle: "Sync",
             selections: [
                 {
-                    imgSource: Images.searchIcon,
-                    label: "Logs",
+                    imgSource: Images.settings.sync,
+                    label: "Frequency",
                     onPress: this._navigateToModifySettingsPage('logLevel').bind(this)
                 },
                 {
-                    imgSource: Images.searchIcon,
-                    label: "Logs",
+                    imgSource: Images.settings.sync,
+                    label: "Background Sync",
                     onPress: this._navigateToModifySettingsPage('logLevel').bind(this)
                 },
                 {
-                    imgSource: Images.searchIcon,
-                    label: "Logs",
+                    imgSource: Images.settings.save,
+                    label: "SPV Memory",
+                    onPress: this._navigateToModifySettingsPage('logLevel').bind(this),
+                    secondaryText: (settings.spvMemory || '--') + ' mb'
+                },
+            ],
+        },
+        {
+            groupTitle: "Ethereum",
+            selections: [
+                {
+                    imgSource: Images.settings.node,
+                    label: "Node URL",
+                    onPress: this._navigateToModifySettingsPage('logLevel').bind(this)
+                },
+                {
+                    imgSource: Images.settings.sync,
+                    label: "Etherscan API",
                     onPress: this._navigateToModifySettingsPage('logLevel').bind(this)
                 },
             ],
@@ -141,7 +158,7 @@ const styles = StyleSheet.create({
     headerText: {
         color: 'white',
         fontSize: 22,
-        marginLeft: '15%'
+        marginLeft: '17%'
     },
     imageContainer: {
         justifyContent: 'center',

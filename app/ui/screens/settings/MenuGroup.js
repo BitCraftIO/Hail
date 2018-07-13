@@ -17,6 +17,7 @@ export default class MenuGroup extends React.Component {
                 imgSource={button.imgSource}
                 label={button.label}
                 onPress={button.onPress}
+                secondaryText={button.secondaryText}
             />
         );
     }

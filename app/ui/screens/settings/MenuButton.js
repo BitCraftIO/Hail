@@ -6,7 +6,8 @@ import { View, Text, StyleSheet, Image, TouchableHighlight } from 'react-native'
 type Props = {
     imgSource?: any,
     label: string,
-    onPress?: () => void
+    onPress?: () => void,
+    secondaryText?: string
 }
 
 export default class MenuButton extends React.Component {
@@ -35,11 +36,14 @@ export default class MenuButton extends React.Component {
                     </View>
                     <View style={styles.textWrapper}>
                         <View />
-                        <Text
-                            style={styles.buttonText}
-                        >
-                            {this.props.label}
-                        </Text>
+                        <View style={styles.textContainer}>
+                            <Text style={styles.buttonText}>
+                                {this.props.label}
+                            </Text>
+                            <Text style={styles.buttonText}>
+                                {this.props.secondaryText}
+                            </Text>
+                        </View>
                         <View style={styles.seperatorLine} />
                     </View>
                 </View>
@@ -62,6 +66,11 @@ const styles = StyleSheet.create({
         height: '100%',
         flex: 1,
     },
+    textContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center'
+    },
     buttonText: {
         fontSize: 14,
         color: 'white',
@@ -75,7 +84,7 @@ const styles = StyleSheet.create({
     imageContainer: {
         alignItems: 'center',
         justifyContent: 'center',
-        width: '15%'
+        width: '17%'
     },
     image: {
         height: '50%',
