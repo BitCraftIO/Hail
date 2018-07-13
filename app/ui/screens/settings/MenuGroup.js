@@ -21,25 +21,18 @@ export default class MenuGroup extends React.Component {
         );
     }
 
-    _renderSeparator() {
-        return (
-            <View style={styles.separator} />
-        );
-    }
-
     render() {
         const group = this.props.groupData
 
         return (
             <View style={styles.groupWrapper}>
                 <Text style={styles.headerText}>
-                    {group.groupTitle}
+                    {group.groupTitle.toUpperCase()}
                 </Text>
                 <FlatList
                     data={group.selections}
                     keyExtractor={this._buttonKeyExtractor}
                     renderItem={({item}) => this._renderMenuButton(item)}
-                    ItemSeparatorComponent={this._renderSeparator}
                 />
             </View>
         );
@@ -50,17 +43,14 @@ export default class MenuGroup extends React.Component {
 const styles = StyleSheet.create({
     groupWrapper: {
         justifyContent: 'flex-start',
-        margin: 10
+        marginBottom: 30
     },
     headerText: {
-        fontSize: 20,
-        margin: 5,
-        color: 'white',
+        fontSize: 14,
+        marginHorizontal: 20,
+        marginTop: 15,
+        color: Colors.PrimaryBackgroundText,
+        fontWeight: 'bold',
         alignSelf: 'flex-start'
-    },
-    separator: {
-        width: '100%',
-        height: 2,
-        backgroundColor: Colors.PrimaryBackground
     },
 })

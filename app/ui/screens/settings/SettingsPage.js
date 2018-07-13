@@ -6,6 +6,7 @@ import logger from '../../../utils/Logger';
 import settings from '../../../utils/Settings';
 import MenuButton from './MenuButton'
 import MenuGroup from './MenuGroup'
+import ImageButton from '../../../components/ImageButton'
 import Images from '../../../utils/ImageLoader';
 
 export default class SettingsPage extends React.Component {
@@ -29,8 +30,33 @@ export default class SettingsPage extends React.Component {
      */
     layoutMap = [
         {
-            groupTitle: "Configuration",
+            groupTitle: "General",
             selections: [
+                {
+                    imgSource: Images.searchIcon,
+                    label: "Logs",
+                    onPress: this._navigateToModifySettingsPage('logLevel').bind(this)
+                },
+                {
+                    imgSource: Images.searchIcon,
+                    label: "Logs",
+                    onPress: this._navigateToModifySettingsPage('logLevel').bind(this)
+                },
+            ],
+        },
+        {
+            groupTitle: "Sync",
+            selections: [
+                {
+                    imgSource: Images.searchIcon,
+                    label: "Logs",
+                    onPress: this._navigateToModifySettingsPage('logLevel').bind(this)
+                },
+                {
+                    imgSource: Images.searchIcon,
+                    label: "Logs",
+                    onPress: this._navigateToModifySettingsPage('logLevel').bind(this)
+                },
                 {
                     imgSource: Images.searchIcon,
                     label: "Logs",
@@ -57,6 +83,11 @@ export default class SettingsPage extends React.Component {
         }
     }
 
+    goBack() {
+        const { navigation } = this.props;
+        navigation.goBack();
+    }
+
     _groupKeyExtractor(item, index) {
         return item.groupTitle;
     };
@@ -72,6 +103,17 @@ export default class SettingsPage extends React.Component {
     render() {
         return (
             <View style={styles.container}>
+                <View style={styles.headerContainer}>
+                    <View style={styles.imageContainer}>
+                        <ImageButton
+                            onPress={this.goBack.bind(this)}
+                            source={Images.arrowLeft}
+                        />
+                    </View>
+
+                    <Text style={styles.headerText}>Settings</Text>
+                </View>
+
                 <FlatList
                     style={styles.flatlist}
                     data={this.layoutMap}
@@ -85,9 +127,29 @@ export default class SettingsPage extends React.Component {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: Colors.PrimaryBackground,
+        backgroundColor: Colors.SecondaryBackground,
         alignItems: 'center',
         flex: 1,
+    },
+    headerContainer: {
+        flexDirection: 'row',
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+        width: '100%',
+        height: 60,
+    },
+    headerText: {
+        color: 'white',
+        fontSize: 22,
+        marginLeft: '15%'
+    },
+    imageContainer: {
+        justifyContent: 'center',
+        marginLeft: 15,
+        position: 'absolute',
+        left: 0,
+        top: 0,
+        bottom: 0,
     },
     flatlist: {
         width: '100%'
