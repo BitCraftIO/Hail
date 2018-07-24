@@ -29,9 +29,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "hail.app"
-               BlueprintName = "hail"
-               ReferencedContainer = "container:hail.xcodeproj">
+               BuildableName = "Hail.app"
+               BlueprintName = "Hail"
+               ReferencedContainer = "container:Hail.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -43,9 +43,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "hailTests.xctest"
-               BlueprintName = "hailTests"
-               ReferencedContainer = "container:hail.xcodeproj">
+               BuildableName = "HailTests.xctest"
+               BlueprintName = "HailTests"
+               ReferencedContainer = "container:Hail.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -61,9 +61,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "hailTests.xctest"
-               BlueprintName = "hailTests"
-               ReferencedContainer = "container:hail.xcodeproj">
+               BuildableName = "HailTests.xctest"
+               BlueprintName = "HailTests"
+               ReferencedContainer = "container:Hail.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -71,9 +71,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "hail.app"
-            BlueprintName = "hail"
-            ReferencedContainer = "container:hail.xcodeproj">
+            BuildableName = "Hail.app"
+            BlueprintName = "Hail"
+            ReferencedContainer = "container:Hail.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -94,9 +94,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "hail.app"
-            BlueprintName = "hail"
-            ReferencedContainer = "container:hail.xcodeproj">
+            BuildableName = "Hail.app"
+            BlueprintName = "Hail"
+            ReferencedContainer = "container:Hail.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -113,9 +113,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "hail.app"
-            BlueprintName = "hail"
-            ReferencedContainer = "container:hail.xcodeproj">
+            BuildableName = "Hail.app"
+            BlueprintName = "Hail"
+            ReferencedContainer = "container:Hail.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
