@@ -6,6 +6,7 @@ import logger from '../../../utils/Logger';
 import settings from '../../../utils/Settings';
 import MenuButton from './MenuButton'
 import MenuGroup from './MenuGroup'
+import ImageButton from '../../../components/ImageButton'
 import Images from '../../../utils/ImageLoader';
 
 export default class SettingsPage extends React.Component {
@@ -24,16 +25,58 @@ export default class SettingsPage extends React.Component {
      * {
      *      imgSource: <Optional image source displayed on left side of button>,
      *      label: <String displayed on the button>,
-     *      onPress: <Function called when button is tapped>
+     *      onPress: <Function called when button is tapped>,
+     *      secondaryText: <Optional string on the right side of button>
      * }
      */
     layoutMap = [
         {
-            groupTitle: "Configuration",
+            groupTitle: "General",
             selections: [
                 {
-                    imgSource: Images.searchIcon,
+                    imgSource: Images.settings.style,
+                    label: "Fiat Currency",
+                    onPress: this._navigateToModifySettingsPage('logLevel').bind(this)
+                },
+                {
+                    imgSource: Images.settings.bugReport,
                     label: "Logs",
+                    onPress: this._navigateToModifySettingsPage('logLevel').bind(this)
+                },
+            ],
+        },
+        {
+            groupTitle: "Sync",
+            selections: [
+                {
+                    imgSource: Images.settings.sync,
+                    label: "Frequency",
+                    onPress: this._navigateToModifySettingsPage('logLevel').bind(this)
+                },
+                {
+                    imgSource: Images.settings.sync,
+                    label: "Background Sync",
+                    onPress: this._navigateToModifySettingsPage('logLevel').bind(this)
+                },
+                {
+                    imgSource: Images.settings.save,
+                    label: "SPV Memory",
+                    onPress: this._navigateToModifySettingsPage('logLevel').bind(this),
+                    secondaryText: (settings.spvMemory || '--') + ' mb'
+                },
+            ],
+        },
+        {
+            groupTitle: "Ethereum",
+            selections: [
+                {
+                    imgSource: Images.settings.node,
+                    label: "Node URL",
+                    onPress: this._navigateToModifySettingsPage('logLevel').bind(this)
+                },
+                {
+                    imgSource: Images.settings.sync,
+                    label: "Etherscan API",
                     onPress: this._navigateToModifySettingsPage('logLevel').bind(this)
                 },
             ],
@@ -57,6 +100,11 @@ export default class SettingsPage extends React.Component {
         }
     }
 
+    goBack() {
+        const { navigation } = this.props;
+        navigation.goBack();
+    }
+
     _groupKeyExtractor(item, index) {
         return item.groupTitle;
     };
@@ -72,6 +120,17 @@ export default class SettingsPage extends React.Component {
     render() {
         return (
             <View style={styles.container}>
+                <View style={styles.headerContainer}>
+                    <View style={styles.imageContainer}>
+                        <ImageButton
+                            onPress={this.goBack.bind(this)}
+                            source={Images.arrowLeft}
+                        />
+                    </View>
+
+                    <Text style={styles.headerText}>Settings</Text>
+                </View>
+
                 <FlatList
                     style={styles.flatlist}
                     data={this.layoutMap}
@@ -85,9 +144,29 @@ export default class SettingsPage extends React.Component {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: Colors.PrimaryBackground,
+        backgroundColor: Colors.SecondaryBackground,
         alignItems: 'center',
         flex: 1,
+    },
+    headerContainer: {
+        flexDirection: 'row',
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+        width: '100%',
+        height: 60,
+    },
+    headerText: {
+        color: 'white',
+        fontSize: 22,
+        marginLeft: '17%'
+    },
+    imageContainer: {
+        justifyContent: 'center',
+        marginLeft: 15,
+        position: 'absolute',
+        left: 0,
+        top: 0,
+        bottom: 0,
     },
     flatlist: {
         width: '100%'

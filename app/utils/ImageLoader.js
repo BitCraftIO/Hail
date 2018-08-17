@@ -17,7 +17,15 @@ const images = {
     arrowLeft: require('../images/arrow_left.png'),
     sentTransaction: require('../images/sentTransaction.png'),
     receivedTransaction: require('../images/receivedTransaction.png'),
-    movingCoin: require('../images/movingCoin.png')
+    movingCoin: require('../images/movingCoin.png'),
+
+    settings: {
+        bugReport: require('../images/settings/ic_bug_report.png'),
+        node: require('../images/settings/ic_node.png'),
+        save: require('../images/settings/ic_save.png'),
+        style: require('../images/settings/ic_style.png'),
+        sync: require('../images/settings/ic_sync.png'),
+    }
 }
 
 export default images;
