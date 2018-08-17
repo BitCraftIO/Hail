@@ -1,10 +1,9 @@
 import React from 'react';
-import Navigator from './Navigator';
-import { Provider } from 'react-redux';
-import createStore from './reduxhelpers/CreateStore';
-import { Linking, Platform } from 'react-native';
-// import SyncManager from './syncmanager';
-// const sm = new SyncManager();
+import Navigator from "./Navigator"
+import { Provider } from 'react-redux'
+import createStore from "./reduxhelpers/CreateStore"
+import { Colors } from './ui/screens/Colors'
+import { View, Linking, Platform, StatusBar } from 'react-native';
 
 let store = createStore();
 
@@ -13,11 +12,17 @@ export default class App extends React.Component {
         return Platform.OS == 'android' ? 'hail://hail/' : 'hail://';
     }
 
-    render() {
-        return (
-            <Provider store={store}>
-                <Navigator uriPrefix={this.prefix()} />
-            </Provider>
-        );
-    }
+	render() {
+		return (
+			<Provider store={store}>
+                <View style={{flex: 1}}>
+                    <StatusBar
+                        backgroundColor={Colors.SecondaryBackground}
+                        barStyle={'light-content'}
+                    />
+                    <Navigator uriPrefix={this.prefix()}/>
+                </View>
+			</Provider>
+		)
+	}
 }

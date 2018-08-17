@@ -102,6 +102,6 @@ class Navigator extends React.Component {
                 throw `Invalid stack name: ${currentStack}`;
         }
     }
-}
+};
 
 export default Navigator;

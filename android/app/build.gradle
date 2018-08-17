@@ -138,6 +138,10 @@ android {
 
 dependencies {
     compile project(':realm')
+    compile project(':react-native-vector-icons')
+    compile project(':react-native-tcp')
+    compile project(':react-native-svg')
+    compile project(':react-native-randombytes')
     compile project(':realm')
     compile project(':react-native-vector-icons')
     compile project(':react-native-tcp')

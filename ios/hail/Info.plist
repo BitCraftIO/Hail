@@ -51,21 +51,9 @@
 			</dict>
 		</dict>
 	</dict>
-	<key>CFBundleURLTypes</key>
-	<array>
-		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>CFBundleURLName</key>
-			<string>com.bitcraft.Hail</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>hail</string>
-			</array>
-		</dict>
-	</array>
 	<key>UIAppFonts</key>
 	<array>
+		<string>Ubuntu-MediumItalic.ttf</string>
 		<string>Entypo.ttf</string>
 		<string>EvilIcons.ttf</string>
 		<string>Feather.ttf</string>
@@ -77,11 +65,6 @@
 		<string>Octicons.ttf</string>
 		<string>SimpleLineIcons.ttf</string>
 		<string>Zocial.ttf</string>
-		<string>Ubuntu-MediumItalic.ttf</string>
-	</array>
-	<key>UIBackgroundModes</key>
-	<array>
-		<string>fetch</string>
 	</array>
 </dict>
 </plist>
