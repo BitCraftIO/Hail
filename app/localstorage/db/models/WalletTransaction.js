@@ -10,6 +10,7 @@ WalletTransaction.schema = {
         from: { type: 'WalletAddress[]', default: [] },
         value: 'double', //negative if spent, positive if gained
         data: 'string?', //hex
+        timestamp: 'int',
 
         //Ethereum
         gasPrice: 'double?',

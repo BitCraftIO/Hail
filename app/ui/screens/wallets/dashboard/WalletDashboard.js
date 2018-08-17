@@ -8,9 +8,12 @@ import Touchable from 'react-native-platform-touchable';
 import { Icon } from 'react-native-elements';
 import type { WalletT } from '../../../../localstorage/db/models/Wallet';
 
-import WalletList from './WalletList';
-import WalletDashboardViewModel from './WalletDashboardViewModel';
-import { Colors } from '../../Colors';
+import WalletList from "./WalletList";
+import WalletDashboardViewModel from "./WalletDashboardViewModel"
+import {Colors} from "../../Colors";
+import DashboardHeader from './DashboardHeader';
+import ImageButton from '../../../../components/ImageButton';
+import Images from '../../../../utils/ImageLoader';
 
 type Props = {
     toCreateWallet: void => void,
@@ -18,8 +21,9 @@ type Props = {
 };
 
 export type State = {
-    wallets?: WalletT[]
-};
+    wallets?: WalletT[],
+    priceData?: any
+}
 
 export default class WalletDashboard extends Component<Props, State> {
     vm: WalletDashboardViewModel = new WalletDashboardViewModel();
@@ -36,12 +40,17 @@ export default class WalletDashboard extends Component<Props, State> {
 
     toWalletDetail(wallets) {
         return function(tappedIndex) {
-            const { navigate } = this.props.navigation;
+            const {navigate} = this.props.navigation;
+            const {priceData} = this.state;
 
-            navigate('WalletPager', {
+            navigate("WalletPager", {
+                header: {
+                    visible: false
+                },
                 wallets: wallets,
                 initialIndex: tappedIndex,
-                refresh: this.refresh
+                refresh: this.refresh,
+                priceData: priceData
             });
         };
     }
@@ -64,22 +73,40 @@ export default class WalletDashboard extends Component<Props, State> {
     }
 
     render() {
-        const { wallets } = this.state;
+        const { wallets, priceData } = this.state;
 
         return (
             <View style={styles.container}>
-                <Icon name={'plus'} type={'material-community'} color={Colors.White} containerStyle={styles.fab} raised={true} component={Touchable} onPress={this.toCreateWalletScreen.bind(this)} />
+                <DashboardHeader>
+                    <ImageButton
+                        onPress={this.toSettingsPage.bind(this)}
+                        source={Images.optionsHollow}
+                    />
+                </DashboardHeader>
 
-                <View style={styles.tempButtonContainer}>
-                    <Touchable onPress={this.toLogPage.bind(this)}>
-                        <Text style={styles.tempText}>Logs</Text>
-                    </Touchable>
-                    <Touchable onPress={this.toSettingsPage.bind(this)}>
-                        <Text style={styles.tempText}>Settings</Text>
-                    </Touchable>
+                <View style={styles.padding}>
+                    <Icon
+                        name={"plus"}
+                        type={"material-community"}
+                        color={Colors.White}
+                        containerStyle={styles.fab}
+                        raised={true}
+                        component={Touchable}
+                        onPress={this.toCreateWalletScreen.bind(this)}
+                    />
+
+                    <View style={styles.tempButtonContainer}>
+                        <Touchable onPress={this.toLogPage.bind(this)}>
+                            <Text style={styles.tempText}>Logs</Text>
+                        </Touchable>
+                    </View>
+
+                    <WalletList
+                        onEmptyButtonClick={this.toCreateWalletScreen.bind(this)}
+                        onWalletItemClick={this.toWalletDetail(wallets).bind(this)}
+                        wallets={wallets}
+                        priceData={priceData}/>
                 </View>
-
-                <WalletList onEmptyButtonClick={this.toCreateWalletScreen.bind(this)} onWalletItemClick={this.toWalletDetail(wallets).bind(this)} wallets={wallets} />
             </View>
         );
     }
@@ -89,8 +116,11 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: Colors.PrimaryBackground,
-        paddingLeft: 30,
-        paddingRight: 24
+    },
+
+    padding: {
+        flex: 1,
+        paddingHorizontal: 30
     },
 
     fab: {

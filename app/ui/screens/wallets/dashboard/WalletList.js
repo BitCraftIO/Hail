@@ -15,6 +15,7 @@ type DashboardWallets = {
 
 type Props = {
     wallets?: DashboardWallets,
+    priceData?: any,
     onEmptyButtonClick: () => {},
     onWalletItemClick: any => {}
 }
@@ -63,10 +64,20 @@ export default class WalletList extends Component<Props, State>{
                 }}
 
                 renderItem={data => {
-                    const wallet = data.item
+                    const wallet = data.item;
+                    const priceData = this.props.priceData;
+                    
+                    let graphData, price;
+                    if (priceData) {
+                        graphData = priceData[wallet.coin].graphData;
+                        price = priceData[wallet.coin].price;
+                    }
+
                     return (
                         <WalletListItem
                             wallet={wallet}
+                            graphData={graphData}
+                            price={price}
                             onPress={() => onWalletItemClick(data.index)}
                         />
                     )

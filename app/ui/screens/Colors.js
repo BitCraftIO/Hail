@@ -8,6 +8,9 @@ export const Colors = {
     SecondaryBackground:"#212d3f",
     SecondaryBackgroundText:"#fff",
     SecondaryBackgroundFadedText:"#72819B",
+    PositiveGreen: '#4ce0b3',
+    NegativeRed: '#db324d',
+    ActionGreen: '#50e3c2',
 
     Green: "#30cd9a",
     White: "#fff"

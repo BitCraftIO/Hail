@@ -6,21 +6,22 @@ import { View, Text, StyleSheet, Image, TouchableHighlight } from 'react-native'
 type Props = {
     imgSource?: any,
     label: string,
-    onPress?: () => void
+    onPress?: () => void,
+    secondaryText?: string
 }
 
 export default class MenuButton extends React.Component {
 
     _dynamicMargin() {
         return {
-            marginLeft: this.props.imgSource ? '10%' : 5
+            marginLeft: this.props.imgSource ? '15%' : 5
         }
     }
 
     render() {
         return (
             <TouchableHighlight
-                underlayColor="rgba(255, 255, 255, .7)"
+                underlayColor="rgba(0, 0, 0, .2)"
                 onPress={this.props.onPress}
             >
                 <View
@@ -33,11 +34,18 @@ export default class MenuButton extends React.Component {
                             source={this.props.imgSource}
                         />
                     </View>
-                    <Text
-                        style={[styles.buttonText, this._dynamicMargin()]}
-                    >
-                        {this.props.label}
-                    </Text>
+                    <View style={styles.textWrapper}>
+                        <View />
+                        <View style={styles.textContainer}>
+                            <Text style={styles.buttonText}>
+                                {this.props.label}
+                            </Text>
+                            <Text style={styles.buttonText}>
+                                {this.props.secondaryText}
+                            </Text>
+                        </View>
+                        <View style={styles.seperatorLine} />
+                    </View>
                 </View>
             </TouchableHighlight>
         );
@@ -47,28 +55,39 @@ export default class MenuButton extends React.Component {
 
 const styles = StyleSheet.create({
     button: {
-        backgroundColor: Colors.SecondaryBackground,
-        padding: 5,
+        height: 80,
+        flexDirection: 'row',
+        paddingRight: 15
+    },
+    textWrapper: {
+        alignSelf: 'flex-start',
+        justifyContent: 'space-between',
+        marginHorizontal: 5,
+        height: '100%',
+        flex: 1,
+    },
+    textContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center'
     },
     buttonText: {
-        fontSize: 18,
+        fontSize: 14,
         color: 'white',
         alignSelf: 'flex-start',
-        marginLeft: 5,
+    },
+    seperatorLine: {
+        backgroundColor: Colors.PrimaryBackgroundText,
+        height: 1,
+        width: '100%',
     },
     imageContainer: {
-        padding: '5%',
         alignItems: 'center',
         justifyContent: 'center',
-        position: 'absolute',
-        left: 0,
-        top: 0,
-        bottom: 0,
+        width: '17%'
     },
     image: {
-        alignSelf: 'flex-start',
         height: '50%',
-        margin: 5,
         width: 24,
     },
 })
