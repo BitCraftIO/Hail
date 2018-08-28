@@ -1,9 +1,25 @@
+## Disclaimer
+
+This project is INCOMPLETE and should be hardcoded to use only testnet currencies.
+
+## Current State
+
+As I am leaving this project right now, it is currently incomplete. Address generation and key management for ethereum and bitcoin are complete, functional, and tested; however transaction syncing is finished only for ethereum. The framework for background syncing is there in `Hail/app/syncmanager`. Ethereum currently relies on a blockexplorer such as [etherscan.io](https://etherscan.io/apis). Bitcoin SPV is incomplete, however the stage is set for someone to implement it using the node.js library [bcoin](http://bcoin.io/). Getting the node.js module to work in React-Native is difficult, so contact me if you're having issues.
+
+If you're interested in this project, it is large and full of features that had to be deprecated in favor of dwindling resources. If you have any issues create an issue.
+
 Hail
 ========
 
 Hail is a cross-platform, multi-coin, multi-exchange cryptocurrency portfolio manager. It is built using React Native.
 
-Slack: https://hail-app.slack.com/
+# Structure
+
+Hail is comprised of a few key components
+- crypto - contains factory functions for all functionality related to address, transaction generation. Also contains everything required to communicate with the crypto network on a shallow level (web3.js for transaction posting for example)
+- localstorage - Hail mostly ran on [Realm](https://realm.io/docs/javascript/latest/) and treated Realm as a single source of truth to manage state across the application. While Realm was responsible for vital encrypted key storage, it was also used to manage the state of sync when syncing with the blockchain, as that task would have to persist beyond the app lifecycle. With iOS's strict background task rules, sometimes many lifecycles before the app could fully sync. Realm was also responsible for managing system configuration settings which was handled by `Hail/app/utils/Settings.js`
+- syncmanager - Responsible for managing the state of multiple heavy syncing tasks
+- ui - all the ui things
 
 ## Contributing
 
